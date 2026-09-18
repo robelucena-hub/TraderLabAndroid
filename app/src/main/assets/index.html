@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Mercados Inteligentes • Trader Lab</title>
+<style>
+:root{--n:#071a3e;--b:#0b63f6;--g:#138a4f;--r:#d23c48;--bg:#eef3f9;--c:#fff;--m:#64748b}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;background:var(--bg);color:#10203f}
+header{position:sticky;top:0;background:linear-gradient(135deg,#071a3e,#0b3d84);color:#fff;padding:16px;z-index:3}
+header h1{font-size:18px;margin:0}.sub{font-size:12px;opacity:.8;margin-top:3px}
+main{padding:12px 12px 88px;max-width:760px;margin:auto}.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card{background:#fff;border:1px solid #dde6f2;border-radius:18px;padding:14px;box-shadow:0 10px 25px -20px #123}
+.k{font-size:10px;color:var(--m);text-transform:uppercase;font-weight:800;letter-spacing:.08em}.v{font-size:22px;font-weight:900;margin-top:4px}.green{color:var(--g)}.red{color:var(--r)}
+.tickers{display:flex;gap:8px;overflow:auto;margin:12px 0}.ticker{min-width:105px;border:1px solid #dbe5f2;background:#fff;border-radius:14px;padding:10px;text-align:left}.ticker.on{border-color:var(--b);box-shadow:0 0 0 2px #d9e8ff}.ticker b{display:block}.ticker small{color:var(--m)}
+canvas{width:100%;height:190px;border-radius:14px;background:#f8fbff}
+.tabs{display:flex;position:fixed;left:0;right:0;bottom:0;background:#fff;border-top:1px solid #dde6f2;z-index:5}.tabs button{flex:1;border:0;background:#fff;padding:12px 4px;font-size:11px;font-weight:800}.tabs button.on{color:var(--b)}
+.view{display:none}.view.on{display:block}
+.row{display:flex;gap:8px}.row>*{flex:1}.btn{border:0;border-radius:12px;padding:12px;font-weight:900}.buy{background:#e5f6ed;color:#087443}.sell{background:#fdebed;color:#b52937}.primary{background:linear-gradient(180deg,#1d7cff,#0b55d4);color:#fff}.ghost{background:#edf2f8;color:#263955}
+label{display:block;font-size:11px;font-weight:800;color:#53627a;margin:10px 0 5px}select,input{width:100%;padding:11px;border-radius:11px;border:1px solid #dce4ef;background:#fff;font-size:14px}
+table{width:100%;border-collapse:collapse;font-size:12px}th,td{text-align:right;padding:9px 4px;border-bottom:1px solid #edf1f5}th:first-child,td:first-child{text-align:left}
+.pill{display:inline-block;padding:4px 7px;border-radius:999px;font-size:10px;font-weight:900;background:#edf2f8}.pending{background:#fff4cc;color:#8a6500}.exec{background:#dff5e9;color:#087443}
+.ai{padding:12px;border-radius:14px;background:#f3f8ff;border:1px solid #d9e9ff;margin-top:10px}.rank{display:flex;justify-content:space-between;margin:7px 0}
+.note{font-size:11px;color:var(--m);line-height:1.4}.book{display:grid;grid-template-columns:1fr 1fr;gap:8px}.book div{background:#f8fbff;border-radius:12px;padding:10px;font-size:12px}
+@media(min-width:650px){.grid{grid-template-columns:repeat(4,1fr)}}
+</style></head>
+<body>
+<header><h1>Mercados Inteligentes • Trader Lab</h1><div class="sub">Simulador educacional de mercado • dados fictícios</div></header>
+<main>
+<section id="inicio" class="view on">
+<div class="grid">
+<div class="card"><div class="k">Patrimônio</div><div class="v" id="hEquity">R$ 100.000</div></div>
+<div class="card"><div class="k">Caixa</div><div class="v" id="hCash">R$ 100.000</div></div>
+<div class="card"><div class="k">Em ações</div><div class="v" id="hInvest">R$ 0</div></div>
+<div class="card"><div class="k">P&L</div><div class="v" id="hPnl">R$ 0</div></div>
+</div>
+<div class="card" style="margin-top:10px"><div class="k">Objetivo do laboratório</div><h3 style="margin:6px 0">Tomar decisões e observar o efeito na carteira</h3><div class="note">Escolha ativos, envie ordens, avance o mercado e acompanhe preço médio, risco, lucro/prejuízo e ordens limitadas. Nenhum ativo representa ação real.</div></div>
+</section>
+
+<section id="mercado" class="view">
+<div class="tickers" id="tickers"></div>
+<div class="card"><div style="display:flex;justify-content:space-between;align-items:end"><div><div class="k">Ativo selecionado</div><div class="v" id="mTicker"></div></div><div style="text-align:right"><div class="v" id="mPrice"></div><div id="mChange"></div></div></div><canvas id="chart" width="700" height="220"></canvas><button class="btn primary" style="width:100%;margin-top:10px" onclick="advanceMarket()">▶ Avançar mercado</button></div>
+<div class="card" style="margin-top:10px"><div class="k">Livro de ofertas simulado</div><div class="book" id="book"></div></div>
+</section>
+
+<section id="operar" class="view">
+<div class="card">
+<div class="row"><button id="buyBtn" class="btn buy" onclick="setSide('BUY')">COMPRAR</button><button id="sellBtn" class="btn sell" onclick="setSide('SELL')">VENDER</button></div>
+<label>Ativo</label><select id="assetSel" onchange="selectAsset(this.value)"></select>
+<label>Tipo de ordem</label><select id="typeSel" onchange="toggleLimit()"><option value="MARKET">A mercado</option><option value="LIMIT">Limitada</option></select>
+<label>Quantidade</label><input id="qty" type="number" min="1" value="100">
+<div id="limitWrap" style="display:none"><label>Preço limite</label><input id="limit" type="number" step="0.01"></div>
+<div class="ai" id="orderPreview"></div>
+<button class="btn primary" style="width:100%;margin-top:10px" onclick="sendOrder()">Enviar ordem</button>
+</div>
+<div class="card" style="margin-top:10px"><div class="k">Ordens recentes</div><div id="orders"></div><button class="btn ghost" style="width:100%;margin-top:8px" onclick="cancelPending()">Cancelar pendentes</button></div>
+</section>
+
+<section id="carteira" class="view">
+<div class="grid"><div class="card"><div class="k">Patrimônio</div><div class="v" id="cEquity"></div></div><div class="card"><div class="k">Resultado realizado</div><div class="v" id="cRealized"></div></div></div>
+<div class="card" style="margin-top:10px"><table><thead><tr><th>Ativo</th><th>Qtd.</th><th>Preço médio</th><th>Atual</th><th>P&L</th></tr></thead><tbody id="positions"></tbody></table></div>
+<button class="btn ghost" style="width:100%;margin-top:10px" onclick="resetAll()">↺ Reiniciar simulação</button>
+</section>
+
+<section id="ia" class="view">
+<div class="card"><div class="k">Score multifatorial educacional</div><h3 style="margin:6px 0">IA para apoiar análise, não substituir julgamento</h3><div class="note">O score combina crescimento, rentabilidade, endividamento, valuation e momentum em dados totalmente fictícios.</div><div id="ranking" class="ai"></div></div>
+</section>
+</main>
+<nav class="tabs" id="tabs">
+<button class="on" onclick="show('inicio',this)">Início</button><button onclick="show('mercado',this)">Mercado</button><button onclick="show('operar',this)">Operar</button><button onclick="show('carteira',this)">Carteira</button><button onclick="show('ia',this)">IA</button>
+</nav>
+<script>
+const base={
+ALFA3:{p:48.30,chg:0.012,score:84,name:'Alfa Tech',f:[8,9,6,7,9]},
+BETA4:{p:32.15,chg:-0.004,score:71,name:'Beta Energia',f:[5,7,8,9,6]},
+GAMA3:{p:76.80,chg:0.021,score:90,name:'Gama Saúde',f:[9,9,7,6,10]},
+DELTA3:{p:21.40,chg:0.006,score:66,name:'Delta Varejo',f:[7,6,5,8,7]}
+};
+let st=JSON.parse(localStorage.getItem('traderlab_state')||'null')||{cash:100000,realized:0,pos:{},orders:[],prices:{},hist:{},selected:'ALFA3',side:'BUY'};
+for(const k in base){if(!st.prices[k])st.prices[k]=base[k].p;if(!st.hist[k])st.hist[k]=Array.from({length:28},(_,i)=>base[k].p*(.97+i*.0015+Math.sin(i/3)*.008))}
+function money(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function save(){localStorage.setItem('traderlab_state',JSON.stringify(st))}
+function equity(){let v=st.cash;for(const k in st.pos)v+=st.pos[k].q*st.prices[k];return v}
+function invested(){let v=0;for(const k in st.pos)v+=st.pos[k].q*st.prices[k];return v}
+function unrealized(){let v=0;for(const k in st.pos)v+=(st.prices[k]-st.pos[k].avg)*st.pos[k].q;return v}
+function show(id,b){document.querySelectorAll('.view').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('#tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');render()}
+function selectAsset(k){st.selected=k;document.getElementById('assetSel').value=k;render();save()}
+function setSide(s){st.side=s;document.getElementById('buyBtn').style.outline=s==='BUY'?'3px solid #65c18c':'none';document.getElementById('sellBtn').style.outline=s==='SELL'?'3px solid #ef8d98':'none';preview()}
+function toggleLimit(){document.getElementById('limitWrap').style.display=document.getElementById('typeSel').value==='LIMIT'?'block':'none';preview()}
+function preview(){let q=Math.max(1,+document.getElementById('qty').value||1),p=st.prices[st.selected];document.getElementById('orderPreview').innerHTML='<b>'+st.side+' '+q+' '+st.selected+'</b><br>Valor indicativo: '+money(q*p)}
+function execute(o,p){let total=o.q*p;if(o.side==='BUY'){if(st.cash+1e-9<total){o.status='REJEITADA';return false}let x=st.pos[o.a]||{q:0,avg:0};x.avg=(x.avg*x.q+p*o.q)/(x.q+o.q);x.q+=o.q;st.pos[o.a]=x;st.cash-=total}else{let x=st.pos[o.a];if(!x||x.q<o.q){o.status='REJEITADA';return false}st.realized+=(p-x.avg)*o.q;x.q-=o.q;st.cash+=total;if(x.q===0)delete st.pos[o.a]}o.status='EXEC.';o.exec=p;return true}
+function sendOrder(){let q=Math.floor(+document.getElementById('qty').value||0);if(q<1)return alert('Informe uma quantidade válida.');let type=document.getElementById('typeSel').value,p=st.prices[st.selected],lim=+document.getElementById('limit').value||0;let o={id:Date.now(),a:st.selected,side:st.side,q,type,limit:lim,status:'PENDENTE',time:new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})};if(type==='MARKET')execute(o,p);else if(lim<=0)return alert('Informe o preço limite.');else if((o.side==='BUY'&&p<=lim)||(o.side==='SELL'&&p>=lim))execute(o,p);st.orders.unshift(o);save();render()}
+function processPending(){for(const o of st.orders.filter(x=>x.status==='PENDENTE')){let p=st.prices[o.a];if((o.side==='BUY'&&p<=o.limit)||(o.side==='SELL'&&p>=o.limit))execute(o,p)}}
+function cancelPending(){st.orders.forEach(o=>{if(o.status==='PENDENTE')o.status='CANCELADA'});save();render()}
+function advanceMarket(){for(const k in base){let old=st.prices[k],shock=(Math.random()-.48)*.035,trend=(base[k].score-75)/10000;let np=Math.max(3,old*(1+shock+trend));st.prices[k]=+np.toFixed(2);st.hist[k].push(st.prices[k]);if(st.hist[k].length>40)st.hist[k].shift()}processPending();save();render()}
+function draw(){let c=document.getElementById('chart'),x=c.getContext('2d'),a=st.hist[st.selected],mn=Math.min(...a),mx=Math.max(...a);x.clearRect(0,0,c.width,c.height);x.strokeStyle='#dbe7f5';x.lineWidth=1;for(let i=1;i<5;i++){let y=i*c.height/5;x.beginPath();x.moveTo(0,y);x.lineTo(c.width,y);x.stroke()}x.strokeStyle='#0b63f6';x.lineWidth=4;x.beginPath();a.forEach((v,i)=>{let px=i*(c.width/(a.length-1)),py=c.height-20-(v-mn)/(mx-mn||1)*(c.height-40);i?x.lineTo(px,py):x.moveTo(px,py)});x.stroke()}
+function render(){let eq=equity(),inv=invested(),pnl=eq-100000;document.getElementById('hEquity').textContent=money(eq);document.getElementById('hCash').textContent=money(st.cash);document.getElementById('hInvest').textContent=money(inv);document.getElementById('hPnl').textContent=money(pnl);document.getElementById('hPnl').className='v '+(pnl>=0?'green':'red');document.getElementById('cEquity').textContent=money(eq);document.getElementById('cRealized').textContent=money(st.realized);
+let t='';for(const k in base){let d=(st.prices[k]/base[k].p-1)*100;t+='<button class="ticker '+(k===st.selected?'on':'')+'" onclick="selectAsset(\''+k+'\')"><b>'+k+'</b><small>'+money(st.prices[k])+'</small><small class="'+(d>=0?'green':'red')+'">'+d.toFixed(2)+'%</small></button>'}document.getElementById('tickers').innerHTML=t;
+document.getElementById('mTicker').textContent=st.selected;document.getElementById('mPrice').textContent=money(st.prices[st.selected]);let d=(st.prices[st.selected]/base[st.selected].p-1)*100;document.getElementById('mChange').textContent=d.toFixed(2)+'%';document.getElementById('mChange').className=d>=0?'green':'red';
+let p=st.prices[st.selected];document.getElementById('book').innerHTML='<div><b class="green">BID</b><br>'+money(p*.999)+'<br>'+money(p*.997)+'</div><div><b class="red">ASK</b><br>'+money(p*1.001)+'<br>'+money(p*1.003)+'</div>';
+let sel='';for(const k in base)sel+='<option '+(k===st.selected?'selected':'')+'>'+k+'</option>';document.getElementById('assetSel').innerHTML=sel;document.getElementById('limit').placeholder=st.prices[st.selected].toFixed(2);
+let rows='';for(const k in st.pos){let x=st.pos[k],u=(st.prices[k]-x.avg)*x.q;rows+='<tr><td>'+k+'</td><td>'+x.q+'</td><td>'+money(x.avg)+'</td><td>'+money(st.prices[k])+'</td><td class="'+(u>=0?'green':'red')+'">'+money(u)+'</td></tr>'}document.getElementById('positions').innerHTML=rows||'<tr><td colspan="5">Sem posições.</td></tr>';
+document.getElementById('orders').innerHTML=st.orders.slice(0,8).map(o=>'<div style="padding:7px 0;border-bottom:1px solid #edf1f5;font-size:12px"><span class="pill '+(o.status==='PENDENTE'?'pending':'exec')+'">'+o.status+'</span> <b>'+o.side+' '+o.q+' '+o.a+'</b> · '+o.type+(o.type==='LIMIT'?' @ '+money(o.limit):'')+'</div>').join('')||'<div class="note">Nenhuma ordem.</div>';
+let rk=Object.entries(base).sort((a,b)=>b[1].score-a[1].score).map(([k,v],i)=>'<div class="rank"><span><b>#'+(i+1)+' '+k+'</b> · '+v.name+'</span><b>'+v.score+'/100</b></div>').join('');document.getElementById('ranking').innerHTML=rk;draw();preview()}
+function resetAll(){if(!confirm('Reiniciar toda a simulação?'))return;localStorage.removeItem('traderlab_state');location.reload()}
+document.getElementById('qty').addEventListener('input',preview);setSide(st.side);render();
+</script>
+</body></html>
