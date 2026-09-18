@@ -9,6 +9,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -46,8 +48,26 @@ jobs:
         shell: bash
         run: gradle --no-daemon :app:assembleDebug
 
-      - name: Upload APK
+      - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: TraderLab-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish permanent APK download branch
+        shell: bash
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk /tmp/TraderLab.apk
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan apk-downloads
+          git rm -rf . || true
+          cp /tmp/TraderLab.apk TraderLab.apk
+          cat > index.html <<'EOF'
+          <!doctype html>
+          <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TraderLab APK</title></head>
+          <body style="font-family:Arial,sans-serif;text-align:center;padding:40px"><h1>Mercados Inteligentes • Trader Lab</h1><p>Aplicativo Android educacional.</p><p><a href="TraderLab.apk" download>Baixar TraderLab.apk</a></p></body></html>
+          EOF
+          git add TraderLab.apk index.html
+          git commit -m "Publish TraderLab APK"
+          git push --force origin apk-downloads
