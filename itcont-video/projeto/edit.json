@@ -1,0 +1,582 @@
+{
+ "_doc": "Projeto editável do vídeo-convite ITCONT. Tempos de origem em segundos do arquivo original (30 fps). Edite e rode run_all.sh para renderizar novamente.",
+ "fps": 30,
+ "source_frames": 1184,
+ "show_unspoken_info": true,
+ "_show_unspoken_info": "Horário e local NÃO são falados na gravação; vêm dos dados de planejamento. false = cards só com a data.",
+ "event": {
+  "name": "ITCONT",
+  "full_name": "Imersão Tecnológica Contábil",
+  "institution": "UEFS",
+  "date": "21 e 22 de outubro de 2026",
+  "time": "19h às 21h30",
+  "venue_1": "Auditório III",
+  "venue_2": "Módulo IV · UEFS",
+  "organizer": "Projeto de Extensão Contador do Amanhã",
+  "cta": "Participe do ITCONT. Esperamos você!"
+ },
+ "presenter": {
+  "name": "Rômulo Benício",
+  "role": "Coordenador do Projeto de Extensão Contador do Amanhã"
+ },
+ "segments": [
+  {
+   "id": "H",
+   "label": "Gancho: 'Venha para o ITCONT!'",
+   "in": 1127,
+   "out": 1179
+  },
+  {
+   "id": "A",
+   "label": "Apresentação e formação",
+   "in": 45,
+   "out": 419
+  },
+  {
+   "id": "B",
+   "label": "Convite e nome do evento (sem 'tá certo?')",
+   "in": 423,
+   "out": 645
+  },
+  {
+   "id": "C",
+   "label": "Data (sem 'tá?')",
+   "in": 675,
+   "out": 817
+  },
+  {
+   "id": "D",
+   "label": "Inscrição (sem 'né, Eventos,')",
+   "in": 837,
+   "out": 922,
+   "audio_out_s": 30.72
+  },
+  {
+   "id": "E",
+   "label": "Link, despedida e convite final",
+   "in": 963,
+   "out": 1184
+  }
+ ],
+ "closing_frames": 90,
+ "words": [
+  [
+   "Venha",
+   37.8
+  ],
+  [
+   "para",
+   38.02
+  ],
+  [
+   "o",
+   38.17
+  ],
+  [
+   "ITCONT!",
+   38.26,
+   39.17
+  ],
+  [
+   "Fala,",
+   1.745
+  ],
+  [
+   "galera!",
+   2.02,
+   2.7
+  ],
+  [
+   "Eu",
+   2.82
+  ],
+  [
+   "sou",
+   2.98
+  ],
+  [
+   "o",
+   3.13
+  ],
+  [
+   "Rômulo",
+   3.3
+  ],
+  [
+   "Benício,",
+   3.86,
+   4.5
+  ],
+  [
+   "sou",
+   4.66
+  ],
+  [
+   "professor",
+   4.82
+  ],
+  [
+   "aqui",
+   5.3
+  ],
+  [
+   "da",
+   5.46
+  ],
+  [
+   "UEFS,",
+   5.7,
+   6.33
+  ],
+  [
+   "sou",
+   6.84
+  ],
+  [
+   "formado",
+   7.06
+  ],
+  [
+   "em",
+   7.54
+  ],
+  [
+   "Contabilidade,",
+   7.78,
+   8.78
+  ],
+  [
+   "tenho",
+   8.82
+  ],
+  [
+   "um",
+   9.06
+  ],
+  [
+   "mestrado",
+   9.22
+  ],
+  [
+   "em",
+   9.7
+  ],
+  [
+   "Contabilidade",
+   9.86,
+   10.52
+  ],
+  [
+   "e",
+   10.58
+  ],
+  [
+   "também",
+   10.74,
+   11.05
+  ],
+  [
+   "estou",
+   11.4
+  ],
+  [
+   "terminando",
+   11.62
+  ],
+  [
+   "o",
+   12.18
+  ],
+  [
+   "doutorado",
+   12.26
+  ],
+  [
+   "também",
+   12.74
+  ],
+  [
+   "em",
+   12.98
+  ],
+  [
+   "Contabilidade.",
+   13.14,
+   13.82
+  ],
+  [
+   "Convido",
+   14.17
+  ],
+  [
+   "vocês",
+   14.82
+  ],
+  [
+   "a",
+   15.3
+  ],
+  [
+   "participarem",
+   15.54
+  ],
+  [
+   "da",
+   16.42
+  ],
+  [
+   "primeira",
+   16.66
+  ],
+  [
+   "Imersão",
+   17.06
+  ],
+  [
+   "Tecnológica",
+   17.78
+  ],
+  [
+   "Contábil,",
+   18.74,
+   19.2
+  ],
+  [
+   "chamada",
+   19.3
+  ],
+  [
+   "ITCONT,",
+   19.86,
+   20.7
+  ],
+  [
+   "da",
+   20.82
+  ],
+  [
+   "UEFS.",
+   20.98,
+   21.5
+  ],
+  [
+   "Vai",
+   22.555
+  ],
+  [
+   "acontecer",
+   22.66
+  ],
+  [
+   "nos",
+   23.14
+  ],
+  [
+   "dias",
+   23.3
+  ],
+  [
+   "21",
+   23.7,
+   24.4
+  ],
+  [
+   "e",
+   24.66
+  ],
+  [
+   "22",
+   24.82
+  ],
+  [
+   "de",
+   25.54
+  ],
+  [
+   "outubro,",
+   25.78,
+   26.3
+  ],
+  [
+   "desse",
+   26.34
+  ],
+  [
+   "mês.",
+   26.74,
+   27.22
+  ],
+  [
+   "Corre,",
+   27.98,
+   28.6
+  ],
+  [
+   "se",
+   28.66
+  ],
+  [
+   "inscreve",
+   28.82
+  ],
+  [
+   "lá",
+   29.56
+  ],
+  [
+   "no",
+   29.9
+  ],
+  [
+   "Even",
+   30.3,
+   30.72
+  ],
+  [
+   "e",
+   32.2
+  ],
+  [
+   "aqui",
+   32.34
+  ],
+  [
+   "no",
+   32.74
+  ],
+  [
+   "link",
+   32.98
+  ],
+  [
+   "na",
+   33.46
+  ],
+  [
+   "descrição.",
+   33.7,
+   34.55
+  ],
+  [
+   "E",
+   34.66
+  ],
+  [
+   "sucesso!",
+   34.98,
+   35.75
+  ],
+  [
+   "Espero",
+   35.86
+  ],
+  [
+   "vocês",
+   36.34
+  ],
+  [
+   "lá,",
+   36.74
+  ],
+  [
+   "tá",
+   37.06
+  ],
+  [
+   "bom?",
+   37.22,
+   37.48
+  ],
+  [
+   "Venha",
+   37.8
+  ],
+  [
+   "para",
+   38.02
+  ],
+  [
+   "o",
+   38.17
+  ],
+  [
+   "ITCONT!",
+   38.26,
+   39.17
+  ]
+ ],
+ "captions": [
+  {
+   "seg": "H",
+   "text": "Venha para o ITCONT!",
+   "w": [
+    0,
+    3
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Fala, galera!",
+   "w": [
+    4,
+    5
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Eu sou o Rômulo Benício,",
+   "w": [
+    6,
+    10
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "sou professor aqui da UEFS,",
+   "w": [
+    11,
+    15
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "sou formado em Contabilidade,",
+   "w": [
+    16,
+    19
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "tenho um mestrado em Contabilidade",
+   "w": [
+    20,
+    24
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "e também estou terminando o doutorado",
+   "w": [
+    25,
+    30
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "também em Contabilidade.",
+   "w": [
+    31,
+    33
+   ]
+  },
+  {
+   "seg": "B",
+   "text": "Convido vocês a participarem",
+   "w": [
+    34,
+    37
+   ]
+  },
+  {
+   "seg": "B",
+   "text": "da primeira Imersão Tecnológica Contábil,",
+   "w": [
+    38,
+    42
+   ]
+  },
+  {
+   "seg": "B",
+   "text": "chamada ITCONT, da UEFS.",
+   "w": [
+    43,
+    46
+   ]
+  },
+  {
+   "seg": "C",
+   "text": "Vai acontecer nos dias",
+   "w": [
+    47,
+    50
+   ]
+  },
+  {
+   "seg": "C",
+   "text": "21 e 22 de outubro, desse mês.",
+   "w": [
+    51,
+    57
+   ]
+  },
+  {
+   "seg": "D",
+   "text": "Corre, se inscreve lá no Even",
+   "w": [
+    58,
+    63
+   ]
+  },
+  {
+   "seg": "E",
+   "text": "e aqui no link na descrição.",
+   "w": [
+    64,
+    69
+   ]
+  },
+  {
+   "seg": "E",
+   "text": "E sucesso! Espero vocês lá, tá bom?",
+   "w": [
+    70,
+    76
+   ]
+  },
+  {
+   "seg": "E",
+   "text": "Venha para o ITCONT!",
+   "w": [
+    77,
+    80
+   ]
+  }
+ ],
+ "highlight": [
+  "ITCONT",
+  "UEFS",
+  "Rômulo Benício",
+  "Imersão Tecnológica Contábil",
+  "21 e 22 de outubro",
+  "link na descrição"
+ ],
+ "cues_src": {
+  "lower_third_in": 3.15,
+  "lower_third_uefs": 5.7,
+  "lower_third_out": 7.25,
+  "cred_in": 7.06,
+  "cred_head": 7.78,
+  "cred_1": 7.06,
+  "cred_2": 9.22,
+  "cred_3": 12.26,
+  "first_tag": 16.66,
+  "w_imersao": 17.06,
+  "w_tecnologica": 17.78,
+  "w_contabil": 18.74,
+  "itcont": 19.86,
+  "itcont_uefs": 20.98,
+  "date_in": 23.3,
+  "date_21": 23.7,
+  "date_22": 24.82,
+  "date_month": 25.78,
+  "date_year": 26.34,
+  "time_in": 26.8,
+  "venue_in": 28.1,
+  "link_in": 32.34,
+  "cards_out": 34.7,
+  "final_itcont": 38.26,
+  "closing_wipe": 39.2,
+  "_doc": "Tempos de origem (s) das entradas gráficas. link_in: cards de data/horário/local saem e entra 'Inscrições: link na descrição'; cards_out: sai o bloco do link."
+ }
+}

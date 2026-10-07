@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ITCONT motion graphics</title>
+<style>
+@font-face{font-family:Sora;src:url(fonts/Sora.ttf);font-weight:100 900}
+@font-face{font-family:Inter;src:url(fonts/Inter.ttf);font-weight:100 900}
+@font-face{font-family:JBM;src:url(fonts/JetBrainsMono.ttf);font-weight:100 900}
+:root{
+  --navy:#0A1B3F; --navy-2:#0E2557; --navy-deep:#06122B;
+  --blue:#1F5EFF; --blue-2:#3B82F6; --cyan:#22D3EE; --ice:#EAF1FF; --white:#FFFFFF;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;width:1080px;height:3840px;overflow:hidden;background:transparent}
+.layer{position:absolute;left:0;width:1080px;height:1920px;overflow:hidden}
+#back{top:0} #front{top:1920px}
+.abs{position:absolute}
+.sora{font-family:Sora} .inter{font-family:Inter} .mono{font-family:JBM}
+.mask{overflow:hidden;position:relative}
+.mask>span{display:block;will-change:transform}
+.card{background:rgba(10,27,63,.90);border:1.5px solid rgba(59,130,246,.55);border-radius:24px;
+      box-shadow:0 18px 40px rgba(10,27,63,.22);color:#fff}
+.lbl{font-family:JBM;font-weight:700;font-size:21px;letter-spacing:3px;color:var(--cyan)}
+.hl{color:#5BE7F7}
+svg{overflow:visible}
+</style>
+</head>
+<body>
+<!-- ===================== CAMADA DE TRÁS (atrás do apresentador) ===================== -->
+<div id="back" class="layer">
+  <!-- fundo escuro do gancho -->
+  <div id="dark" class="abs" style="inset:0;background:radial-gradient(900px 900px at 540px 760px,#163a8c 0%,#0A1B3F 45%,#06122B 100%)"></div>
+  <!-- leve vinheta na parede clara -->
+  <div id="vig" class="abs" style="inset:0;background:radial-gradient(1200px 1500px at 540px 760px,rgba(10,27,63,0) 55%,rgba(10,27,63,.10) 100%)"></div>
+  <!-- brilho azul atrás da cabeça -->
+  <div id="glow" class="abs" style="left:-260px;top:120px;width:1600px;height:1400px;background:radial-gradient(closest-side,rgba(31,94,255,.55),rgba(31,94,255,0))"></div>
+  <!-- grade digital -->
+  <svg id="grid" class="abs" width="1080" height="1920" style="left:0;top:0">
+    <defs>
+      <radialGradient id="gridFade" cx="540" cy="620" r="900" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".75" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="gridV" x1="0" y1="0" x2="0" y2="1920" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#fff" stop-opacity="1"/><stop offset=".55" stop-color="#fff" stop-opacity=".8"/><stop offset="1" stop-color="#fff" stop-opacity="0"/>
+      </linearGradient>
+      <mask id="gridMask"><rect x="-600" y="-600" width="2400" height="3200" fill="url(#gridV)"/></mask>
+    </defs>
+    <g mask="url(#gridMask)"><g id="gridLines"></g></g>
+  </svg>
+  <!-- circuitos -->
+  <svg id="circ" class="abs" width="1080" height="1920" style="left:0;top:0"><g id="circG"></g></svg>
+  <!-- partículas e ícones contábeis -->
+  <svg id="parts" class="abs" width="1080" height="1920" style="left:0;top:0"><g id="partG"></g><g id="glyphG"></g></svg>
+
+  <!-- GANCHO: título de impacto -->
+  <div id="hook" class="abs sora" style="left:0;top:262px;width:1080px;text-align:center;font-weight:800;color:#fff">
+    <div class="mask" style="height:84px"><span id="h1" style="font-size:70px;letter-spacing:2px;line-height:84px;color:var(--ice)">O FUTURO DA</span></div>
+    <div class="mask" style="height:118px"><span id="h2" style="font-size:98px;letter-spacing:1px;line-height:118px;background:linear-gradient(90deg,#fff 0%,#fff 40%,#9fd8ff 50%,#fff 60%,#fff 100%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent">CONTABILIDADE</span></div>
+    <div class="mask" style="height:84px"><span id="h3" style="font-size:70px;letter-spacing:2px;line-height:84px;color:var(--cyan)">ESTÁ CHEGANDO</span></div>
+    <div id="hline" style="margin:16px auto 0;height:4px;width:520px;background:linear-gradient(90deg,rgba(34,211,238,0),#22D3EE,rgba(34,211,238,0))"></div>
+  </div>
+
+  <!-- FORMAÇÃO -->
+  <div id="cred" class="abs" style="left:0;top:0;width:1080px;height:640px">
+    <div id="credLbl" class="abs mono" style="left:96px;top:244px;font-size:22px;font-weight:600;letter-spacing:4px;color:var(--blue)">// FORMAÇÃO ACADÊMICA</div>
+    <div class="abs mask" style="left:90px;top:272px;height:96px;width:900px"><span id="credHead" class="sora" style="font-size:80px;font-weight:800;line-height:96px;color:var(--navy)">Contabilidade</span></div>
+    <svg class="abs" width="1080" height="640" style="left:0;top:0">
+      <line id="credLine" x1="200" y1="410" x2="880" y2="410" stroke="#1F5EFF" stroke-width="4" stroke-linecap="round"/>
+      <g id="credNodes"></g>
+    </svg>
+    <div id="credItems"></div>
+  </div>
+
+  <!-- CONVITE: 1ª edição + palavras + ITCONT -->
+  <div id="tag1" class="abs mono" style="left:90px;top:244px;padding:8px 16px;border-radius:10px;background:var(--blue);color:#fff;font-size:24px;font-weight:700;letter-spacing:3px">1ª EDIÇÃO</div>
+  <div id="words" class="abs sora" style="left:0;top:290px;width:1080px;text-align:center;font-weight:800;font-size:84px;line-height:90px">
+    <div class="mask" style="height:90px"><span id="w1" style="color:var(--navy)">IMERSÃO</span></div>
+    <div class="mask" style="height:90px"><span id="w2" style="color:var(--blue)">TECNOLÓGICA</span></div>
+    <div class="mask" style="height:90px"><span id="w3" style="color:var(--navy)">CONTÁBIL</span></div>
+  </div>
+  <div id="itc" class="abs" style="left:0;top:248px;width:1080px;height:300px">
+    <svg class="abs" width="1080" height="300" style="left:0;top:0">
+      <g id="itcLines" stroke="#1F5EFF" stroke-width="3" fill="none" stroke-linecap="round"></g>
+    </svg>
+    <div id="itcWord" class="abs sora" style="left:0;top:0;width:1080px;text-align:center;font-weight:800;font-size:206px;line-height:220px;letter-spacing:-2px;white-space:nowrap">
+      <span style="color:var(--blue)">IT</span><span style="color:var(--navy)">CONT</span>
+    </div>
+    <div id="itcShine" class="abs sora" style="left:0;top:0;width:1080px;text-align:center;font-weight:800;font-size:206px;line-height:220px;letter-spacing:-2px;white-space:nowrap;
+      background:linear-gradient(100deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.85) 50%,rgba(255,255,255,0) 60%);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent">ITCONT</div>
+    <div id="itcSub" class="abs" style="left:0;top:224px;width:1080px;display:flex;justify-content:center;align-items:center;gap:18px">
+      <span id="itcSubTxt" class="sora" style="font-size:40px;font-weight:700;color:var(--navy)">Imersão Tecnológica Contábil</span>
+      <span id="itcUefs" class="sora" style="font-size:32px;font-weight:800;letter-spacing:3px;color:#fff;background:var(--navy);padding:6px 16px;border-radius:10px">UEFS</span>
+    </div>
+  </div>
+
+  <!-- INFORMAÇÕES PRÁTICAS -->
+  <div id="cDate" class="abs card" style="left:90px;top:312px;width:900px;height:136px;display:flex;align-items:center;justify-content:center;gap:28px">
+    <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4.5" width="18" height="16" rx="2.5"/><path d="M3 9.5h18M8 2.8v3.4M16 2.8v3.4"/><circle cx="8" cy="14" r=".9" fill="#22D3EE"/><circle cx="12" cy="14" r=".9" fill="#22D3EE"/><circle cx="16" cy="14" r=".9" fill="#22D3EE"/></svg>
+    <div><div class="lbl">DATA</div>
+      <div class="sora" style="font-size:72px;font-weight:800;line-height:80px;white-space:nowrap"><span id="d21">21</span><span id="d22" style="margin-left:18px">e 22</span></div></div>
+    <div style="padding-top:22px"><div id="dMonth" class="sora" style="font-size:40px;font-weight:700;line-height:46px;white-space:nowrap">de outubro</div>
+      <div id="dYear" class="mono" style="font-size:30px;font-weight:700;color:var(--cyan);letter-spacing:4px">2026</div></div>
+  </div>
+  <div id="cTime" class="abs card" style="left:90px;top:462px;width:392px;height:120px;display:flex;align-items:center;gap:18px;padding-left:26px">
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg>
+    <div><div class="lbl">HORÁRIO</div><div class="sora" style="font-size:38px;font-weight:700;line-height:46px;white-space:nowrap">19h às 21h30</div></div>
+  </div>
+  <div id="cVenue" class="abs card" style="left:496px;top:462px;width:494px;height:120px;display:flex;align-items:center;gap:18px;padding-left:24px">
+    <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#22D3EE" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-6.5-5.6-6.5-11a6.5 6.5 0 0 1 13 0c0 5.4-6.5 11-6.5 11z"/><circle cx="12" cy="10" r="2.4"/></svg>
+    <div><div class="lbl">LOCAL</div><div class="sora" style="font-size:34px;font-weight:700;line-height:40px;white-space:nowrap">Auditório III</div>
+      <div class="inter" style="font-size:26px;font-weight:600;color:var(--ice);white-space:nowrap">Módulo IV · UEFS</div></div>
+  </div>
+  <div id="hdr" class="abs sora" style="left:0;top:236px;width:1080px;text-align:center;font-weight:800;font-size:58px;line-height:64px;letter-spacing:-1px">
+    <span style="color:var(--blue)">IT</span><span style="color:var(--navy)">CONT</span>
+    <span class="mono" style="font-size:22px;font-weight:700;letter-spacing:3px;color:var(--blue);vertical-align:middle;margin-left:10px">· UEFS</span>
+  </div>
+  <!-- INSCRIÇÕES -->
+  <div id="link" class="abs" style="left:0;top:262px;width:1080px;text-align:center">
+    <div class="mono" style="font-size:24px;font-weight:700;letter-spacing:5px;color:var(--blue)">INSCRIÇÕES</div>
+    <div style="display:flex;justify-content:center;align-items:center;gap:18px;margin-top:6px">
+      <div class="mask" style="height:96px"><span id="linkTxt" class="sora" style="font-size:66px;font-weight:800;line-height:96px;color:var(--navy)">Link na descrição</span></div>
+      <svg id="linkArrow" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" style="background:var(--blue);border-radius:50%;padding:8px"><path d="M12 5v13M6.5 12.5 12 18l5.5-5.5"/></svg>
+    </div>
+  </div>
+  <!-- ITCONT final -->
+  <div id="fin" class="abs sora" style="left:0;top:250px;width:1080px;text-align:center;font-weight:800;font-size:140px;line-height:150px;letter-spacing:-2px">
+    <span style="color:var(--blue)">IT</span><span style="color:var(--navy)">CONT</span>
+  </div>
+</div>
+
+<!-- ===================== CAMADA DA FRENTE ===================== -->
+<div id="front" class="layer">
+  <!-- tarja de identificação -->
+  <div id="lt" class="abs" style="left:60px;top:1078px">
+    <div id="ltBar" class="abs" style="left:0;top:0;width:10px;height:196px;background:linear-gradient(#22D3EE,#1F5EFF);border-radius:5px;transform-origin:top"></div>
+    <div id="ltName" class="abs sora" style="left:22px;top:0;white-space:nowrap;background:rgba(10,27,63,.95);color:#fff;font-size:52px;font-weight:700;padding:8px 26px 10px;border-radius:6px 14px 14px 6px;line-height:66px">Rômulo Benício</div>
+    <div id="ltUefs" class="abs mono" style="top:16px;white-space:nowrap;background:var(--cyan);color:var(--navy);font-size:26px;font-weight:800;padding:8px 14px;border-radius:10px;letter-spacing:2px">UEFS</div>
+    <div id="ltRole" class="abs" style="left:22px;top:94px;white-space:nowrap;background:var(--blue);color:#fff;padding:10px 26px 12px;border-radius:6px 14px 14px 6px">
+      <div class="inter" style="font-size:27px;font-weight:600;line-height:34px">Coordenador do Projeto de Extensão</div>
+      <div class="sora" style="font-size:33px;font-weight:800;line-height:40px">Contador do Amanhã</div>
+    </div>
+  </div>
+  <!-- legendas -->
+  <div id="cap" class="abs" style="left:130px;width:820px;bottom:425px;display:flex;justify-content:center">
+    <div id="capBox" class="inter" style="background:rgba(7,20,46,.80);border-radius:16px;padding:10px 24px 12px;color:#fff;font-size:42px;font-weight:700;line-height:52px;text-align:center;max-width:820px;text-wrap:balance"></div>
+  </div>
+  <!-- transição do gancho -->
+  <div id="shutter" class="abs" style="left:0;top:0;width:1080px;height:2400px;background:linear-gradient(180deg,#22D3EE 0,#1F5EFF 8px,#0A1B3F 30px,#0A1B3F 2370px,#1F5EFF 2392px,#22D3EE 2400px)"></div>
+  <!-- encerramento -->
+  <div id="close" class="abs" style="left:0;top:0;width:1080px;height:1920px;overflow:hidden">
+    <div class="abs" style="inset:0;background:radial-gradient(1000px 900px at 540px 760px,#15357f 0%,#0A1B3F 50%,#06122B 100%)"></div>
+    <svg class="abs" width="1080" height="1920" style="left:0;top:0"><g id="closeGrid" stroke="#22D3EE" stroke-opacity=".10" stroke-width="1.5"></g><g id="closeCirc"></g><g id="closeParts"></g></svg>
+    <div id="clEdge" class="abs" style="left:0;top:0;width:1080px;height:6px;background:linear-gradient(90deg,#1F5EFF,#22D3EE,#1F5EFF)"></div>
+    <div id="cl" class="abs" style="left:0;top:0;width:1080px;color:#fff;text-align:center">
+      <div id="cl0" class="abs mono" style="left:0;top:322px;width:1080px"><span style="display:inline-block;border:1.5px solid rgba(34,211,238,.7);color:var(--cyan);font-size:24px;font-weight:700;letter-spacing:4px;padding:8px 18px;border-radius:10px">1ª EDIÇÃO</span></div>
+      <div class="abs mask" style="left:0;top:384px;width:1080px;height:226px"><span id="cl1" class="sora" style="font-size:206px;font-weight:800;line-height:226px;letter-spacing:-2px;white-space:nowrap">
+        <span style="background:linear-gradient(90deg,#3B82F6,#22D3EE);-webkit-background-clip:text;background-clip:text;color:transparent">IT</span>CONT</span></div>
+      <div id="cl2" class="abs sora" style="left:0;top:618px;width:1080px;font-size:42px;font-weight:600;color:var(--ice)">Imersão Tecnológica Contábil</div>
+      <div id="cl3" class="abs sora" style="left:0;top:672px;width:1080px;font-size:34px;font-weight:800;letter-spacing:8px;color:var(--cyan)">UEFS</div>
+      <div id="clDiv" class="abs" style="left:240px;top:752px;width:600px;height:2px;background:linear-gradient(90deg,rgba(34,211,238,0),#22D3EE,rgba(34,211,238,0));transform-origin:center"></div>
+      <div id="clInfo" class="abs inter" style="left:0;top:790px;width:1080px;display:flex;flex-direction:column;align-items:center;gap:16px;font-size:36px;font-weight:600"></div>
+      <div id="clCta" class="abs" style="left:0;top:1112px;width:1080px;display:flex;justify-content:center">
+        <div class="sora" style="background:var(--blue);border-radius:26px;padding:22px 44px 24px;font-size:46px;font-weight:800;line-height:58px;box-shadow:0 0 0 2px rgba(34,211,238,.45),0 20px 50px rgba(31,94,255,.35)">Participe do ITCONT.<br><span style="color:#CFF8FF">Esperamos você!</span></div>
+      </div>
+      <div id="clOrg" class="abs" style="left:0;top:1340px;width:1080px">
+        <div class="mono" style="font-size:22px;font-weight:700;letter-spacing:5px;color:var(--cyan)">REALIZAÇÃO</div>
+        <div class="sora" style="font-size:32px;font-weight:700;margin-top:8px">Projeto de Extensão Contador do Amanhã</div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="timeline.js"></script>
+<script src="anim.js"></script>
+</body>
+</html>
