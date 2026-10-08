@@ -1,0 +1,597 @@
+{
+ "_doc": "Projeto editável — vídeo da Anna Clara Silva para o ITCONT. Tempos de origem em segundos do arquivo original (30 fps). Edite e rode run_all.sh.",
+ "fps": 30,
+ "ext": 0,
+ "watermark_top": 1836,
+ "srt_name": "legendas_AnnaClara_ITCONT.srt",
+ "show_unspoken_info": true,
+ "_show_unspoken_info": "Auditório III · Módulo IV não é falado por ela (vem do planejamento do evento). false = encerramento só com UEFS.",
+ "event": {
+  "name": "ITCONT",
+  "full_name": "Imersão Tecnológica Contábil",
+  "institution": "UEFS",
+  "session_date": "22 de outubro de 2026",
+  "session_time": "19h",
+  "venue_1": "Auditório III",
+  "venue_2": "Módulo IV · UEFS",
+  "organizer": "Projeto de Extensão Contador do Amanhã",
+  "cta": "Participe do ITCONT. Esperamos você!"
+ },
+ "presenter": {
+  "name": "Anna Clara Silva",
+  "role": "Contadora"
+ },
+ "segments": [
+  {
+   "id": "H",
+   "hook": true,
+   "label": "Gancho: 'tecnologia alinhada ao mundo contábil'",
+   "in": 335,
+   "out": 417
+  },
+  {
+   "id": "A",
+   "label": "Fala completa (termina antes do fade do original; o encerramento cobre o resto)",
+   "in": 0,
+   "out": 674
+  }
+ ],
+ "closing_frames": 160,
+ "words": [
+  [
+   "tecnologia",
+   11.26
+  ],
+  [
+   "alinhada",
+   12.08
+  ],
+  [
+   "ao",
+   12.72
+  ],
+  [
+   "mundo",
+   12.88
+  ],
+  [
+   "contábil",
+   13.12,
+   13.78
+  ],
+  [
+   "Olá,",
+   0.05
+  ],
+  [
+   "pessoal!",
+   0.56,
+   0.98
+  ],
+  [
+   "Anna",
+   1.2
+  ],
+  [
+   "Clara",
+   1.52
+  ],
+  [
+   "Silva",
+   2.0
+  ],
+  [
+   "falando",
+   2.4
+  ],
+  [
+   "aqui,",
+   2.8
+  ],
+  [
+   "contadora.",
+   3.12,
+   3.84
+  ],
+  [
+   "Estarei",
+   4.08
+  ],
+  [
+   "com",
+   4.4
+  ],
+  [
+   "vocês",
+   4.48
+  ],
+  [
+   "no",
+   4.72
+  ],
+  [
+   "ITCONT,",
+   4.88
+  ],
+  [
+   "na",
+   5.6
+  ],
+  [
+   "UEFS,",
+   5.76,
+   6.36
+  ],
+  [
+   "no",
+   6.4
+  ],
+  [
+   "dia",
+   6.56
+  ],
+  [
+   "22",
+   6.8
+  ],
+  [
+   "de",
+   7.28
+  ],
+  [
+   "outubro,",
+   7.44
+  ],
+  [
+   "às",
+   7.92
+  ],
+  [
+   "19",
+   8.24
+  ],
+  [
+   "horas.",
+   8.88,
+   9.4
+  ],
+  [
+   "Vai",
+   9.44
+  ],
+  [
+   "ser",
+   9.68
+  ],
+  [
+   "um",
+   9.92
+  ],
+  [
+   "prazer",
+   10.0
+  ],
+  [
+   "falar",
+   10.56
+  ],
+  [
+   "sobre",
+   10.96,
+   11.16
+  ],
+  [
+   "tecnologia",
+   11.26
+  ],
+  [
+   "alinhada",
+   12.08
+  ],
+  [
+   "ao",
+   12.72
+  ],
+  [
+   "mundo",
+   12.88
+  ],
+  [
+   "contábil,",
+   13.12,
+   13.78
+  ],
+  [
+   "e,",
+   13.95
+  ],
+  [
+   "nossa,",
+   14.07
+  ],
+  [
+   "tô",
+   14.72
+  ],
+  [
+   "com",
+   15.04
+  ],
+  [
+   "muita",
+   15.2
+  ],
+  [
+   "ansiedade",
+   15.52
+  ],
+  [
+   "pra",
+   16.32
+  ],
+  [
+   "ver",
+   16.56
+  ],
+  [
+   "cada",
+   16.88
+  ],
+  [
+   "um",
+   17.2
+  ],
+  [
+   "e",
+   17.52
+  ],
+  [
+   "poder",
+   17.84
+  ],
+  [
+   "contribuir",
+   18.24
+  ],
+  [
+   "na",
+   18.8
+  ],
+  [
+   "jornada",
+   19.04
+  ],
+  [
+   "de",
+   19.52
+  ],
+  [
+   "um",
+   19.76
+  ],
+  [
+   "evento",
+   19.92
+  ],
+  [
+   "que",
+   20.24
+  ],
+  [
+   "vai",
+   20.4
+  ],
+  [
+   "tracionar",
+   20.64
+  ],
+  [
+   "o",
+   21.44
+  ],
+  [
+   "mundo",
+   21.6
+  ],
+  [
+   "contábil.",
+   21.92,
+   22.32
+  ]
+ ],
+ "captions": [
+  {
+   "seg": "H",
+   "text": "tecnologia alinhada ao mundo contábil",
+   "w": [
+    0,
+    4
+   ],
+   "start_at_segment": true
+  },
+  {
+   "seg": "A",
+   "text": "Olá, pessoal!",
+   "w": [
+    5,
+    6
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Anna Clara Silva falando aqui, contadora.",
+   "w": [
+    7,
+    12
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Estarei com vocês no ITCONT, na UEFS,",
+   "w": [
+    13,
+    19
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "no dia 22 de outubro, às 19 horas.",
+   "w": [
+    20,
+    27
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Vai ser um prazer falar sobre",
+   "w": [
+    28,
+    33
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "tecnologia alinhada ao mundo contábil,",
+   "w": [
+    34,
+    38
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "e, nossa, tô com muita ansiedade",
+   "w": [
+    39,
+    44
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "pra ver cada um e poder contribuir",
+   "w": [
+    45,
+    51
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "na jornada de um evento",
+   "w": [
+    52,
+    56
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "que vai tracionar o mundo contábil.",
+   "w": [
+    57,
+    62
+   ]
+  }
+ ],
+ "highlight": [
+  "ITCONT",
+  "UEFS",
+  "22 de outubro",
+  "19 horas",
+  "tecnologia",
+  "mundo contábil"
+ ],
+ "cues_seg": {
+  "hook_in": "H"
+ },
+ "cues_src": {
+  "hook_in": 11.17,
+  "lt_in": 1.1,
+  "lt_role": 3.12,
+  "lt_out": 4.5,
+  "logo_in": 4.88,
+  "uefs_in": 5.76,
+  "date_in": 6.5,
+  "date_22": 6.8,
+  "date_month": 7.44,
+  "time_19": 8.24,
+  "cards_out": 9.55,
+  "tec_in": 11.26,
+  "tec_link": 12.08,
+  "mundo_in": 12.88,
+  "tec_out": 14.52,
+  "final_in": 20.4,
+  "final_mundo": 21.6,
+  "closing_wipe": 22.33,
+  "music_drop": 4.88,
+  "final_duck": 21.4
+ },
+ "camera_src": [
+  [
+   "H",
+   "start",
+   1.1,
+   18,
+   "cut"
+  ],
+  [
+   "H",
+   "end",
+   1.13,
+   26,
+   "lin"
+  ],
+  [
+   "A",
+   "start",
+   1.05,
+   0,
+   "cut"
+  ],
+  [
+   "A",
+   4.0,
+   1.065,
+   4,
+   "lin"
+  ],
+  [
+   "A",
+   9.44,
+   1.065,
+   4,
+   "lin"
+  ],
+  [
+   "A",
+   10.3,
+   1.1,
+   18,
+   "ease"
+  ],
+  [
+   "A",
+   14.1,
+   1.1,
+   18,
+   "lin"
+  ],
+  [
+   "A",
+   14.9,
+   1.14,
+   30,
+   "ease"
+  ],
+  [
+   "A",
+   19.4,
+   1.14,
+   30,
+   "lin"
+  ],
+  [
+   "A",
+   20.3,
+   1.06,
+   6,
+   "ease"
+  ],
+  [
+   "A",
+   "end",
+   1.07,
+   8,
+   "lin"
+  ]
+ ],
+ "sfx": [
+  [
+   "whoosh",
+   "seg_H_t0",
+   0.5,
+   0.02
+  ],
+  [
+   "hit",
+   "seg_H_t0",
+   0.3
+  ],
+  [
+   "whoosh",
+   "seg_H_t1",
+   0.85,
+   -0.18
+  ],
+  [
+   "pop",
+   "lt_in",
+   0.7
+  ],
+  [
+   "tick",
+   "lt_role",
+   0.5
+  ],
+  [
+   "impact",
+   "logo_in",
+   0.42,
+   -0.04
+  ],
+  [
+   "tick",
+   "uefs_in",
+   0.5
+  ],
+  [
+   "pop",
+   "date_22",
+   0.55
+  ],
+  [
+   "tick",
+   "date_month",
+   0.4
+  ],
+  [
+   "pop",
+   "time_19",
+   0.55
+  ],
+  [
+   "whoosh",
+   "cards_out",
+   0.4
+  ],
+  [
+   "tick",
+   "tec_in",
+   0.35
+  ],
+  [
+   "tick",
+   "mundo_in",
+   0.35
+  ],
+  [
+   "pop",
+   "final_in",
+   0.45
+  ],
+  [
+   "whoosh",
+   "closing_wipe",
+   0.55,
+   0.12
+  ],
+  [
+   "impact",
+   "closing_wipe",
+   0.55,
+   0.86
+  ]
+ ],
+ "caption_anchor_src_y": 1066,
+ "_caption_anchor_src_y": "Centro (na fonte) da faixa onde estavam as legendas queimadas; nossas legendas cobrem essa faixa e acompanham o zoom.",
+ "caption_tail_after_segment": {
+  "A": 0.25
+ }
+}
