@@ -115,7 +115,7 @@
 
     // ---- faixas escuras atrás dos títulos ----
     const topOn = Math.max(win(t, -1, HOOK_END - 0.05, 0.3, 0.1),
-                           win(t, C.logo_in - 0.15, C.tec_out + 0.15, 0.35, 0.4),
+                           win(t, C.lt_in - 0.15, C.tec_out + 0.15, 0.35, 0.4),
                            win(t, C.final_in - 0.25, CLOSE + 1, 0.35, 0.3));
     show($("scrimTop"), topOn);
     show($("scrimLeft"), win(t, C.date_in - 0.3, C.cards_out + 0.1, 0.4, 0.4));
@@ -221,8 +221,7 @@
       const hBox = $("cap").offsetHeight;
       $("cap").style.top = (yc - hBox / 2).toFixed(1) + "px";
       show($("cap"), q * (1 - x)); $("cap").style.transform = `translateY(${(1 - q) * 12}px)`;
-      // tarja logo acima da legenda enquanto estiver na tela
-      $("lt").style.top = (yc - hBox / 2 - 246).toFixed(1) + "px";
+
     } else show($("cap"), 0);
 
     // ---- ENCERRAMENTO ----

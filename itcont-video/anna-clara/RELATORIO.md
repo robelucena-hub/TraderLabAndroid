@@ -51,7 +51,7 @@ Nada foi inventado: não há link, QR code nem nome de palestra. "Inscrições: 
 |---|---|
 | 0,0–2,7 s | Faixa escura no topo + título do gancho em revelação por máscara |
 | 2,7 s | Cortina de transição para o corpo |
-| 3,8 s | Tarja "Anna Clara Silva"; "Contadora" entra quando ela diz "contadora" (5,9 s) |
+| 3,8–7,5 s | Tarja "Anna Clara Silva" na faixa acima da cabeça (nunca sobre o rosto); "Contadora" entra quando ela diz "contadora" (5,9 s) |
 | 7,6–12,3 s | Logo oficial (placa clara) quando ela diz "ITCONT"; "NA UEFS" em 8,5 s |
 | 9,2–12,3 s | Cards na parede: "22" → "de outubro" → "19h", cada um quando é dito |
 | 14,0–17,3 s | "TECNOLOGIA" → traço de circuito "alinhada ao" → "MUNDO CONTÁBIL" |
@@ -83,7 +83,8 @@ até 3 quadros das palavras. Corrigido a partir da revisão:
 | Efeitos do encerramento ~0,7 s atrasados, com um trecho quase mudo | Whoosh na cortina, impacto na logo; trilha sobe logo após a última palavra |
 | Cartão final completo por só ~2 s | Encerramento mais longo (~3,4 s com tudo na tela) e entrada mais rápida |
 | Cards de data e hora encostavam nos óculos em 12,4–12,7 s | Cards mais estreitos e saída antecipada para 12,3 s |
-| Nome duplicado e apertado (tarja + legenda) | Nome sem destaque ciano na legenda; tarja 50 px mais alta |
+| Nome duplicado e apertado (tarja + legenda) | Nome sem destaque ciano na legenda |
+| Tarja do nome na altura do queixo e da boca (apontado por você) | Tarja movida para a faixa superior, atrás da apresentadora, acima da cabeça |
 | Logo do meio pequena; rótulos de 14–18 px | Logo de 344 para 372 px; rótulos aumentados (22–28 px) |
 | A caixa de legenda "piscava" entre frases, expondo a faixa limpa por 1–4 quadros | Legendas consecutivas contíguas: a caixa fica sempre na tela |
 | Faixa escura do topo "pulsava" entre os cards e "TECNOLOGIA" | Faixa mantida contínua |
