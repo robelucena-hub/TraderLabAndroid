@@ -1,0 +1,837 @@
+{
+ "_doc": "Projeto editável — vídeo do André Dedeko para o ITCONT. Tempos de origem em segundos do arquivo original (convertido para 30 fps). Edite e rode run_all.sh.",
+ "fps": 30,
+ "ext": 0,
+ "watermark_top": 1920,
+ "srt_name": "legendas_AndreDedeko_ITCONT.srt",
+ "show_unspoken_info": true,
+ "_show_unspoken_info": "UEFS, Auditório III e Módulo IV não são falados por ele (vêm do planejamento do evento). false = encerramento só com data e cidade.",
+ "caption_y": 1360,
+ "event": {
+  "name": "ITCONT",
+  "full_name": "Imersão Tecnológica Contábil",
+  "institution": "UEFS",
+  "session_date": "21 de outubro de 2026",
+  "city": "Feira de Santana",
+  "venue_1": "Auditório III",
+  "venue_2": "Módulo IV",
+  "organizer": "Projeto de Extensão Contador do Amanhã",
+  "cta": "Participe do ITCONT. Esperamos você!"
+ },
+ "presenter": {
+  "name": "André Dedeko",
+  "role": "Contador e Palestrante"
+ },
+ "segments": [
+  {
+   "id": "H",
+   "hook": true,
+   "label": "Gancho: 'A tecnologia está transformando o mercado'",
+   "in": 588,
+   "out": 659
+  },
+  {
+   "id": "A",
+   "label": "Fala completa, sem cortes internos (o encerramento cobre o fim do arquivo)",
+   "in": 21,
+   "out": 1006
+  }
+ ],
+ "closing_frames": 160,
+ "words": [
+  [
+   "A",
+   19.62
+  ],
+  [
+   "tecnologia",
+   19.72
+  ],
+  [
+   "está",
+   20.42
+  ],
+  [
+   "transformando",
+   20.66
+  ],
+  [
+   "o",
+   21.32
+  ],
+  [
+   "mercado",
+   21.46,
+   21.86
+  ],
+  [
+   "Sou",
+   0.82
+  ],
+  [
+   "André",
+   1.14
+  ],
+  [
+   "Dedeko,",
+   1.48,
+   1.82
+  ],
+  [
+   "contador,",
+   1.86
+  ],
+  [
+   "empresário,",
+   2.42
+  ],
+  [
+   "professor",
+   3.02
+  ],
+  [
+   "e",
+   3.4
+  ],
+  [
+   "palestrante.",
+   3.54,
+   4.14
+  ],
+  [
+   "No",
+   4.46
+  ],
+  [
+   "dia",
+   4.62
+  ],
+  [
+   "21",
+   4.9
+  ],
+  [
+   "de",
+   5.32
+  ],
+  [
+   "outubro,",
+   5.42,
+   5.94
+  ],
+  [
+   "estarei",
+   5.98
+  ],
+  [
+   "na",
+   6.38
+  ],
+  [
+   "querida",
+   6.54
+  ],
+  [
+   "cidade",
+   7.0
+  ],
+  [
+   "de",
+   7.42
+  ],
+  [
+   "Feira",
+   7.58
+  ],
+  [
+   "de",
+   8.06
+  ],
+  [
+   "Santana",
+   8.14,
+   8.7
+  ],
+  [
+   "para",
+   8.76
+  ],
+  [
+   "a",
+   8.92
+  ],
+  [
+   "Imersão",
+   9.0
+  ],
+  [
+   "Tecnológica",
+   9.56
+  ],
+  [
+   "Contábil",
+   10.28
+  ],
+  [
+   "2026.",
+   10.96,
+   11.62
+  ],
+  [
+   "Vou",
+   12.0
+  ],
+  [
+   "falar",
+   12.28
+  ],
+  [
+   "sobre",
+   12.6
+  ],
+  [
+   "um",
+   12.84
+  ],
+  [
+   "tema",
+   13.02
+  ],
+  [
+   "cada",
+   13.34
+  ],
+  [
+   "vez",
+   13.66
+  ],
+  [
+   "mais",
+   13.9
+  ],
+  [
+   "importante",
+   14.22
+  ],
+  [
+   "para",
+   14.62
+  ],
+  [
+   "a",
+   14.78
+  ],
+  [
+   "nossa",
+   14.9
+  ],
+  [
+   "profissão:",
+   15.26,
+   15.8
+  ],
+  [
+   "o",
+   16.12
+  ],
+  [
+   "uso",
+   16.22
+  ],
+  [
+   "da",
+   16.54
+  ],
+  [
+   "inteligência",
+   16.7
+  ],
+  [
+   "artificial",
+   17.32
+  ],
+  [
+   "na",
+   18.06
+  ],
+  [
+   "rotina",
+   18.24
+  ],
+  [
+   "contábil.",
+   18.78,
+   19.2
+  ],
+  [
+   "A",
+   19.62
+  ],
+  [
+   "tecnologia",
+   19.72
+  ],
+  [
+   "está",
+   20.42
+  ],
+  [
+   "transformando",
+   20.66
+  ],
+  [
+   "o",
+   21.32
+  ],
+  [
+   "mercado",
+   21.46,
+   21.86
+  ],
+  [
+   "e",
+   22.06
+  ],
+  [
+   "precisamos",
+   22.26
+  ],
+  [
+   "acompanhar",
+   22.84
+  ],
+  [
+   "essa",
+   23.54
+  ],
+  [
+   "evolução",
+   23.8,
+   24.38
+  ],
+  [
+   "para",
+   24.42
+  ],
+  [
+   "nos",
+   24.66
+  ],
+  [
+   "mantermos",
+   24.9
+  ],
+  [
+   "preparados",
+   25.72,
+   26.3
+  ],
+  [
+   "e",
+   26.34
+  ],
+  [
+   "alinhados",
+   26.6
+  ],
+  [
+   "às",
+   27.24
+  ],
+  [
+   "novas",
+   27.48
+  ],
+  [
+   "exigências.",
+   27.8,
+   28.44
+  ],
+  [
+   "Você",
+   28.86
+  ],
+  [
+   "não",
+   29.14
+  ],
+  [
+   "pode",
+   29.38
+  ],
+  [
+   "ficar",
+   29.68
+  ],
+  [
+   "de",
+   29.94
+  ],
+  [
+   "fora!",
+   30.08,
+   30.4
+  ],
+  [
+   "Inscreva-se",
+   30.66
+  ],
+  [
+   "e",
+   31.24
+  ],
+  [
+   "participe!",
+   31.54,
+   32.18
+  ],
+  [
+   "Espero",
+   32.6
+  ],
+  [
+   "você",
+   32.96
+  ],
+  [
+   "lá!",
+   33.2,
+   33.34
+  ]
+ ],
+ "captions": [
+  {
+   "seg": "H",
+   "text": "A tecnologia está transformando o mercado",
+   "w": [
+    0,
+    5
+   ],
+   "start_at_segment": true
+  },
+  {
+   "seg": "A",
+   "text": "Sou André Dedeko,",
+   "w": [
+    6,
+    8
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "contador, empresário, professor e palestrante.",
+   "w": [
+    9,
+    13
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "No dia 21 de outubro,",
+   "w": [
+    14,
+    18
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "estarei na querida cidade de Feira de Santana",
+   "w": [
+    19,
+    26
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "para a\nImersão Tecnológica Contábil 2026.",
+   "w": [
+    27,
+    32
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Vou falar sobre um tema",
+   "w": [
+    33,
+    37
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "cada vez mais importante para a nossa profissão:",
+   "w": [
+    38,
+    45
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "o uso da inteligência artificial\nna rotina contábil.",
+   "w": [
+    46,
+    53
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "A tecnologia está transformando o mercado",
+   "w": [
+    54,
+    59
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "e precisamos acompanhar essa evolução",
+   "w": [
+    60,
+    64
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "para nos mantermos preparados",
+   "w": [
+    65,
+    68
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "e alinhados às novas exigências.",
+   "w": [
+    69,
+    73
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Você não pode ficar de fora!",
+   "w": [
+    74,
+    79
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Inscreva-se e participe!",
+   "w": [
+    80,
+    82
+   ]
+  },
+  {
+   "seg": "A",
+   "text": "Espero você lá!",
+   "w": [
+    83,
+    85
+   ]
+  }
+ ],
+ "highlight": [
+  "21 de outubro",
+  "Feira de Santana",
+  "Imersão Tecnológica Contábil 2026",
+  "inteligência artificial",
+  "rotina contábil",
+  "tecnologia",
+  "Inscreva-se",
+  "participe"
+ ],
+ "cues_seg": {
+  "hook_in": "H"
+ },
+ "cues_src": {
+  "hook_in": 19.6,
+  "lt_in": 1.14,
+  "lt_role": 1.86,
+  "lt_out": 4.2,
+  "date_in": 4.72,
+  "date_21": 4.9,
+  "date_month": 5.42,
+  "loc_in": 7.42,
+  "loc_city": 7.58,
+  "logo_in": 9.0,
+  "year_in": 10.96,
+  "cards_out": 11.72,
+  "tema_in": 13.02,
+  "tema_kick": 13.34,
+  "tema_kick_end": 14.5,
+  "ia_in": 16.7,
+  "ia_art": 17.32,
+  "rot_link": 18.06,
+  "rot_in": 18.24,
+  "tema_out": 19.24,
+  "mkt_in": 19.62,
+  "mkt_trans": 20.66,
+  "mkt_merc": 21.32,
+  "mkt_out": 21.98,
+  "evo_in": 22.26,
+  "evo_kick_end": 23.4,
+  "evo_essa": 23.54,
+  "evo_word": 23.8,
+  "evo_out": 25.4,
+  "prep_in": 25.72,
+  "prep_link": 26.34,
+  "novas_in": 27.48,
+  "prep_out": 28.56,
+  "cta_in": 28.86,
+  "cta_fora": 29.68,
+  "cta_out": 30.46,
+  "final_in": 30.66,
+  "final_part": 31.54,
+  "closing_wipe": 33.38,
+  "music_drop": 4.9,
+  "final_duck": 32.5
+ },
+ "camera_src": [
+  [
+   "H",
+   "start",
+   1.05,
+   24,
+   "cut"
+  ],
+  [
+   "H",
+   "end",
+   1.09,
+   42,
+   "lin"
+  ],
+  [
+   "A",
+   "start",
+   1.0,
+   0,
+   "cut"
+  ],
+  [
+   "A",
+   4.3,
+   1.02,
+   0,
+   "lin"
+  ],
+  [
+   "A",
+   4.95,
+   1.05,
+   10,
+   "ease"
+  ],
+  [
+   "A",
+   8.7,
+   1.05,
+   10,
+   "lin"
+  ],
+  [
+   "A",
+   9.35,
+   1.03,
+   0,
+   "ease"
+  ],
+  [
+   "A",
+   11.72,
+   1.03,
+   0,
+   "lin"
+  ],
+  [
+   "A",
+   12.5,
+   1.07,
+   24,
+   "ease"
+  ],
+  [
+   "A",
+   19.3,
+   1.075,
+   26,
+   "lin"
+  ],
+  [
+   "A",
+   19.95,
+   1.03,
+   6,
+   "ease"
+  ],
+  [
+   "A",
+   25.4,
+   1.055,
+   16,
+   "lin"
+  ],
+  [
+   "A",
+   28.5,
+   1.055,
+   16,
+   "lin"
+  ],
+  [
+   "A",
+   29.1,
+   1.085,
+   36,
+   "ease"
+  ],
+  [
+   "A",
+   32.3,
+   1.085,
+   36,
+   "lin"
+  ],
+  [
+   "A",
+   32.85,
+   1.05,
+   14,
+   "ease"
+  ],
+  [
+   "A",
+   "end",
+   1.05,
+   14,
+   "lin"
+  ]
+ ],
+ "sfx": [
+  [
+   "whoosh",
+   "seg_H_t0",
+   0.5,
+   0.02
+  ],
+  [
+   "hit",
+   "seg_H_t0",
+   0.3
+  ],
+  [
+   "whoosh",
+   "seg_H_t1",
+   0.85,
+   -0.18
+  ],
+  [
+   "pop",
+   "lt_in",
+   0.7
+  ],
+  [
+   "tick",
+   "lt_role",
+   0.5
+  ],
+  [
+   "pop",
+   "date_21",
+   0.55
+  ],
+  [
+   "tick",
+   "date_month",
+   0.4
+  ],
+  [
+   "pop",
+   "loc_city",
+   0.5
+  ],
+  [
+   "impact",
+   "logo_in",
+   0.42,
+   -0.04
+  ],
+  [
+   "tick",
+   "year_in",
+   0.45
+  ],
+  [
+   "whoosh",
+   "cards_out",
+   0.4
+  ],
+  [
+   "tick",
+   "tema_in",
+   0.35
+  ],
+  [
+   "tick",
+   "ia_in",
+   0.4
+  ],
+  [
+   "tick",
+   "rot_in",
+   0.3
+  ],
+  [
+   "whoosh",
+   "tema_out",
+   0.3
+  ],
+  [
+   "tick",
+   "mkt_trans",
+   0.3
+  ],
+  [
+   "tick",
+   "evo_in",
+   0.3
+  ],
+  [
+   "tick",
+   "evo_word",
+   0.35
+  ],
+  [
+   "tick",
+   "prep_in",
+   0.35
+  ],
+  [
+   "tick",
+   "novas_in",
+   0.3
+  ],
+  [
+   "pop",
+   "cta_in",
+   0.45
+  ],
+  [
+   "pop",
+   "final_in",
+   0.45
+  ],
+  [
+   "whoosh",
+   "closing_wipe",
+   0.55,
+   0.12
+  ],
+  [
+   "impact",
+   "closing_wipe",
+   0.55,
+   0.66
+  ]
+ ]
+}
