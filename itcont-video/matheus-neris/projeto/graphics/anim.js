@@ -51,7 +51,7 @@
     return out;
   }
   const circ = buildCircuits($("circG"), "#3B82F6", [420, 600, 800]);
-  const circClose = buildCircuits($("closeCirc"), "#3B82F6", [300, 430, 560, 700, 840, 990, 1140, 1290]);
+  const circClose = buildCircuits($("closeCirc"), "#3B82F6", [300, 430, 560, 700, 840, 1190, 1310]);   // nenhum terminal perto das linhas de informação
   function animCircuits(list, t, tDraw, op, burst) {
     list.forEach((c) => {
       const pr = oCubic(P(t, tDraw + c.i * 0.07, 0.9));
@@ -122,6 +122,21 @@
     if (on) $(id).style.transform = `translateY(${16 * oCubic(P(t, tout, 0.28))}px)`;
     return on;
   }
+  // o painel navy cresce com o conteúdo visível (digitação, depois cada palavra/selo), em vez de aparecer vazio
+  function fitPanel(blockId, items, t) {
+    const pan = $(blockId).querySelector(".pan"); pan.style.clipPath = "none";
+    const P0 = pan.getBoundingClientRect(); let W = 0, H = 0;
+    for (const [id, t0] of items) {
+      const e = $(id), q = oExpo(P(t, t0 - 0.06, 0.4));
+      if (q <= 0) continue;
+      const box = e.parentElement.classList.contains("mask") ? e.parentElement : e;
+      const r = e.getBoundingClientRect(), rb = box.getBoundingClientRect();
+      const right = r.right - P0.left + 20, bottom = rb.bottom - P0.top + 10;
+      if (!W) { W = right; H = bottom; } else { W = Math.max(W, lerp(W, right, q)); H = Math.max(H, lerp(H, bottom, q)); }
+    }
+    if (!W) { pan.style.clipPath = "inset(0 100% 100% 0)"; return; }
+    pan.style.clipPath = `inset(0 ${Math.max(0, P0.width - W).toFixed(1)}px ${Math.max(0, P0.height - H).toFixed(1)}px 0 round 16px)`;
+  }
   const rise = (id, t, t0, d = 0.45) => { $(id).style.display = "inline-block"; $(id).style.transform = `translateY(${(1 - oExpo(P(t, t0, d))) * 135}%)`; };
 
   // =================================================================
@@ -140,9 +155,11 @@
     // ---- GANCHO ----
     show($("hook"), t < HOOK_END ? 1 : 0);
     if (t < HOOK_END) {
-      [["h1", -0.35], ["h2", -0.15]].forEach(([id, t0]) => { $(id).style.transform = `translateY(${(1 - oExpo(P(t, t0, 0.55))) * 135}%)`; });
-      $("h2").style.backgroundPosition = `${lerp(100, 0, ioCubic(P(t, 0.6, 1.0)))}% 0`;
-      $("hook").style.transform = `scale(${1 + 0.02 * t})`;
+      // o slogan já está no quadro 0 (capa); as palavras faladas entram uma a uma
+      $("h1").style.display = "inline-block"; $("h1").style.transform = `translateY(${(1 - oExpo(P(t, -0.35, 0.55))) * 135}%)`;
+      const hw = T.captions[0].words;
+      hw.forEach((w, i) => rise("hw" + i, t, w.t0));
+      fitPanel("hook", [["h1", -1]].concat(hw.map((w, i) => ["hw" + i, w.t0])), t);
     }
     const sp = ioCubic(P(t, HOOK_END - 0.24, 0.48));
     show($("shutter"), sp > 0 && sp < 1 ? 1 : 0);
@@ -151,7 +168,7 @@
     // ---- TARJA (no peito) ----
     const lti = C.lt_in, lto = C.lt_out;
     const ltOn = t >= lti && t < lto + 0.6;
-    show($("lt"), ltOn ? 1 : 0);
+    show($("lt"), ltOn ? 1 - oCubic(P(t, lto + 0.12, 0.22)) : 0);   // some por inteiro (sem sobras da barra/caixa)
     if (ltOn) {
       const ex = ioCubic(P(t, lto, 0.32));
       $("ltBar").style.transform = `scaleY(${oExpo(P(t, lti, 0.3)) * (1 - oCubic(P(t, lto + 0.2, 0.25)))})`;
@@ -161,9 +178,11 @@
     }
 
     // ---- UMA EMPRESA FOCADA EM AFRONEGÓCIOS ----
-    if (block("afro", C.afro_in, C.afro_out, t)) { typeIn("afroType", "UMA EMPRESA FOCADA EM", t, C.afro_in, C.afro_word - 0.12); rise("afroW", t, C.afro_word); }
+    if (block("afro", C.afro_in, C.afro_out, t)) { typeIn("afroType", "UMA EMPRESA FOCADA EM", t, C.afro_in, C.afro_word - 0.12); rise("afroW", t, C.afro_word);
+      fitPanel("afro", [["afroType", C.afro_in], ["afroW", C.afro_word]], t); }
     // ---- EU VOU TE FAZER UM CONVITE ----
-    if (block("conv", C.conv_in, C.conv_out, t)) { typeIn("convType", "EU VOU TE FAZER", t, C.conv_in, C.conv_word - 0.15); rise("convW", t, C.conv_word); }
+    if (block("conv", C.conv_in, C.conv_out, t)) { typeIn("convType", "E, NESSE MOMENTO, EU VOU TE FAZER", t, C.conv_in + 0.06, C.conv_word - 0.15); rise("convW", t, C.conv_word);
+      fitPanel("conv", [["convType", C.conv_in], ["convW", C.conv_word]], t); }
 
     // ---- LOGO OFICIAL + 1ª EDIÇÃO ----
     const lgOn = t >= C.logo_in && t < C.logo_out + 0.5;
@@ -174,7 +193,14 @@
       $("logoChest").style.transform = `translateY(${16 * oCubic(P(t, C.logo_out, 0.3))}px) scale(${lerp(1.08, 1, q)})`;
       $("logoShine").style.backgroundPosition = `${lerp(100, 0, ioCubic(P(t, C.logo_in + 0.35, 0.9)))}% 0`;
     }
-    if (block("ed", C.ed_in - 0.1, C.logo_out, t)) { $("edK").style.opacity = oCubic(P(t, C.ed_in - 0.1, 0.3)); rise("edW", t, C.ed_in); }
+    if (block("imt", C.logo_in, C.imt_out, t)) {
+      rise("imt1", t, C.logo_in + 0.06); rise("imt2", t, C.imt_tec); rise("imt3", t, C.imt_cont);
+      fitPanel("imt", [["imt1", C.logo_in + 0.06], ["imt2", C.imt_tec], ["imt3", C.imt_cont]], t);
+    }
+    if (block("ed", C.ed_k0, C.logo_out, t)) {
+      typeIn("edK", "O PRIMEIRO ITCONT", t, C.ed_k0 + 0.04, C.ed_k1); rise("edW", t, C.ed_in);
+      fitPanel("ed", [["edK", C.ed_k0], ["edW", C.ed_in]], t);
+    }
 
     // ---- DATAS E LOCAL (parede à direita) ----
     function card(id, tin, k) {
@@ -194,14 +220,18 @@
       typeIn("rotType", "APRENDER UM POUCO MAIS SOBRE", t, C.rot_blk + 0.06, C.rot_kick_end);
       rise("rot1", t, C.rot_in); rise("rot2", t, C.proc_in);
       const dq = oBack(clamp(P(t, C.proc_in - 0.12, 0.3))); $("rotDot").style.transform = `scale(${t >= C.proc_in - 0.12 ? dq : 0})`;
+      fitPanel("rot", [["rotType", C.rot_blk], ["rot1", C.rot_in], ["rot2", C.proc_in]], t);
     }
     // ---- AUTOMAÇÃO E INTELIGÊNCIA ARTIFICIAL ----
-    if (block("auto", C.auto_in - 0.05, C.auto_out, t)) { rise("auto1", t, C.auto_in); rise("auto2", t, C.ia_in); }
+    if (block("auto", C.auto_in - 0.05, C.auto_out, t)) { rise("auto1", t, C.auto_in); rise("auto2", t, C.ia_in);
+      fitPanel("auto", [["auto1", C.auto_in], ["auto2", C.ia_in]], t); }
     // ---- COMO ISSO VEM IMPACTANDO ----
     if (block("imp", C.imp_in, C.imp_out, t)) {
       typeIn("impType", "COMO ISSO VEM IMPACTANDO", t, C.imp_in + 0.06, C.imp_kick_end);
       [["chip1", C.imp_vida], ["chip2", C.imp_neg], ["chip3", C.imp_cont]].forEach(([id, t0]) => {
         const q = clamp(P(t, t0 - 0.06, 0.32)); $(id).style.opacity = oCubic(q); $(id).style.transform = `scale(${t >= t0 - 0.06 ? lerp(0.6, 1, oBack(q)) : 0.6})`; });
+      // o painel cresce um pouco antes de cada selo (o selo nunca aparece cortado)
+      fitPanel("imp", [["impType", C.imp_in], ["chip1", C.imp_vida - 0.14], ["chip2", C.imp_neg - 0.14], ["chip3", C.imp_cont - 0.14]], t);
     }
 
     // ---- FINAL ----
@@ -209,9 +239,8 @@
     const fnOn = t >= C.final_in && t < TC + 0.4;
     show($("fin"), fnOn ? 1 - oCubic(P(t, TC - 0.1, 0.3)) : 0);   // cruza com a entrada da logo
     if (fnOn) {
-      $("fin1").style.transform = `translateY(${(1 - oExpo(P(t, C.final_in, 0.45))) * 135}%)`;
-      $("fin2").style.opacity = oCubic(P(t, C.final_word - 0.04, 0.25));
-      $("fin2").style.transform = `translateX(${(1 - oExpo(P(t, C.final_word - 0.04, 0.4))) * 30}px)`;
+      rise("fw0", t, C.final_espero); rise("fw1", t, C.final_por); rise("fw2", t, C.final_word);
+      fitPanel("fin", [["fw0", C.final_espero], ["fw1", C.final_por], ["fw2", C.final_word]], t);
     }
 
     // ---- LEGENDAS (seguem até o fim da fala, mesmo sobre o encerramento) ----

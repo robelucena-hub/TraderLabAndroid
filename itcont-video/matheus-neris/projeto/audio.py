@@ -55,8 +55,12 @@ def reverb(x, secs=1.6, mix=0.25):
     n = int(secs * SR); ir = rng.standard_normal(n) * np.exp(-np.linspace(0, 7, n))
     ir = lp(ir, 6000); ir /= np.sqrt(np.sum(ir ** 2))
     return x * (1 - mix) + fftconvolve(x, ir)[: len(x)] * mix
+def reverb_tail(x, secs=1.0, mix=0.25):
+    """reverb com a cauda inteira (efeitos curtos): a cauda não é cortada no fim do som seco"""
+    y = reverb(np.concatenate([x, np.zeros(int(secs * SR))]), secs, mix)
+    f = int(0.03 * SR); y[-f:] *= np.linspace(1, 0, f); return y
 def place(buf, x, t, g=1.0):
-    if t > DUR - 1.1 and len(x) < 2 * SR: return   # nada de batidas/notas novas no fim
+    if t > DUR - 1.1 and len(x) <= 2 * SR + 1: return   # nada de batidas/notas novas no fim (inclui o acorde de 2 s)
     o = int(t * SR)
     if o >= len(buf): return
     if o < 0: x = x[-o:]; o = 0
@@ -123,11 +127,11 @@ def sfx_whoosh(d=0.5):
         fc = 300 + 4000 * tt[i] ** 1.5
         out[i:i + 2048] = bp(x[i:i + 2048] if i + 2048 <= n else x[i:], fc * 0.6, min(fc * 1.6, 20000))[: len(out[i:i + 2048])]
     e = np.sin(np.pi * tt) ** 1.5
-    return reverb(out * e * 0.35, 0.8, 0.25)
+    return reverb_tail(out * e * 0.35, 0.8, 0.25)
 def sfx_pop():
     n = int(0.09 * SR); tt = np.arange(n) / SR
     f = 900 + 900 * (tt / tt[-1]); x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 45) * 0.25
-    return reverb(x, 0.5, 0.2)
+    return reverb_tail(x, 0.5, 0.2)
 def sfx_tick():
     n = int(0.05 * SR); tt = np.arange(n) / SR
     x = np.sin(2 * np.pi * 2400 * tt) * np.exp(-tt * 90) * 0.18 + hp(rng.standard_normal(n), 5000) * np.exp(-tt * 200) * 0.05
@@ -136,15 +140,15 @@ def sfx_riser(d=1.0):
     n = int(d * SR); tt = np.linspace(0, 1, n)
     x = hp(rng.standard_normal(n), 2000) * tt ** 2 * 0.08
     f = 200 + 900 * tt ** 2; x += np.sin(2 * np.pi * np.cumsum(f) / SR) * tt ** 2 * 0.06
-    return reverb(x, 1.0, 0.3)
+    return reverb_tail(x, 1.0, 0.3)
 def sfx_impact():
     n = int(1.4 * SR); tt = np.arange(n) / SR
     f = 30 + 70 * np.exp(-tt * 8); x = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 3.5) * 0.5
     x += lp(rng.standard_normal(n), 1200) * np.exp(-tt * 18) * 0.12
-    return reverb(x, 1.6, 0.35)
+    return reverb_tail(x, 1.6, 0.35)
 def sfx_hit():
     n = int(0.6 * SR); tt = np.arange(n) / SR
-    return reverb(lp(rng.standard_normal(n), 4000) * np.exp(-tt * 20) * 0.25 + np.sin(2*np.pi*55*tt) * np.exp(-tt*8) * 0.3, 1.0, 0.3)
+    return reverb_tail(lp(rng.standard_normal(n), 4000) * np.exp(-tt * 20) * 0.25 + np.sin(2*np.pi*55*tt) * np.exp(-tt*8) * 0.3, 1.0, 0.3)
 FX = np.zeros(N)
 for kind, t, g in T["sfx"]:
     x = {"whoosh": lambda: sfx_whoosh(0.5), "pop": sfx_pop, "tick": sfx_tick, "riser": lambda: sfx_riser(1.0),
@@ -179,13 +183,27 @@ mix = music + (voice * 1.0)[:, None] + FX[:, None] * 0.9
 sf.write(f"{build}/mix_pre.wav", mix.astype(np.float32), SR, subtype="FLOAT")
 sf.write(f"{build}/voice_edit.wav", voice.astype(np.float32), SR, subtype="FLOAT")
 sf.write(f"{build}/music_only.wav", music.astype(np.float32), SR, subtype="FLOAT")
-# normalização final: -14 LUFS, pico real -1 dBTP (duas passagens)
-meas = subprocess.run(["ffmpeg", "-hide_banner", "-i", f"{build}/mix_pre.wav", "-af",
-                       "loudnorm=I=-14:TP=-1.2:LRA=9:print_format=json", "-f", "null", "-"],
-                      capture_output=True, text=True).stderr
-js = json.loads(meas[meas.rfind("{"):meas.rfind("}") + 1])
-ln = (f"loudnorm=I=-14:TP=-1.2:LRA=9:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
-      f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true")
-subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", f"{build}/mix_pre.wav", "-af", ln, "-ar", "48000",
-                "-c:a", "pcm_s24le", f"{build}/mix_final.wav"], check=True)
+# normalização final: -14 LUFS, pico real -1,2 dBTP, com ganho CONSTANTE (loudnorm linear).
+# Se o ganho necessário levaria o pico acima do limite, um limitador suave tira antes só o excesso dos picos raros;
+# sem isso o loudnorm cai no modo dinâmico (um AGC lento que varia o ganho ao longo do vídeo).
+def ln_measure(path):
+    out = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-af", "loudnorm=I=-14:TP=-1.2:LRA=11:print_format=json",
+                          "-f", "null", "-"], capture_output=True, text=True).stderr
+    return json.loads(out[out.rfind("{"):out.rfind("}") + 1])
+js = ln_measure(f"{build}/mix_pre.wav")
+gain = -14 - float(js["input_i"]); tp_max = -1.2 - gain - 0.6          # pico permitido antes do ganho (margem 0,6 dB)
+src_ln = f"{build}/mix_pre.wav"
+if float(js["input_tp"]) > tp_max:
+    lim = 10 ** ((tp_max - 0.4) / 20)
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", src_ln, "-af",
+                    f"alimiter=limit={lim:.5f}:attack=4:release=60:level=false:asc=true:asc_level=0.5:latency=true",
+                    "-c:a", "pcm_f32le", f"{build}/mix_lim.wav"], check=True)
+    src_ln = f"{build}/mix_lim.wav"; js = ln_measure(src_ln)
+    print(f"limitador: picos acima de {20*np.log10(lim):.1f} dBFS (redução necessária {float(js['input_tp']) - tp_max:+.1f} dB após)")
+ln = (f"loudnorm=I=-14:TP=-1.2:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
+      f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true:print_format=json")
+r2 = subprocess.run(["ffmpeg", "-hide_banner", "-y", "-i", src_ln, "-af", ln, "-ar", "48000",
+                     "-c:a", "pcm_s24le", f"{build}/mix_final.wav"], capture_output=True, text=True, check=True).stderr
+j2 = json.loads(r2[r2.rfind("{"):r2.rfind("}") + 1])
+print("loudnorm:", j2.get("normalization_type"), "| ganho", f"{gain:+.2f} dB")
 print("loudness in:", js["input_i"], "LUFS ->", "-14")
