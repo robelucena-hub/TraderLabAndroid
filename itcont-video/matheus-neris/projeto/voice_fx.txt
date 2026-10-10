@@ -1,0 +1,1 @@
+highpass=f=80,equalizer=f=280:t=q:w=1.1:g=-2,equalizer=f=6900:t=q:w=1.4:g=-1.5,equalizer=f=13500:t=h:w=0.7:g=-3,acrossover=split=4500:order=4th[lo][hi];[hi]acompressor=threshold=0.1:ratio=3:attack=2:release=80:knee=4:detection=rms[hc];[lo][hc]amix=inputs=2:normalize=0,acompressor=threshold=-22dB:ratio=2:attack=8:release=160:makeup=1
