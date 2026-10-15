@@ -1,0 +1,1 @@
+pan=mono|c0=0.5*c0+0.5*c1,highpass=f=80,afftdn=nr=10:nf=-42:tn=1,agate=threshold=0.018:ratio=1.6:range=0.55:attack=4:release=160,equalizer=f=280:t=q:w=1.1:g=-2.5,equalizer=f=3400:t=q:w=1.0:g=1.5,acompressor=threshold=-24dB:ratio=2.8:attack=6:release=140:makeup=2,deesser=i=0.5:m=0.5:f=0.5
