@@ -4,7 +4,7 @@ W = [["Inteligência",11.47],["artificial",12.08],["e",12.64],["inovação",12.8
  ["Olá,",0.35,0.74],["eu",0.95],["sou",1.00],["Angelo",1.18],["Loula,",1.62,1.93],
  ["professor",2.48],["da",2.72],["UEFS,",2.88,3.12],
  ["pesquisador",3.33],["de",3.86],["inteligência",3.95],["artificial",4.42,4.87],
- ["e",5.35],["coordeno",5.48],["o",6.15],["programa",6.27],["de",6.48],["aceleração",6.64],["de",7.20],["startups.",7.36,7.78],
+ ["e",5.35],["coordeno",5.48],["o",6.15],["programa",6.27],["de",6.52],["aceleração",6.64],["de",7.20],["startups.",7.36,7.78],
  ["Trabalho",8.43],["na",8.72],["Agência",8.88],["de",9.20],["Inovação",9.36,9.85],
  ["e",9.91],["vou",10.00],["falar",10.16],["com",10.40],["vocês",10.56,10.92],
  ["sobre",11.28],["inteligência",11.44],["artificial",12.08],["e",12.64],["inovação",12.80,13.38],

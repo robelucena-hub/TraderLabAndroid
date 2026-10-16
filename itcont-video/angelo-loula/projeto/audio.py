@@ -159,9 +159,10 @@ for kind, t, g in T["sfx"]:
 # ---------- 4. mixagem: ducking da trilha sob a voz ----------
 win = int(0.02 * SR)
 venv = np.sqrt(np.convolve(voice ** 2, np.ones(win) / win, "same"))
-active = (20 * np.log10(venv + 1e-9) > -50).astype(float)
+active = (20 * np.log10(venv + 1e-9) > -58).astype(float)   # inclui palavras fracas ("e", "o")
 k = int(0.35 * SR); active = np.convolve(active, np.ones(k) / k, "same") > 0.02
 duck = active.astype(float)
+la = int(0.12 * SR); duck = np.maximum(duck, np.concatenate([duck[la:], np.zeros(la)]))   # antecipa 120 ms: a trilha já abaixou quando a fala recomeça
 a_s = int(0.06 * SR); r_s = int(0.6 * SR)        # suavização assimétrica
 sm = np.zeros(N); y = 0.0
 for i in range(0, N, 240):
@@ -184,15 +185,15 @@ fi = int(0.004 * SR); mix[:fi] *= np.linspace(0, 1, fi)[:, None]   # sem transie
 sf.write(f"{build}/mix_pre.wav", mix.astype(np.float32), SR, subtype="FLOAT")
 sf.write(f"{build}/voice_edit.wav", voice.astype(np.float32), SR, subtype="FLOAT")
 sf.write(f"{build}/music_only.wav", music.astype(np.float32), SR, subtype="FLOAT")
-# normalização final: -14 LUFS, pico real -1,2 dBTP, com ganho CONSTANTE (loudnorm linear).
+# normalização final: -14 LUFS, pico real -1,5 dBTP (margem para a recompressão AAC), com ganho CONSTANTE (loudnorm linear).
 # Se o ganho necessário levaria o pico acima do limite, um limitador suave tira antes só o excesso dos picos raros;
 # sem isso o loudnorm cai no modo dinâmico (um AGC lento que varia o ganho ao longo do vídeo).
 def ln_measure(path):
-    out = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-af", "loudnorm=I=-14:TP=-1.2:LRA=11:print_format=json",
+    out = subprocess.run(["ffmpeg", "-hide_banner", "-i", path, "-af", "loudnorm=I=-14:TP=-1.5:LRA=11:print_format=json",
                           "-f", "null", "-"], capture_output=True, text=True).stderr
     return json.loads(out[out.rfind("{"):out.rfind("}") + 1])
 js = ln_measure(f"{build}/mix_pre.wav")
-gain = -14 - float(js["input_i"]); tp_max = -1.2 - gain - 0.6          # pico permitido antes do ganho (margem 0,6 dB)
+gain = -14 - float(js["input_i"]); tp_max = -1.5 - gain - 0.6          # pico permitido antes do ganho (margem 0,6 dB)
 src_ln = f"{build}/mix_pre.wav"
 if float(js["input_tp"]) > tp_max:
     lim = 10 ** ((tp_max - 0.4) / 20)
@@ -201,7 +202,7 @@ if float(js["input_tp"]) > tp_max:
                     "-c:a", "pcm_f32le", f"{build}/mix_lim.wav"], check=True)
     src_ln = f"{build}/mix_lim.wav"; js = ln_measure(src_ln)
     print(f"limitador: picos acima de {20*np.log10(lim):.1f} dBFS (redução necessária {float(js['input_tp']) - tp_max:+.1f} dB após)")
-ln = (f"loudnorm=I=-14:TP=-1.2:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
+ln = (f"loudnorm=I=-14:TP=-1.5:LRA=11:measured_I={js['input_i']}:measured_TP={js['input_tp']}:"
       f"measured_LRA={js['input_lra']}:measured_thresh={js['input_thresh']}:offset={js['target_offset']}:linear=true:print_format=json")
 r2 = subprocess.run(["ffmpeg", "-hide_banner", "-y", "-i", src_ln, "-af", ln, "-ar", "48000",
                      "-c:a", "pcm_s24le", f"{build}/mix_final.wav"], capture_output=True, text=True, check=True).stderr

@@ -1,5 +1,7 @@
 """Quadros repetidos pela conversão 29,5 → 30 qps: substitui cada repetição por um quadro intermediário
 interpolado por fluxo óptico (DIS) entre o anterior e o seguinte (imagem e máscara).
+Se as duas imagens deformadas discordam demais (movimento rápido/oclusão: >0,8 % dos pixels com diferença >25),
+a interpolação criaria rasgos; nesse caso o quadro repetido original é mantido.
 
 uso: python3 dedup.py <plates_dir>   (os originais repetidos ficam em <plates_dir>/dup_orig/)
 """
@@ -24,8 +26,13 @@ for k in dups:
     fAC, fCA = dis.calc(gA, gC, None), dis.calc(gC, gA, None)
     h, w = gA.shape; gx, gy = np.meshgrid(np.arange(w, dtype=np.float32), np.arange(h, dtype=np.float32))
     def warp(im, f): return cv2.remap(im, gx - 0.5 * f[..., 0], gy - 0.5 * f[..., 1], cv2.INTER_LINEAR, borderMode=cv2.BORDER_REPLICATE)
-    M = 0.5 * warp(A, fAC).astype(np.float32) + 0.5 * warp(C, fCA).astype(np.float32)
+    wA, wC = warp(A, fAC).astype(np.float32), warp(C, fCA).astype(np.float32)
+    bad = float((np.abs(wA - wC).max(2) > 25).mean())
+    if bad > 0.008:
+        for sub in ("rgb", "alpha"): shutil.copy(f"{P}/dup_orig/{sub}_{k:05d}.png", f"{P}/{sub}/{k:05d}.png")
+        print(f"  {k}: mantido (discordância {100 * bad:.2f} %)"); continue
+    M = 0.5 * wA + 0.5 * wC
     aM = 0.5 * warp(aA, fAC).astype(np.float32) + 0.5 * warp(aC, fCA).astype(np.float32)
     cv2.imwrite(f"{P}/rgb/{k:05d}.png", np.clip(M + 0.5, 0, 255).astype(np.uint8))
     cv2.imwrite(f"{P}/alpha/{k:05d}.png", np.clip(aM + 0.5, 0, 255).astype(np.uint8))
-print("ok", len(dups), "quadros interpolados")
+print("ok")

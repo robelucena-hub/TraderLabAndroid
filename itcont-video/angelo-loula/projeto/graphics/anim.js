@@ -30,10 +30,10 @@
   for (let y = 0; y <= 1920; y += 64) el("line", { x1: 0, y1: y, x2: 1080, y2: y }, cg);
 
   // ---------- circuitos ----------
-  function buildCircuits(g, color, ys, avoid, xs = 1) {
+  function buildCircuits(g, color, ys, avoid, xs = 1, sides = [0, 1]) {
     const out = [];
     const bad = (pts) => (avoid || []).some((r) => pts.some(([x, y]) => x > r[0] - 40 && x < r[2] + 40 && y > r[1] - 40 && y < r[3] + 40));
-    for (let side = 0; side < 2; side++) {
+    for (const side of sides) {
       ys.forEach((y0, i) => {
         let pts, tries = 0;
         do {   // re-sorteia o traçado se algum vértice ou o terminal cair perto da área protegida
@@ -54,7 +54,7 @@
     }
     return out;
   }
-  const circ = buildCircuits($("circG"), "#3B82F6", [880, 1010, 1140], null, 0.55);   // só nas bordas da parede
+  const circ = buildCircuits($("circG"), "#3B82F6", [880, 1010, 1140], null, 0.55, [0]);   // só junto à borda esquerda: à direita a orelha dele ocupa a faixa da borda
   const circClose = buildCircuits($("closeCirc"), "#3B82F6", [300, 430, 560, 700, 840, 1190, 1310],
     [[140, 940, 940, 1110], [240, 1120, 840, 1300]]);   // nenhum traçado perto das linhas de informação nem do botão
   function animCircuits(list, t, tDraw, op, burst) {
@@ -118,7 +118,7 @@
     const blink = t > t1 && Math.floor((t - t1) * 2.5) % 2 === 1;
     $(id).innerHTML = text.slice(0, n) + (t >= t0 - 0.15 && !blink ? '<span class="caret"></span>' : "");
   }
-  function typeWords(id, words, t) {
+  function typeWords(id, words, t, caretFrom = -1e9) {
     let txt = "", started = false, done = true;
     words.forEach(([w, t0, t1], i) => {
       const n = Math.round(w.length * clamp(P(t, t0, Math.max(0.08, t1 - t0))));
@@ -126,13 +126,13 @@
       if (n < w.length) done = false;
     });
     const tEnd = words[words.length - 1][2], blink = done && Math.floor((t - tEnd) * 2.5) % 2 === 1;
-    $(id).innerHTML = txt + (t >= words[0][1] - 0.15 && !blink ? '<span class="caret"></span>' : "");
+    $(id).innerHTML = txt + (t >= Math.max(words[0][1] - 0.15, caretFrom) && !blink ? '<span class="caret"></span>' : "");
   }
   // bloco de título: aparece/some inteiro com leve subida na saída
   function block(id, tin, tout, t, dout = 0.3) {
     const on = t >= tin - 0.05 && t < tout + dout + 0.1;
     show($(id), on ? 1 - oCubic(P(t, tout, dout)) : 0);
-    if (on) $(id).style.transform = `translateY(${-20 * oCubic(P(t, tout, dout))}px)`;
+    if (on) $(id).style.transform = `translateY(${-8 * oCubic(P(t, tout, dout))}px)`;
     return on;
   }
   const rise = (id, t, t0, d = 0.45) => { $(id).style.transform = `translateY(${(1 - oExpo(P(t, t0, d))) * 135}%)`; };
@@ -222,10 +222,11 @@
       const cq = oBack(clamp(P(t, C.tema_in, 0.3)));
       $("temaChip").style.transform = `scale(${t >= C.tema_in ? cq : 0})`;
       typeWords("temaK1", [["VOU", C.kw_vou, C.kw_falar], ["FALAR", C.kw_falar, C.kw_com], ["COM", C.kw_com, C.kw_voces],
-                           ["VOCÊS", C.kw_voces, C.kw_voces_end], ["SOBRE", C.kw_sobre, C.tema_kick_end]], t);
+                           ["VOCÊS", C.kw_voces, C.kw_voces_end], ["SOBRE", C.kw_sobre, C.tema_kick_end]], t, C.tema_in + 0.06);
       const kq = ioCubic(P(t, C.tema_como - 0.04, 0.32));
       $("temaK1").style.transform = `translateY(${(-110 * kq).toFixed(1)}%)`;
-      $("temaK2").style.transform = `translateY(${(110 * (1 - kq)).toFixed(1)}%)`;
+      const kq2 = ioCubic(P(t, C.tema_como + 0.14, 0.3));
+      $("temaK2").style.transform = `translateY(${(110 * (1 - kq2)).toFixed(1)}%)`;
       const sw = ioCubic(P(t, C.tema_como - 0.04, 0.32));            // troca de frase nas duas linhas
       $("ia1").style.transform = `translateY(${((1 - oExpo(P(t, C.tema_ia, 0.45))) * 135 - 135 * sw).toFixed(2)}%)`;
       slideIn("ia2", t, C.tema_art);
@@ -244,7 +245,7 @@
     if (lgOn) {
       const q = oExpo(P(t, C.logo_in, 0.55));
       $("logoBadge").style.clipPath = `inset(0 ${(50 * (1 - q)).toFixed(2)}% 0 ${(50 * (1 - q)).toFixed(2)}% round 24px)`;
-      $("logoBadge").style.transform = `translateY(${-20 * oCubic(P(t, C.logo_out, 0.3))}px) scale(${lerp(1.08, 1, q)})`;
+      $("logoBadge").style.transform = `translateY(${-8 * oCubic(P(t, C.logo_out, 0.3))}px) scale(${lerp(1.08, 1, q)})`;
       $("logoShine").style.backgroundPosition = `${lerp(100, 0, ioCubic(P(t, C.logo_in + 0.35, 0.9)))}% 0`;
     }
     if (block("imt", C.imt_im, C.logo_out + 0.04, t)) { rise("imt1", t, C.imt_im); rise("imt2", t, C.imt_tec); rise("imt3", t, C.imt_cont); }
@@ -264,7 +265,7 @@
     if (ci !== capCur) {
       capCur = ci; const box = $("capBox"), tx = $("capTxt");
       tx.innerHTML = ci >= 0 ? capHTML(T.captions[ci].text).replace(/\n/g, "<br>") : "";
-      box.style.width = ""; box.style.fontSize = "";
+      box.style.width = ""; box.style.fontSize = "42px";
       if (ci >= 0 && $("cap").offsetHeight > 90) box.style.fontSize = "38px";
       if (ci >= 0) {   // largura da caixa = linha mais longa (text-wrap:balance não encolhe a caixa)
         const w = Math.max(...[...tx.getClientRects()].map((r) => r.width));
