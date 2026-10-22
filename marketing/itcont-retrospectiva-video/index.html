@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ITCONT UEFS — Retrospectiva (motion)</title>
+<style>
+  @font-face { font-family: "Sora";    src: url("fonts/Sora-Variable.ttf") format("truetype");    font-weight: 100 800; font-display: block; }
+  @font-face { font-family: "Manrope"; src: url("fonts/Manrope-Variable.ttf") format("truetype"); font-weight: 200 800; font-display: block; }
+
+  :root {
+    --W: 1080px; --H: 1920px;
+    --cyan-300: #67e8f9; --cyan-400: #22d3ee; --sky-200: #bae6fd; --sky-300: #7dd3fc;
+    --gold-200: #fff1c4; --gold-300: #ffe08f; --gold-400: #f2c55c; --gold-500: #d49d34;
+    --text: #eef5ff; --text-soft: #c3d6f5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #01040f; overflow: hidden; }
+  body.preview { display: grid; place-items: center; height: 100vh; }
+  #stage {
+    position: relative; width: var(--W); height: var(--H); overflow: hidden;
+    font-family: "Manrope", sans-serif; color: var(--text);
+    background:
+      radial-gradient(ellipse 600px 600px at 0% 0%, rgba(14, 165, 233, .13), transparent 70%),
+      radial-gradient(ellipse 600px 600px at 100% 0%, rgba(14, 165, 233, .10), transparent 70%),
+      radial-gradient(ellipse 1100px 720px at 50% 100%, rgba(29, 78, 216, .32), transparent 70%),
+      linear-gradient(180deg, #071a4a 0%, #041236 50%, #030b26 100%);
+  }
+  .abs { position: absolute; }
+  .layer { position: absolute; inset: 0; pointer-events: none; }
+
+  /* fundo: mídia desfocada + tecnologia */
+  #ambient { opacity: .46; }
+  .amb { position: absolute; inset: 0; opacity: 0; overflow: hidden; }
+  .amb img { width: 100%; height: 100%; object-fit: cover; transform: scale(1.18); filter: blur(42px) saturate(1.25) brightness(.72); }
+  #tint { background: linear-gradient(180deg, rgba(4, 16, 54, .55) 0%, rgba(3, 11, 38, .35) 50%, rgba(2, 8, 28, .7) 100%); }
+  #glow { left: 50%; width: 1400px; height: 1100px; margin: -550px 0 0 -700px;
+    background: radial-gradient(ellipse 420px 340px at 50% 50%, rgba(34, 211, 238, .14), transparent 72%),
+                radial-gradient(ellipse 640px 520px at 50% 50%, rgba(37, 99, 235, .40), transparent 70%); }
+  #grid { background-image: linear-gradient(rgba(125, 211, 252, .06) 1px, transparent 1px), linear-gradient(90deg, rgba(125, 211, 252, .06) 1px, transparent 1px);
+    background-size: 54px 54px; }
+  #fx { width: var(--W); height: var(--H); }
+  .particle { position: absolute; left: 0; top: 0; border-radius: 50%; background: #bae6fd; box-shadow: 0 0 6px rgba(103, 232, 249, .8); }
+
+  /* placa clara com logos do evento */
+  .plate { position: absolute; left: 50%; border-radius: 34px; overflow: hidden; display: flex; align-items: center; justify-content: center; gap: 52px;
+    background: linear-gradient(180deg, #ffffff 0%, #f1f6fd 60%, #e3ecf8 100%);
+    box-shadow: 0 34px 70px rgba(0, 3, 18, .6), 0 0 0 1px rgba(255, 255, 255, .7), 0 0 60px rgba(34, 211, 238, .22); }
+  .plate::before { content: ""; position: absolute; top: 0; left: 18%; right: 18%; height: 3px; border-radius: 3px; z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--gold-400), var(--gold-300), var(--gold-400), transparent); }
+  .plate .divider { width: 1.5px; height: 150px; background: linear-gradient(180deg, transparent, rgba(10, 34, 102, .28), transparent); }
+  .plate img { display: block; }
+  .sheen { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 5; }
+  .sheen b { position: absolute; top: -20%; bottom: -20%; left: 0; width: 38%; transform: translateX(-160%) skewX(-18deg);
+    background: linear-gradient(90deg, transparent, var(--sheen, rgba(255,255,255,.5)), transparent); }
+  #introPlate { width: 800px; height: 440px; margin-left: -400px; }
+  #introPlate img { height: 360px; }
+  #beam { left: 50%; margin-left: -450px; width: 900px; height: 3px; border-radius: 3px;
+    background: linear-gradient(90deg, transparent, var(--cyan-400) 25%, #fff 50%, var(--cyan-400) 75%, transparent);
+    box-shadow: 0 0 22px rgba(34, 211, 238, .9), 0 0 60px rgba(34, 211, 238, .5); }
+
+  /* tipografia */
+  .eyebrow { display: flex; align-items: center; gap: 22px; height: 40px; }
+  .eyebrow span { flex: none; font-family: "Sora"; font-weight: 600; font-size: 30px; letter-spacing: 0; color: var(--sky-200); text-shadow: 0 0 22px rgba(34, 211, 238, .45); white-space: nowrap; }
+  .eyebrow i { display: block; width: 80px; height: 2px; border-radius: 2px; position: relative; flex: none; }
+  .eyebrow i.l { transform-origin: 100% 50%; background: linear-gradient(90deg, transparent, var(--gold-400)); }
+  .eyebrow i.r { transform-origin: 0 50%; background: linear-gradient(90deg, var(--gold-400), transparent); }
+  .eyebrow i::after { content: ""; position: absolute; top: 50%; width: 8px; height: 8px; background: var(--gold-300); transform: translateY(-50%) rotate(45deg); box-shadow: 0 0 10px rgba(242, 197, 92, .8); }
+  .eyebrow i.l::after { right: -2px; } .eyebrow i.r::after { left: -2px; }
+  .eyebrow span .ch { margin-right: .4em; } .eyebrow span .ch:last-child { margin-right: 0; }   /* espaçamento por letra (estável com animação) */
+  .center .eyebrow { justify-content: center; }
+  .left .eyebrow i.r { display: none; }
+  .ch { display: inline-block; white-space: pre; }
+  .grad-ice .ch { background: linear-gradient(180deg, #ffffff 0%, #eef7ff 40%, #b9dcff 75%, #86c2ff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .grad-cyan .ch { background: linear-gradient(180deg, #e9fdff 0%, var(--cyan-300) 55%, #22b8e6 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .grad-gold .ch { background: linear-gradient(180deg, var(--gold-200) 0%, var(--gold-300) 35%, var(--gold-400) 68%, var(--gold-500) 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .shadow { filter: drop-shadow(0 8px 22px rgba(0, 6, 30, .6)); }
+
+  #introEyebrow { left: 0; right: 0; }
+  #tagline { left: 0; right: 0; text-align: center; font-family: "Sora"; font-weight: 800; line-height: 1; }
+  #tagline .w { font-size: 108px; letter-spacing: .03em; padding-left: .03em; margin-bottom: 18px; }
+  #tagline .sub { margin-top: 26px; font-weight: 600; font-size: 30px; letter-spacing: .34em; padding-left: .34em; color: var(--text-soft); }
+
+  .chapter { position: absolute; }
+  .chapter.center { left: 0; right: 0; text-align: center; }
+  .chapter.left { width: 780px; }
+  .chapter .title { margin-top: 12px; font-family: "Sora"; font-weight: 800; line-height: 1; letter-spacing: .02em; }
+  .chapter.center .title { padding-left: .02em; }
+  .chapter .sub { margin-top: 16px; font-family: "Manrope"; font-weight: 600; color: var(--text-soft); line-height: 1.3; }
+  .chapter .rule { width: 64px; height: 3px; border-radius: 3px; margin-top: 22px; background: linear-gradient(90deg, var(--gold-500), var(--gold-300)); box-shadow: 0 0 10px rgba(242,197,92,.6); transform-origin: 0 50%; }
+  .chapter.center .rule { display: none; }
+
+  /* quadros de mídia */
+  .shot { position: absolute; left: 0; top: 0; padding: 4px; border-radius: 34px; transform-origin: 50% 50%; will-change: transform, filter, opacity;
+    background: linear-gradient(140deg, #9be7ff 0%, #3b82f6 30%, #13307e 58%, #f2c55c 100%);
+    box-shadow: 0 40px 80px rgba(0, 3, 18, .6), 0 0 54px rgba(34, 211, 238, .28); }
+  .shot .tile { position: relative; width: 100%; height: 100%; border-radius: 30px; overflow: hidden; background: #0a1a44; }
+  .shot .media { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform-origin: 50% 50%; }
+  .shot .tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), inset 0 0 0 1px rgba(0, 20, 60, .2); }
+  .stat { position: absolute; left: 0; right: 0; bottom: 0; padding: 120px 40px 38px; z-index: 4;
+    background: linear-gradient(180deg, transparent 0%, rgba(2, 8, 30, .55) 35%, rgba(2, 8, 30, .9) 100%); }
+  .stat .big { font-family: "Sora"; font-weight: 800; font-size: 150px; line-height: .9; letter-spacing: -.02em;
+    background: linear-gradient(180deg, #ffffff 0%, #e6f3ff 50%, #9fd0ff 100%); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 6px 16px rgba(0, 6, 30, .6)); font-variant-numeric: tabular-nums; }
+  .stat .lbl { margin-top: 10px; font-family: "Sora"; font-weight: 700; font-size: 40px; letter-spacing: .14em; color: var(--cyan-300); }
+  .stat .row { display: flex; align-items: baseline; gap: 18px; margin-top: 10px; }
+  .stat .row b { font-family: "Sora"; font-weight: 800; font-size: 66px; line-height: 1; min-width: 2.1em;
+    background: linear-gradient(180deg, var(--gold-200), var(--gold-300) 40%, var(--gold-400)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .stat .row span { font-weight: 700; font-size: 32px; color: #e8f1ff; }
+
+  /* encerramento */
+  #thanks { left: 0; right: 0; text-align: center; font-family: "Sora"; line-height: 1; }
+  #thanks .l1 { font-weight: 800; font-size: 124px; letter-spacing: .02em; padding-left: .02em; }
+  #thanks .l2 { margin-top: 22px; font-weight: 600; font-size: 46px; color: #e8f1ff; }
+  #thanks .l3 { margin-top: 20px; font-weight: 800; font-size: 86px; letter-spacing: .02em; padding-left: .02em; }
+  #outroPlate { width: 820px; height: 260px; margin-left: -410px; }
+  #outroPlate .itcont { height: 196px; } #outroPlate .cda { height: 184px; }
+  .spark { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="ambient" class="layer"></div>
+  <div id="tint" class="layer"></div>
+  <div id="glow" class="abs"></div>
+  <div id="grid" class="layer"></div>
+  <svg id="fx" class="layer" aria-hidden="true">
+    <defs>
+      <radialGradient id="pulse"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#67e8f9"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+      <path id="sparkPath" d="M0 -12 C1 -4 4 -1 12 0 C4 1 1 4 0 12 C-1 4 -4 1 -12 0 C-4 -1 -1 -4 0 -12Z"/>
+    </defs>
+    <g id="circuits" fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="pulses"></g>
+  </svg>
+  <div id="particles" class="layer"></div>
+
+  <!-- ABERTURA -->
+  <div id="beam" class="abs"></div>
+  <div id="introEyebrow" class="abs center"><div class="eyebrow"><i class="l"></i><span id="introEyebrowText">RETROSPECTIVA</span><i class="r"></i></div></div>
+  <div id="introPlate" class="plate abs">
+    <img src="assets/evento/logo-itcont-recorte.png" alt="I Imersão Tecnológica Contábil — ITCONT">
+    <div class="sheen"><b></b></div>
+  </div>
+  <div id="tagline" class="abs">
+    <div class="w grad-ice shadow" id="w1">INOVAÇÃO</div>
+    <div class="w grad-cyan shadow" id="w2">PRÁTICA</div>
+    <div class="w grad-gold shadow" id="w3">CONEXÕES</div>
+    <div class="sub" id="tagSub">PARA O FUTURO DA CONTABILIDADE</div>
+  </div>
+
+  <!-- CAPÍTULOS (textos) -->
+  <div id="chapters"></div>
+  <!-- QUADROS DE MÍDIA -->
+  <div id="shots"></div>
+
+  <!-- ENCERRAMENTO -->
+  <div id="thanks" class="abs">
+    <div class="l1 grad-ice shadow" id="th1">OBRIGADO</div>
+    <div class="l2" id="th2">por fazer parte dessa</div>
+    <div class="l3 grad-gold shadow" id="th3">TRANSFORMAÇÃO!</div>
+  </div>
+  <div id="outroPlate" class="plate abs">
+    <img class="itcont" src="assets/evento/logo-itcont-recorte.png" alt="I Imersão Tecnológica Contábil — ITCONT">
+    <span class="divider"></span>
+    <img class="cda" src="assets/evento/logo-contador-do-amanha-recorte.png" alt="Contador do Amanhã">
+    <div class="sheen"><b></b></div>
+  </div>
+  <div id="sparks" class="layer"></div>
+</div>
+
+<script src="lib/gsap.min.js"></script>
+<script src="media/manifest.js"></script>
+<script>
+(() => {
+  const FPS = 30;
+  const M = window.MEDIA;
+  const $ = (s) => document.querySelector(s);
+  const params = new URLSearchParams(location.search);
+  const RENDER = params.has("render");
+
+  // ================= ROTEIRO =================
+  // Capítulos e quadros, na ordem. dur = tempo do quadro na tela (s); speed < 1 = câmera lenta.
+  const CHAPTERS = [
+    { title: "CONHECIMENTO", sub: "Tecnologia e contabilidade em pauta", shots: [
+      { m: "host-palco", dur: 2.4 },
+      { m: "mesa-projecao", dur: 2.4, kb: [1.04, 1.13, 0, -2] },
+      { m: "dupla-mic", dur: 2.2 },
+      { m: "palco-mesa", dur: 2.1, kb: [1.05, 1.16, 3, 2] },
+      { m: "palestrante", dur: 2.3 },
+      { m: "palco-dupla", dur: 2.1, kb: [1.04, 1.12, 0, 3] },
+    ]},
+    { title: "PARTICIPAÇÃO", sub: "Um auditório cheio de energia", shots: [
+      { m: "auditorio", dur: 3.2, speed: .62, stat: "total" },
+      { m: "plateia-lateral", dur: 2.8, stat: "split" },
+      { m: "aplausos", dur: 1.7, speed: .65 },
+      { m: "bracos-ao-alto", dur: 3.0 },
+      { m: "plateia-em-pe", dur: 2.2 },
+    ]},
+    { title: "CONEXÕES", sub: "Universidade, estudantes e profissionais lado a lado", shots: [
+      { m: "crcba-jovem", dur: 2.6, kb: [1.03, 1.1, 0, -2] },
+      { m: "grupo-backdrop", dur: 3.0, kb: [1.02, 1.08, 0, -1] },
+      { m: "trio", dur: 2.6, kb: [1.03, 1.12, 0, -3] },
+    ]},
+  ];
+  const STATS = { total: 336, split: [[276, "Discentes"], [19, "Docentes"], [41, "Profissionais contábeis"]] };
+
+  // ================= LAYOUTS =================
+  const LAYOUTS = {
+    "9x16": { W: 1080, H: 1920, glowY: 1000,
+      introEyebrowTop: 540, introTop: 610, tagTop: 745,
+      chapter: { cls: "center", top: 196, titleSize: 80, subSize: 30, subW: 900, left: 0 },
+      zone: { x: 80, y: 430, w: 920, h: 1160 },
+      thanksTop: 560, outroTop: 1060,
+      sparks: [[915, 236, 1.1], [960, 286, .55], [150, 1640, .8], [930, 1650, .6], [170, 620, .7], [915, 700, 1]] },
+    "16x9": { W: 1920, H: 1080, glowY: 540,
+      introEyebrowTop: 168, introTop: 236, tagTop: 250,
+      chapter: { cls: "left", top: 380, titleSize: 78, subSize: 32, subW: 640, left: 130 },
+      zone: { x: 880, y: 100, w: 920, h: 880 },
+      thanksTop: 150, outroTop: 600,
+      sparks: [[1290, 150, 1.1], [1340, 196, .55], [140, 980, .8], [1820, 990, .6], [520, 190, .7], [1400, 330, 1]] },
+  };
+  const FORMAT = params.get("format") === "16x9" ? "16x9" : "9x16";
+  const L = LAYOUTS[FORMAT], W = L.W, H = L.H;
+  (() => {
+    const rs = document.documentElement.style; rs.setProperty("--W", W + "px"); rs.setProperty("--H", H + "px");
+    $("#fx").setAttribute("viewBox", `0 0 ${W} ${H}`);
+    $("#glow").style.top = L.glowY + "px";
+    $("#grid").style.webkitMaskImage = $("#grid").style.maskImage = `radial-gradient(ellipse ${W * .62}px ${H * .48}px at 50% ${L.glowY}px, #000 0%, rgba(0,0,0,.3) 55%, transparent 80%)`;
+    $("#introEyebrow").style.top = L.introEyebrowTop + "px";
+    $("#introPlate").style.top = L.introTop + "px";
+    $("#beam").style.top = (L.introTop + 219) + "px";
+    $("#tagline").style.top = L.tagTop + "px";
+    $("#thanks").style.top = L.thanksTop + "px";
+    $("#outroPlate").style.top = L.outroTop + "px";
+  })();
+
+  // ================= utilidades =================
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const lerp = (a, b, k) => a + (b - a) * k;
+  const easeInOut = (k) => k < .5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2;
+  function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  function splitChars(el) { const txt = el.textContent; el.textContent = "";
+    return [...txt].map((c) => { const s = document.createElement("span"); s.className = "ch"; s.textContent = c; el.appendChild(s); return s; }); }
+  const NS = "http://www.w3.org/2000/svg";
+
+  // ================= circuitos, partículas, brilhos =================
+  const base = [[[0,300],[70,300],[120,250],[244,250]], [[0,334],[100,334],[142,376],[200,376]], [[36,0],[36,74],[86,124],[86,196]],
+                [[104,0],[104,36],[142,74],[226,74],[256,44],[312,44]], [[0,172],[34,172],[64,142]]];
+  const maps = [(p) => p, (p) => [W - p[0], p[1]], (p) => [p[0], H - p[1]], (p) => [W - p[0], H - p[1]]];
+  const polylines = [];
+  maps.forEach((m, mi) => base.forEach((pl, pi) => {
+    const pts = pl.map(m); let len = 0; const seg = [];
+    for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i-1][0], pts[i][1] - pts[i-1][1]); seg.push(l); len += l; }
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", "M" + pts.map((p) => p.join(" ")).join(" L"));
+    path.setAttribute("stroke", "#67e8f9"); path.setAttribute("stroke-opacity", mi < 2 ? ".42" : ".30"); path.setAttribute("stroke-width", "1.6");
+    path.style.strokeDasharray = len; path.style.strokeDashoffset = len; $("#circuits").appendChild(path);
+    const end = pts[pts.length - 1], node = document.createElementNS(NS, "circle");
+    node.setAttribute("cx", end[0]); node.setAttribute("cy", end[1]); node.setAttribute("r", 4.5);
+    node.setAttribute("stroke", pi === 3 ? "#f2c55c" : "#7dd3fc"); node.setAttribute("stroke-width", 1.5); node.setAttribute("stroke-opacity", ".8");
+    node.style.opacity = 0; $("#circuits").appendChild(node);
+    polylines.push({ pts, seg, len, path, node });
+  }));
+  const pulses = polylines.filter((_, i) => i % 2 === 0).map((pl, i) => {
+    const c = document.createElementNS(NS, "circle"); c.setAttribute("r", 7); c.setAttribute("fill", "url(#pulse)"); c.style.opacity = 0; $("#pulses").appendChild(c);
+    return { pl, c, off: (i * 0.137) % 1, speed: 0.22 + (i % 3) * 0.05 }; });
+  function pointAt(pl, f) { let d = f * pl.len;
+    for (let i = 0; i < pl.seg.length; i++) { if (d <= pl.seg[i]) { const a = pl.pts[i], b = pl.pts[i+1], k = d / pl.seg[i]; return [a[0] + (b[0]-a[0]) * k, a[1] + (b[1]-a[1]) * k]; } d -= pl.seg[i]; }
+    return pl.pts[pl.pts.length - 1]; }
+  const R = rng(11), parts = [];
+  for (let i = 0; i < 46; i++) { const el = document.createElement("i"); el.className = "particle"; const s = 1.5 + R() * 2.6;
+    el.style.width = el.style.height = s + "px"; $("#particles").appendChild(el);
+    parts.push({ el, x: R() * W, y: R() * H, v: 12 + R() * 26, ph: R() * 6.28, a: .25 + R() * .5 }); }
+  const sparks = L.sparks.map(([x, y, s]) => { const d = document.createElement("div"); d.className = "spark";
+    d.style.left = x + "px"; d.style.top = y + "px"; d.style.opacity = 0;
+    d.innerHTML = '<svg viewBox="-15 -15 30 30" width="30" height="30"><use href="#sparkPath" fill="#ffe08f"/></svg>';
+    $("#sparks").appendChild(d); return { d, s }; });
+
+  // ================= capítulos (blocos de texto) =================
+  const C = L.chapter;
+  const chapterEls = CHAPTERS.map((ch, ci) => {
+    const el = document.createElement("div"); el.className = "chapter " + C.cls;
+    el.style.top = C.top + "px"; if (C.cls === "left") el.style.left = C.left + "px";
+    el.innerHTML = `<div class="eyebrow"><i class="l"></i><span>ITCONT · UEFS</span><i class="r"></i></div>
+      <div class="title grad-ice shadow" style="font-size:${C.titleSize}px">${ch.title}</div>
+      <div class="sub" style="font-size:${C.subSize}px; max-width:${C.subW}px; ${C.cls === "center" ? "margin-left:auto;margin-right:auto" : ""}">${ch.sub}</div>
+      <div class="rule"></div>`;
+    $("#chapters").appendChild(el);
+    return { el, chars: splitChars(el.querySelector(".title")), eyeChars: splitChars(el.querySelector(".eyebrow span")),
+             lines: el.querySelectorAll(".eyebrow i"), sub: el.querySelector(".sub"), rule: el.querySelector(".rule") };
+  });
+
+  // ================= quadros de mídia =================
+  function frameRect(aspect) {
+    const z = L.zone; const a = clamp(aspect, .667, 1.5);
+    let w = Math.min(z.w, z.h * a), h = w / a;
+    return { w, h, x: z.x + (z.w - w) / 2, y: z.y + (z.h - h) / 2 };
+  }
+  const shots = [];
+  CHAPTERS.forEach((ch, ci) => ch.shots.forEach((s) => {
+    const md = M[s.m]; if (!md) throw new Error("Mídia não encontrada: " + s.m);
+    const r = frameRect(md.w / md.h);
+    const el = document.createElement("div"); el.className = "shot";
+    Object.assign(el.style, { width: r.w + "px", height: r.h + "px", transform: `translate(${r.x}px, ${r.y}px)` });
+    const src = md.type === "photo" ? md.src : `${md.dir}/0001.jpg`;
+    el.innerHTML = `<div class="tile"><img class="media" src="${src}" alt=""></div><div class="sheen"><b></b></div>`;
+    if (s.stat === "total") el.querySelector(".tile").insertAdjacentHTML("beforeend",
+      `<div class="stat"><div class="big">0</div><div class="lbl">INSCRITOS</div></div>`);
+    if (s.stat === "split") el.querySelector(".tile").insertAdjacentHTML("beforeend",
+      `<div class="stat">${STATS.split.map(([n, l]) => `<div class="row"><b>${n}</b><span>${l}</span></div>`).join("")}</div>`);
+    el.style.opacity = 0; el.style.visibility = "hidden";
+    $("#shots").appendChild(el);
+    const amb = document.createElement("div"); amb.className = "amb"; amb.innerHTML = `<img src="${src}" alt="">`; $("#ambient").appendChild(amb);
+    shots.push({ ...s, ci, md, r, el, img: el.querySelector(".media"), amb, ambImg: amb.querySelector("img"),
+                 kb: s.kb || [1.02, 1.07, 0, 0], speed: s.speed || 1, statEl: el.querySelector(".stat") });
+  }));
+
+  // ================= textos por letra =================
+  const introEyeChars = splitChars($("#introEyebrowText"));
+  const tagW = ["#w1", "#w2", "#w3"].map((s) => splitChars($(s)));
+  const tagSubChars = splitChars($("#tagSub"));
+  const th1 = splitChars($("#th1")), th3 = splitChars($("#th3"));
+
+  // ================= linha do tempo =================
+  const tl = gsap.timeline({ paused: true, onUpdate: () => drive(tl.time()) });
+  const E = { out: "power3.out", inOut: "power3.inOut", expo: "expo.out" };
+  const fxState = { pulses: 0, particles: 0 };
+
+  gsap.set("#grid", { opacity: 0 });
+  gsap.set("#beam", { scaleX: 0, opacity: 0 });
+  gsap.set("#introPlate", { scaleY: .02, opacity: 0 });
+  gsap.set("#introPlate img", { opacity: 0, scale: .92, filter: "blur(10px)" });
+  gsap.set("#introEyebrow .eyebrow i", { scaleX: 0 });
+  gsap.set(introEyeChars, { opacity: 0, y: 18 });
+  gsap.set(tagW.flat(), { opacity: 0, y: 60, scale: 1.25, filter: "blur(12px)" });
+  gsap.set(tagSubChars, { opacity: 0, y: 14 });
+  chapterEls.forEach((c) => { gsap.set(c.chars, { opacity: 0, y: 70, filter: "blur(10px)" }); gsap.set(c.eyeChars, { opacity: 0, y: 16 });
+    gsap.set(c.lines, { scaleX: 0 }); gsap.set(c.sub, { opacity: 0, y: 24 }); gsap.set(c.rule, { scaleX: 0 }); });
+  gsap.set([th1, th3].flat(), { opacity: 0, y: 80, filter: "blur(10px)" });
+  gsap.set("#th2", { opacity: 0, y: 30 });
+  gsap.set("#outroPlate", { opacity: 0, y: 70, scale: .96 });
+
+  // 1) Abertura (0 – 3,6 s)
+  tl.to("#grid", { opacity: 1, duration: 1.2, ease: "none" }, 0)
+    .to(fxState, { particles: 1, duration: 1.5, ease: "none" }, 0)
+    .to(polylines.map((p) => p.path), { strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut", stagger: .04 }, .1)
+    .to(polylines.map((p) => p.node), { opacity: 1, duration: .3, stagger: .04 }, 1.0)
+    .to(fxState, { pulses: 1, duration: .8 }, 1.4)
+    .to("#beam", { scaleX: 1, opacity: 1, duration: .55, ease: E.expo }, .15)
+    .to("#introPlate", { scaleY: 1, opacity: 1, duration: .7, ease: E.expo }, .55)
+    .to("#beam", { opacity: 0, scaleX: 1.15, duration: .5, ease: "power1.out" }, .95)
+    .to("#introPlate img", { opacity: 1, scale: 1, filter: "blur(0px)", duration: .7, ease: E.out }, .85)
+    .fromTo("#introPlate .sheen b", { x: "-160%" }, { x: "330%", duration: .8, ease: "power2.inOut" }, 1.45)
+    .to("#introEyebrow .eyebrow i", { scaleX: 1, duration: .6, ease: E.out }, 1.3)
+    .to(introEyeChars, { opacity: 1, y: 0, duration: .45, stagger: .04, ease: E.out }, 1.35)
+    .to(sparks.slice(0, 2).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i].s, duration: .4, stagger: .1, ease: "back.out(3)" }, 2.0)
+    .to("#introPlate", { y: -60, scale: .9, opacity: 0, filter: "blur(8px)", duration: .45, ease: "power2.in" }, 3.1)
+    .to("#introEyebrow", { y: -40, opacity: 0, duration: .4, ease: "power2.in" }, 3.1)
+    .to(sparks.slice(0, 2).map((s) => s.d), { opacity: 0, duration: .3 }, 3.1);
+
+  // 2) Lema (3,5 – 6,5 s)
+  tagW.forEach((chars, i) => tl.to(chars, { opacity: 1, y: 0, scale: 1, filter: "blur(0px)", duration: .55, stagger: .03, ease: E.out }, 3.55 + i * .38));
+  tl.to(tagSubChars, { opacity: 1, y: 0, duration: .4, stagger: .02, ease: E.out }, 4.75)
+    .to([...tagW.flat(), ...tagSubChars], { opacity: 0, y: -40, filter: "blur(10px)", duration: .45, stagger: .006, ease: "power2.in" }, 6.05);
+
+  // 3) Capítulos com quadros de mídia
+  const OVERLAP = .15, ENTER = .7, EXIT = .55;
+  let t = 6.55;
+  CHAPTERS.forEach((ch, ci) => {
+    const c = chapterEls[ci];
+    tl.to(c.lines, { scaleX: 1, duration: .55, ease: E.out }, t)
+      .to(c.eyeChars, { opacity: 1, y: 0, duration: .4, stagger: .03, ease: E.out }, t + .05)
+      .to(c.chars, { opacity: 1, y: 0, filter: "blur(0px)", duration: .6, stagger: .035, ease: E.out }, t + .1)
+      .to(c.sub, { opacity: 1, y: 0, duration: .55, ease: E.out }, t + .5)
+      .to(c.rule, { scaleX: 1, duration: .5, ease: E.out }, t + .55);
+    let s = t + .6;
+    const myShots = shots.filter((x) => x.ci === ci);
+    myShots.forEach((sh, k) => {
+      sh.start = s; sh.end = s + sh.dur;
+      const dir = FORMAT === "16x9" ? 1 : 1;
+      tl.set(sh.el, { visibility: "visible" }, s)
+        .fromTo(sh.el, { opacity: 0, x: sh.r.x + 170 * dir, y: sh.r.y, scale: .92, rotationY: -12, filter: "blur(12px)", transformPerspective: 1600 },
+                       { opacity: 1, x: sh.r.x, y: sh.r.y, scale: 1, rotationY: 0, filter: "blur(0px)", duration: ENTER, ease: E.out }, s)
+        .to(sh.amb, { opacity: 1, duration: ENTER, ease: "none" }, s)
+        .fromTo(sh.el.querySelector(".sheen b"), { x: "-160%" }, { x: "330%", duration: .9, ease: "power2.inOut" }, s + .3);
+      const last = k === myShots.length - 1;
+      tl.to(sh.el, { opacity: 0, x: sh.r.x - 170, scale: .92, rotationY: 12, filter: "blur(12px)", duration: EXIT, ease: "power2.in" }, sh.end)
+        .to(sh.amb, { opacity: 0, duration: EXIT + .15, ease: "none" }, sh.end)
+        .set(sh.el, { visibility: "hidden" }, sh.end + EXIT);
+      if (sh.statEl) {
+        gsap.set(sh.statEl.children, { opacity: 0, y: 30 });
+        tl.to(sh.statEl.children, { opacity: 1, y: 0, duration: .5, stagger: .18, ease: E.out }, s + .45);
+        if (sh.stat === "total") sh.countAt = s + .45;   // contagem 0 → 336 calculada em drive()
+      }
+      s = sh.end - OVERLAP;
+    });
+    const chEnd = myShots[myShots.length - 1].end;
+    tl.to([...c.eyeChars, ...c.chars], { opacity: 0, y: -40, filter: "blur(8px)", duration: .4, stagger: .012, ease: "power2.in" }, chEnd)
+      .to([c.sub, c.rule, ...c.lines], { opacity: 0, duration: .35 }, chEnd);
+    t = chEnd + .45;
+  });
+
+  // 4) Encerramento
+  const TC = t + .1;
+  tl.to(th1, { opacity: 1, y: 0, filter: "blur(0px)", duration: .65, stagger: .045, ease: E.out }, TC)
+    .to("#th2", { opacity: 1, y: 0, duration: .55, ease: E.out }, TC + .45)
+    .to(th3, { opacity: 1, y: 0, filter: "blur(0px)", duration: .6, stagger: .035, ease: E.out }, TC + .7)
+    .to("#outroPlate", { opacity: 1, y: 0, scale: 1, duration: .8, ease: E.out }, TC + 1.25)
+    .fromTo("#outroPlate .sheen b", { x: "-160%" }, { x: "330%", duration: .9, ease: "power2.inOut" }, TC + 2.0)
+    .to(sparks.slice(4, 6).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i + 4].s, duration: .45, stagger: .12, ease: "back.out(3)" }, TC + 1.4)
+    .to(sparks.slice(2, 4).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i + 2].s, duration: .45, stagger: .12, ease: "back.out(3)" }, TC + 1.7);
+  const DURATION = TC + 5.6;
+  tl.to({}, { duration: .001 }, DURATION - .001);
+
+  // ================= estado por quadro =================
+  let pending = [];
+  function setSrc(img, src) { if (img.getAttribute("src") !== src) { img.setAttribute("src", src); pending.push(img.decode().catch(() => {})); } }
+  function drive(time) {
+    for (const p of parts) {
+      const y = ((p.y - p.v * time) % (H + 40) + H + 40) % (H + 40) - 20, x = p.x + Math.sin(time * .6 + p.ph) * 10;
+      p.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+      p.el.style.opacity = (fxState.particles * p.a * (.6 + .4 * Math.sin(time * 2 + p.ph))).toFixed(3);
+    }
+    for (const q of pulses) {
+      const f = ((time * q.speed + q.off) % 1 + 1) % 1, [x, y] = pointAt(q.pl, f);
+      q.c.setAttribute("cx", x.toFixed(1)); q.c.setAttribute("cy", y.toFixed(1));
+      q.c.style.opacity = (fxState.pulses * Math.sin(Math.PI * f)).toFixed(3);
+    }
+    $("#glow").style.transform = `translate(${(Math.sin(time * .35) * 26).toFixed(1)}px, ${(Math.cos(time * .27) * 18).toFixed(1)}px)`;
+    for (const sh of shots) {
+      if (sh.start === undefined || time < sh.start - .05 || time > sh.end + EXIT + .05) continue;
+      const k = clamp((time - sh.start) / (sh.dur + EXIT), 0, 1), e = easeInOut(k);
+      const [s0, s1, dx, dy] = sh.kb;
+      sh.img.style.transform = `scale(${lerp(s0, s1, e).toFixed(4)}) translate(${(dx * e).toFixed(2)}%, ${(dy * e).toFixed(2)}%)`;
+      if (sh.countAt !== undefined) { const kc = clamp((time - sh.countAt) / 1.5, 0, 1);
+        sh.statEl.querySelector(".big").textContent = Math.round(STATS.total * (1 - Math.pow(1 - kc, 3))); }
+      if (sh.md.type === "video") {
+        const f = clamp(Math.floor((time - sh.start) * sh.speed * sh.md.fps) + 1, 1, sh.md.frames);
+        const src = `${sh.md.dir}/${String(f).padStart(4, "0")}.jpg`;
+        setSrc(sh.img, src); setSrc(sh.ambImg, src);
+      }
+    }
+  }
+
+  // ================= API de renderização / preview =================
+  window.__duration = DURATION;
+  window.__fps = FPS;
+  window.__seek = async (time) => { pending = []; tl.seek(time, false); drive(time); await Promise.all(pending); };
+  window.__preload = () => Promise.all([...document.images].map((i) => i.decode().catch(() => {})));
+  window.__seek(0);
+  window.__ready = true;
+
+  if (!RENDER) {
+    document.body.classList.add("preview");
+    const fit = () => { const s = Math.min(innerWidth / W, innerHeight / H); $("#stage").style.transform = `scale(${s})`; };
+    fit(); addEventListener("resize", fit);
+    tl.eventCallback("onComplete", () => tl.restart()); tl.play();
+  }
+})();
+</script>
+</body>
+</html>

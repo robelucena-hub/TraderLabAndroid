@@ -1,0 +1,5 @@
+# Fotos e vídeos do evento (pessoas identificáveis) e saídas renderizadas ficam fora do repositório público
+media/
+*.mp4
+capa*.png
+stills*/
