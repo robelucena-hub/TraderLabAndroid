@@ -1,12 +1,15 @@
 # ITCONT UEFS — Vídeo dos patrocinadores (motion graphics)
 
-Vídeo vertical 1080 × 1920, 30 fps, ~32 s, sem áudio (adicione a música direto no Instagram).
+Duas versões, 30 fps, ~32 s, sem áudio:
+- **Vertical 1080 × 1920** — Reels/Stories (adicione a música direto no Instagram).
+- **Horizontal 1920 × 1080 (16:9)** — datashow/telão em tela cheia.
 
 | Arquivo | Conteúdo |
 | --- | --- |
-| `itcont-patrocinadores.mp4` | Vídeo final (H.264), pronto para Reels/Stories |
-| `capa.png` | Quadro do mural completo, para usar como capa do Reels |
-| `index.html` | Fonte editável da animação (HTML/CSS + GSAP). Abra no navegador para pré-visualizar em loop |
+| `itcont-patrocinadores.mp4` | Vídeo vertical (H.264), pronto para Reels/Stories |
+| `itcont-patrocinadores-16x9.mp4` | Vídeo horizontal (H.264), para datashow em tela cheia |
+| `capa.png` / `capa-16x9.png` | Quadro do mural completo de cada versão |
+| `index.html` | Fonte editável da animação (HTML/CSS + GSAP). Abra no navegador para pré-visualizar em loop; acrescente `?format=16x9` para a versão horizontal |
 | `sponsors.js` | Lista e ordem dos patrocinadores (gerada por `prep_logos.py`) |
 | `prep_logos.py` | Prepara os logos: recorta, padroniza tamanho e mantém a cor de fundo original |
 | `render-video.mjs` | Exporta o MP4 quadro a quadro com Playwright + ffmpeg |
@@ -28,6 +31,12 @@ Vídeo vertical 1080 × 1920, 30 fps, ~32 s, sem áudio (adicione a música dire
 ```bash
 python3 prep_logos.py          # só se mudar os logos
 node render-video.mjs          # gera itcont-patrocinadores.mp4 e capa.png
+node render-video.mjs --format 16x9   # gera itcont-patrocinadores-16x9.mp4 e capa-16x9.png
 node render-video.mjs --stills 5,12.5,26   # quadros avulsos para conferência (pasta stills/)
 ```
 Requer Node com Playwright (Chromium) e ffmpeg com libx264.
+
+## No datashow
+Abra `itcont-patrocinadores-16x9.mp4` no VLC, Windows Media Player ou PowerPoint em tela cheia.
+Para repetir sem parar: no VLC, ative "Repetir" (tecla **L**); no PowerPoint, insira o vídeo no slide
+e marque **Reproduzir em tela inteira** + **Repetir até parar**.

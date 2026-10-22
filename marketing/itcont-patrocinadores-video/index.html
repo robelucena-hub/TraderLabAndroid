@@ -23,7 +23,7 @@
     background:
       radial-gradient(ellipse 600px 600px at 0% 0%, rgba(14, 165, 233, .13), transparent 70%),
       radial-gradient(ellipse 600px 600px at 100% 0%, rgba(14, 165, 233, .10), transparent 70%),
-      radial-gradient(ellipse 1100px 720px at 50% 1920px, rgba(29, 78, 216, .32), transparent 70%),
+      radial-gradient(ellipse 1100px 720px at 50% 100%, rgba(29, 78, 216, .32), transparent 70%),
       linear-gradient(180deg, #071a4a 0%, #041236 50%, #030b26 100%);
   }
   .abs { position: absolute; }
@@ -31,7 +31,7 @@
 
   /* ---------- fundo vivo ---------- */
   #glow {
-    left: 50%; top: 900px; width: 1400px; height: 1100px; margin: -550px 0 0 -700px;
+    left: 50%; top: 900px; width: 1400px; height: 1100px; margin: -550px 0 0 -700px;   /* top ajustado pelo layout */
     background:
       radial-gradient(ellipse 420px 340px at 50% 50%, rgba(34, 211, 238, .16), transparent 72%),
       radial-gradient(ellipse 640px 520px at 50% 50%, rgba(37, 99, 235, .46), transparent 70%);
@@ -44,7 +44,7 @@
     -webkit-mask-image: radial-gradient(ellipse 620px 760px at 50% 900px, #000 0%, rgba(0,0,0,.35) 55%, transparent 80%);
             mask-image: radial-gradient(ellipse 620px 760px at 50% 900px, #000 0%, rgba(0,0,0,.35) 55%, transparent 80%);
   }
-  #fx { width: 1080px; height: 1920px; }
+  #fx { width: var(--W); height: var(--H); }
   .particle { position: absolute; left: 0; top: 0; border-radius: 50%; background: #bae6fd; box-shadow: 0 0 6px rgba(103, 232, 249, .8); }
 
   /* ---------- placa clara (logos do evento) ---------- */
@@ -69,7 +69,7 @@
 
   #introPlate { top: 610px; width: 800px; height: 440px; margin-left: -400px; }
   #introPlate img { height: 360px; }
-  #beam { left: 90px; top: 829px; width: 900px; height: 3px; border-radius: 3px;
+  #beam { left: 50%; margin-left: -450px; top: 829px; width: 900px; height: 3px; border-radius: 3px;
     background: linear-gradient(90deg, transparent, var(--cyan-400) 25%, #fff 50%, var(--cyan-400) 75%, transparent);
     box-shadow: 0 0 22px rgba(34, 211, 238, .9), 0 0 60px rgba(34, 211, 238, .5); }
 
@@ -106,7 +106,7 @@
   .gcard { width: 292px; height: 238px; padding: 3px; border-radius: 24px; }
   .gcard .tile { border-radius: 21px; }
 
-  #flow { left: 0; top: 0; width: 1080px; height: 1920px; }
+  #flow { left: 0; top: 0; width: var(--W); height: var(--H); }
   #platform { left: 0; top: 0; }
 
   #dots { left: 0; right: 0; top: 1310px; display: flex; justify-content: center; gap: 10px; height: 8px; }
@@ -129,7 +129,7 @@
 <div id="stage">
   <div id="glow" class="abs"></div>
   <div id="grid" class="layer"></div>
-  <svg id="fx" class="layer" viewBox="0 0 1080 1920" aria-hidden="true">
+  <svg id="fx" class="layer" aria-hidden="true">
     <defs>
       <linearGradient id="trace" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="320" y2="0">
         <stop offset="0" stop-color="#67e8f9" stop-opacity=".08"/><stop offset="1" stop-color="#7dd3fc" stop-opacity=".55"/>
@@ -157,7 +157,7 @@
 
   <!-- VITRINE (coverflow) -->
   <div id="flow" class="abs">
-    <svg id="platform" class="abs" width="1080" height="1920" viewBox="0 0 1080 1920" aria-hidden="true">
+    <svg id="platform" class="abs" aria-hidden="true">
       <defs>
         <radialGradient id="pool" cx=".5" cy=".5" r=".5">
           <stop offset="0" stop-color="#38bdf8" stop-opacity=".5"/><stop offset=".6" stop-color="#2563eb" stop-opacity=".16"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
@@ -165,14 +165,16 @@
         <linearGradient id="beamG" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity="0"/><stop offset=".3" stop-color="#22d3ee" stop-opacity=".7"/><stop offset=".5" stop-color="#fff"/><stop offset=".7" stop-color="#22d3ee" stop-opacity=".7"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
         <filter id="soft" x="-20%" y="-300%" width="140%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
       </defs>
-      <ellipse cx="540" cy="1232" rx="460" ry="56" fill="url(#pool)"/>
-      <ellipse cx="540" cy="1232" rx="420" ry="40" fill="none" stroke="#67e8f9" stroke-opacity=".22" stroke-width="1.2"/>
-      <ellipse cx="540" cy="1232" rx="350" ry="30" fill="none" stroke="#67e8f9" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="2 9"/>
-      <g fill="none" stroke="#f2c55c" stroke-width="2.4" stroke-linecap="round">
-        <path d="M920.6 1214.9 A420 40 0 0 1 920.6 1249.1"/><path d="M159.4 1249.1 A420 40 0 0 1 159.4 1214.9"/>
+      <g id="platG">  <!-- centrado em (0,0); posição e escala definidas pelo layout -->
+        <ellipse cx="0" cy="0" rx="460" ry="56" fill="url(#pool)"/>
+        <ellipse cx="0" cy="0" rx="420" ry="40" fill="none" stroke="#67e8f9" stroke-opacity=".22" stroke-width="1.2"/>
+        <ellipse cx="0" cy="0" rx="350" ry="30" fill="none" stroke="#67e8f9" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="2 9"/>
+        <g fill="none" stroke="#f2c55c" stroke-width="2.4" stroke-linecap="round">
+          <path d="M380.6 -17.1 A420 40 0 0 1 380.6 17.1"/><path d="M-380.6 17.1 A420 40 0 0 1 -380.6 -17.1"/>
+        </g>
+        <rect x="-380" y="-2" width="760" height="4" rx="2" fill="url(#beamG)" filter="url(#soft)"/>
+        <rect x="-410" y="-.8" width="820" height="1.6" rx=".8" fill="url(#beamG)"/>
       </g>
-      <rect x="160" y="1230" width="760" height="4" rx="2" fill="url(#beamG)" filter="url(#soft)"/>
-      <rect x="130" y="1231" width="820" height="1.6" rx=".8" fill="url(#beamG)"/>
     </svg>
     <div id="cards"></div>
   </div>
@@ -200,10 +202,42 @@
 <script src="sponsors.js"></script>
 <script>
 (() => {
-  const W = 1080, H = 1920, FPS = 30;
+  const FPS = 30;
   const S = window.SPONSORS, N = S.length;
   const $ = (s) => document.querySelector(s);
-  const RENDER = new URLSearchParams(location.search).has("render");
+  const params = new URLSearchParams(location.search);
+  const RENDER = params.has("render");
+
+  // ---------- layouts: 9x16 (Reels/Stories, padrão) e 16x9 (datashow/telão) ----------
+  const LAYOUTS = {
+    "9x16": { W: 1080, H: 1920, glowY: 900, gridMask: "ellipse 620px 760px at 50% 900px",
+      introTop: 610, titleTop: 236, titleFrom: 900,
+      cardY: 900, cardK: 1, off1: 610, off2: 330, platY: 1232, dotsTop: 1310,
+      cols: 3, wallTop: 470, thanksTop: 640, outroTop: 1010,
+      sparks: [[905, 250, 1.1], [952, 300, .55], [150, 1268, .8], [936, 1310, .6], [176, 640, .7], [910, 690, 1]] },
+    "16x9": { W: 1920, H: 1080, glowY: 585, gridMask: "ellipse 1000px 560px at 50% 560px",
+      introTop: 230, titleTop: 64, titleFrom: 660,
+      cardY: 585, cardK: .9, off1: 620, off2: 380, platY: 884, dotsTop: 954,
+      cols: 4, wallTop: 250, thanksTop: 230, outroTop: 540,
+      sparks: [[1330, 96, 1.1], [1376, 140, .55], [520, 930, .8], [1402, 940, .6], [572, 240, .7], [1350, 286, 1]] },
+  };
+  const FORMAT = params.get("format") === "16x9" ? "16x9" : "9x16";
+  const L = LAYOUTS[FORMAT], W = L.W, H = L.H;
+  (() => {                                   // aplica o layout
+    const rs = document.documentElement.style;
+    rs.setProperty("--W", W + "px"); rs.setProperty("--H", H + "px");
+    $("#fx").setAttribute("viewBox", `0 0 ${W} ${H}`);
+    const pf = $("#platform"); pf.setAttribute("width", W); pf.setAttribute("height", H); pf.setAttribute("viewBox", `0 0 ${W} ${H}`);
+    $("#platG").setAttribute("transform", `translate(${W / 2} ${L.platY}) scale(${L.cardK})`);
+    $("#glow").style.top = L.glowY + "px";
+    $("#grid").style.webkitMaskImage = $("#grid").style.maskImage = `radial-gradient(${L.gridMask}, #000 0%, rgba(0,0,0,.35) 55%, transparent 80%)`;
+    $("#introPlate").style.top = L.introTop + "px";
+    $("#beam").style.top = (L.introTop + 219) + "px";
+    $("#title").style.top = L.titleTop + "px";
+    $("#dots").style.top = L.dotsTop + "px";
+    $("#thanks").style.top = L.thanksTop + "px";
+    $("#outroPlate").style.top = L.outroTop + "px";
+  })();
 
   // ---------- utilidades ----------
   const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
@@ -257,8 +291,7 @@
     parts.push({ el, x: R() * W, y: R() * H, v: 12 + R() * 26, ph: R() * 6.28, a: .25 + R() * .5 }); }
 
   // ---------- brilhos dourados ----------
-  const sparkSpots = [[905, 250, 1.1], [952, 300, .55], [150, 1268, .8], [936, 1310, .6], [176, 640, .7], [910, 690, 1]];
-  const sparks = sparkSpots.map(([x, y, s]) => { const d = document.createElement("div"); d.className = "spark";
+  const sparks = L.sparks.map(([x, y, s]) => { const d = document.createElement("div"); d.className = "spark";
     d.style.left = x + "px"; d.style.top = y + "px";
     d.innerHTML = '<svg viewBox="-15 -15 30 30" width="30" height="30"><use href="#sparkPath" fill="#ffe08f"/></svg>';
     d.style.opacity = 0; $("#sparks").appendChild(d); return { d, s }; });
@@ -271,7 +304,7 @@
   const dots = S.map(() => { const d = document.createElement("i"); $("#dots").appendChild(d); return d; });
 
   // ---------- mural (3 colunas, última linha centralizada) ----------
-  const GW = 292, GH = 238, GX = 22, GY = 22, COLS = 3, TOP = 470;
+  const GW = 292, GH = 238, GX = 22, GY = 22, COLS = L.cols, TOP = L.wallTop;
   const gcards = S.map((sp, i) => {
     const row = Math.floor(i / COLS), inRow = Math.min(COLS, N - row * COLS), col = i % COLS;
     const rowW = inRow * GW + (inRow - 1) * GX;
@@ -314,11 +347,11 @@
       const c = fcards[i], d = i - cf.p, ad = Math.abs(d), sg = Math.sign(d);
       if (ad > 2.4) { c.style.visibility = "hidden"; continue; }
       c.style.visibility = "visible";
-      const x = 540 + sg * (Math.min(ad, 1) * 610 + Math.max(ad - 1, 0) * 330);
+      const x = W / 2 + sg * (Math.min(ad, 1) * L.off1 + Math.max(ad - 1, 0) * L.off2);
       const sc = 1 - .26 * Math.min(ad, 1) - .1 * Math.max(ad - 1, 0);
       const ry = -clamp(d, -1, 1) * 34;
       const z = -Math.min(ad, 1.5) * 160;
-      c.style.transform = `translate(${(x - 380).toFixed(2)}px, ${(900 - 310).toFixed(2)}px) perspective(1800px) translateZ(${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) scale(${sc.toFixed(4)})`;
+      c.style.transform = `translate(${(x - 380).toFixed(2)}px, ${(L.cardY - 310).toFixed(2)}px) perspective(1800px) translateZ(${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) scale(${(sc * L.cardK).toFixed(4)})`;
       c.style.opacity = clamp(1 - .5 * Math.min(ad, 1) - .5 * Math.max(ad - 1, 0), 0, 1).toFixed(3);
       c.style.filter = `brightness(${(1 - .38 * Math.min(ad, 1)).toFixed(3)}) blur(${(Math.min(ad, 1.6) * 3.2).toFixed(2)}px)`;
       c.style.zIndex = String(100 - Math.round(ad * 10));
@@ -340,7 +373,7 @@
   gsap.set("#beam", { scaleX: 0, opacity: 0 });
   gsap.set("#introPlate", { scaleY: .02, opacity: 0, transformOrigin: "50% 50%" });
   gsap.set("#introPlate img", { opacity: 0, scale: .92, filter: "blur(10px)" });
-  gsap.set("#title", { y: 900 });
+  gsap.set("#title", { y: L.titleFrom });
   gsap.set(".eyebrow i", { scaleX: 0 });
   gsap.set(eyebrowChars, { opacity: 0, y: 18 });
   gsap.set(titleChars, { opacity: 0, y: 70, filter: "blur(8px)" });
@@ -382,7 +415,7 @@
   const TEND = T0 + (N - 1) * (HOLD + MOVE) + HOLD;   // fim da vitrine
 
   // 3) MURAL com todos
-  tl.to("#flow", { opacity: 0, scale: .9, filter: "blur(8px)", duration: .55, ease: "power2.in", transformOrigin: "50% 47%" }, TEND)
+  tl.to("#flow", { opacity: 0, scale: .9, filter: "blur(8px)", duration: .55, ease: "power2.in", transformOrigin: `50% ${(L.cardY / H * 100).toFixed(1)}%` }, TEND)
     .to("#dots", { opacity: 0, y: 16, duration: .4, ease: "power2.in" }, TEND)
     .to(sparks.slice(2, 4).map((s) => s.d), { opacity: 0, duration: .3 }, TEND)
     .to(gcards, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: .7, ease: "back.out(1.4)", stagger: { each: .065, from: "start" } }, TEND + .35)

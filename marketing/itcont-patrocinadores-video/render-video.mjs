@@ -1,6 +1,7 @@
 // Renderiza index.html quadro a quadro (determinístico) e codifica em MP4 H.264 com ffmpeg.
 // Uso:
 //   node render-video.mjs                      -> itcont-patrocinadores.mp4 (1080x1920, 30 fps) + capa.png
+//   node render-video.mjs --format 16x9        -> itcont-patrocinadores-16x9.mp4 (1920x1080, datashow) + capa-16x9.png
 //   node render-video.mjs --stills 1,5,12.3    -> apenas quadros PNG nesses segundos (pasta stills/)
 import { createRequire } from "node:module";
 import { fileURLToPath, pathToFileURL } from "node:url";
@@ -14,14 +15,17 @@ try { playwright = require("playwright"); }
 catch { playwright = require(path.join(execSync("npm root -g").toString().trim(), "playwright")); }
 
 const here = path.dirname(fileURLToPath(import.meta.url));
-const url = pathToFileURL(path.join(here, "index.html")).href + "?render";
 const args = process.argv.slice(2);
 const stillsArg = args.includes("--stills") ? args[args.indexOf("--stills") + 1] : null;
-const OUT = path.join(here, "itcont-patrocinadores.mp4");
+const wide = args.includes("--format") && args[args.indexOf("--format") + 1] === "16x9";
+const [VW, VH] = wide ? [1920, 1080] : [1080, 1920];
+const suffix = wide ? "-16x9" : "";
+const url = pathToFileURL(path.join(here, "index.html")).href + "?render" + (wide ? "&format=16x9" : "");
+const OUT = path.join(here, `itcont-patrocinadores${suffix}.mp4`);
 const COVER_AT = 26.2; // segundo usado como capa (mural completo)
 
 const browser = await playwright.chromium.launch();
-const page = await browser.newPage({ viewport: { width: 1080, height: 1920 }, deviceScaleFactor: 1 });
+const page = await browser.newPage({ viewport: { width: VW, height: VH }, deviceScaleFactor: 1 });
 await page.goto(url, { waitUntil: "load" });
 await page.waitForFunction(() => window.__ready === true);
 await page.evaluate(async () => {
@@ -39,7 +43,7 @@ async function frameAt(t, opts = {}) {
 }
 
 if (stillsArg) {
-  const dir = path.join(here, "stills"); fs.mkdirSync(dir, { recursive: true });
+  const dir = path.join(here, "stills" + suffix); fs.mkdirSync(dir, { recursive: true });
   for (const s of stillsArg.split(",").map(Number)) {
     await frameAt(s, { path: path.join(dir, `t${s.toFixed(2).padStart(6, "0")}.png`) });
     console.log("still", s);
@@ -62,6 +66,6 @@ for (let i = 0; i < total; i++) {
 }
 ff.stdin.end();
 await done;
-await frameAt(COVER_AT, { path: path.join(here, "capa.png") });
+await frameAt(COVER_AT, { path: path.join(here, `capa${suffix}.png`) });
 await browser.close();
-console.log("ok →", path.basename(OUT), "e capa.png");
+console.log("ok →", path.basename(OUT), `e capa${suffix}.png`);
