@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>ITCONT UEFS — Patrocinadores (motion)</title>
+<style>
+  @font-face { font-family: "Sora";    src: url("fonts/Sora-Variable.ttf") format("truetype");    font-weight: 100 800; font-display: block; }
+  @font-face { font-family: "Manrope"; src: url("fonts/Manrope-Variable.ttf") format("truetype"); font-weight: 200 800; font-display: block; }
+
+  :root {
+    --W: 1080px; --H: 1920px;
+    --cyan-300: #67e8f9; --cyan-400: #22d3ee; --sky-200: #bae6fd; --sky-300: #7dd3fc;
+    --blue-500: #2563eb; --gold-200: #fff1c4; --gold-300: #ffe08f; --gold-400: #f2c55c; --gold-500: #d49d34;
+    --text: #eef5ff; --text-soft: #c3d6f5;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { background: #01040f; overflow: hidden; }
+  body.preview { display: grid; place-items: center; height: 100vh; }
+
+  #stage {
+    position: relative; width: var(--W); height: var(--H); overflow: hidden;
+    font-family: "Manrope", sans-serif; color: var(--text);
+    background:
+      radial-gradient(ellipse 600px 600px at 0% 0%, rgba(14, 165, 233, .13), transparent 70%),
+      radial-gradient(ellipse 600px 600px at 100% 0%, rgba(14, 165, 233, .10), transparent 70%),
+      radial-gradient(ellipse 1100px 720px at 50% 1920px, rgba(29, 78, 216, .32), transparent 70%),
+      linear-gradient(180deg, #071a4a 0%, #041236 50%, #030b26 100%);
+  }
+  .abs { position: absolute; }
+  .layer { position: absolute; inset: 0; pointer-events: none; }
+
+  /* ---------- fundo vivo ---------- */
+  #glow {
+    left: 50%; top: 900px; width: 1400px; height: 1100px; margin: -550px 0 0 -700px;
+    background:
+      radial-gradient(ellipse 420px 340px at 50% 50%, rgba(34, 211, 238, .16), transparent 72%),
+      radial-gradient(ellipse 640px 520px at 50% 50%, rgba(37, 99, 235, .46), transparent 70%);
+  }
+  #grid {
+    background-image:
+      linear-gradient(rgba(125, 211, 252, .07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(125, 211, 252, .07) 1px, transparent 1px);
+    background-size: 54px 54px; background-position: 0 -6px;
+    -webkit-mask-image: radial-gradient(ellipse 620px 760px at 50% 900px, #000 0%, rgba(0,0,0,.35) 55%, transparent 80%);
+            mask-image: radial-gradient(ellipse 620px 760px at 50% 900px, #000 0%, rgba(0,0,0,.35) 55%, transparent 80%);
+  }
+  #fx { width: 1080px; height: 1920px; }
+  .particle { position: absolute; left: 0; top: 0; border-radius: 50%; background: #bae6fd; box-shadow: 0 0 6px rgba(103, 232, 249, .8); }
+
+  /* ---------- placa clara (logos do evento) ---------- */
+  .plate {
+    position: absolute; left: 50%; border-radius: 34px; overflow: hidden;
+    display: flex; align-items: center; justify-content: center; gap: 52px;
+    background: linear-gradient(180deg, #ffffff 0%, #f1f6fd 60%, #e3ecf8 100%);
+    box-shadow: 0 34px 70px rgba(0, 3, 18, .6), 0 0 0 1px rgba(255, 255, 255, .7), 0 0 60px rgba(34, 211, 238, .22);
+  }
+  .plate::before {
+    content: ""; position: absolute; top: 0; left: 18%; right: 18%; height: 3px; border-radius: 3px; z-index: 2;
+    background: linear-gradient(90deg, transparent, var(--gold-400), var(--gold-300), var(--gold-400), transparent);
+  }
+  .plate .divider { width: 1.5px; height: 150px; background: linear-gradient(180deg, transparent, rgba(10, 34, 102, .28), transparent); }
+  .plate img { display: block; }
+  .sheen { position: absolute; inset: 0; overflow: hidden; border-radius: inherit; pointer-events: none; z-index: 3; }
+  .sheen b {
+    position: absolute; top: -20%; bottom: -20%; left: 0; width: 38%;
+    transform: translateX(-160%) skewX(-18deg);
+    background: linear-gradient(90deg, transparent, var(--sheen, rgba(255,255,255,.55)), transparent);
+  }
+
+  #introPlate { top: 610px; width: 800px; height: 440px; margin-left: -400px; }
+  #introPlate img { height: 360px; }
+  #beam { left: 90px; top: 829px; width: 900px; height: 3px; border-radius: 3px;
+    background: linear-gradient(90deg, transparent, var(--cyan-400) 25%, #fff 50%, var(--cyan-400) 75%, transparent);
+    box-shadow: 0 0 22px rgba(34, 211, 238, .9), 0 0 60px rgba(34, 211, 238, .5); }
+
+  /* ---------- título ---------- */
+  #title { left: 0; right: 0; top: 236px; text-align: center; transform-origin: 50% 0; }
+  .eyebrow { display: flex; align-items: center; justify-content: center; gap: 24px; height: 40px; }
+  .eyebrow span { font-family: "Sora"; font-weight: 600; font-size: 32px; letter-spacing: .42em; padding-left: .42em; color: var(--sky-200);
+    text-shadow: 0 0 22px rgba(34, 211, 238, .45); }
+  .eyebrow i { display: block; width: 92px; height: 2px; border-radius: 2px; position: relative; transform-origin: 100% 50%;
+    background: linear-gradient(90deg, transparent, var(--gold-400)); }
+  .eyebrow i.r { transform-origin: 0 50%; background: linear-gradient(90deg, var(--gold-400), transparent); }
+  .eyebrow i::after { content: ""; position: absolute; top: 50%; width: 8px; height: 8px; background: var(--gold-300);
+    transform: translateY(-50%) rotate(45deg); box-shadow: 0 0 10px rgba(242, 197, 92, .8); }
+  .eyebrow i.l::after { right: -2px; } .eyebrow i.r::after { left: -2px; }
+  .title-main { margin-top: 18px; font-family: "Sora"; font-weight: 800; font-size: 80px; line-height: 1; letter-spacing: .03em; padding-left: .03em;
+    filter: drop-shadow(0 8px 22px rgba(0, 6, 30, .55)); }
+  .ch { display: inline-block; white-space: pre; }
+  .grad-ice .ch { background: linear-gradient(180deg, #ffffff 0%, #eef7ff 40%, #b9dcff 75%, #86c2ff 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  .grad-cyan .ch { background: linear-gradient(180deg, #e9fdff 0%, var(--cyan-300) 55%, #22b8e6 100%);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+
+  /* ---------- cards ---------- */
+  .card {
+    position: absolute; left: 0; top: 0; padding: 4px; border-radius: 40px;
+    background: linear-gradient(140deg, #9be7ff 0%, #3b82f6 30%, #13307e 58%, #f2c55c 100%);
+    box-shadow: 0 40px 80px rgba(0, 3, 18, .6), 0 0 var(--glow-r, 0px) rgba(34, 211, 238, .45);
+  }
+  .card .tile { position: relative; width: 100%; height: 100%; border-radius: 36px; overflow: hidden; }
+  .card .tile img { width: 100%; height: 100%; display: block; object-fit: cover; }
+  .card .tile::after { content: ""; position: absolute; inset: 0; border-radius: inherit;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,.5), inset 0 0 0 1px rgba(0, 20, 60, .08); }
+  .fcard { width: 760px; height: 620px; transform-origin: 50% 50%; will-change: transform, filter, opacity; }
+  .gcard { width: 292px; height: 238px; padding: 3px; border-radius: 24px; }
+  .gcard .tile { border-radius: 21px; }
+
+  #flow { left: 0; top: 0; width: 1080px; height: 1920px; }
+  #platform { left: 0; top: 0; }
+
+  #counter { left: 0; right: 0; top: 1286px; display: flex; justify-content: center; align-items: baseline; gap: 14px; }
+  #counter .win { position: relative; height: 64px; width: 84px; overflow: hidden; }
+  #counter .win span { position: absolute; left: 0; right: 0; top: 0; text-align: center; font-family: "Sora"; font-weight: 700; font-size: 56px; line-height: 64px;
+    background: linear-gradient(180deg, var(--gold-200), var(--gold-300) 40%, var(--gold-400) 70%, var(--gold-500));
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+  #counter .of { font-family: "Sora"; font-weight: 600; font-size: 30px; color: var(--text-soft); letter-spacing: .04em; }
+  #dots { left: 0; right: 0; top: 1384px; display: flex; justify-content: center; gap: 10px; height: 8px; }
+  #dots i { display: block; height: 8px; border-radius: 4px; width: 12px; background: rgba(186, 230, 253, .25); }
+
+  #wall { left: 0; top: 0; }
+
+  /* ---------- encerramento ---------- */
+  #thanks { left: 0; right: 0; top: 640px; text-align: center; font-family: "Sora"; font-weight: 800; line-height: 1; }
+  #thanks .l1 { font-size: 124px; letter-spacing: .02em; padding-left: .02em; filter: drop-shadow(0 10px 26px rgba(0, 6, 30, .6)); }
+  #thanks .l2 { margin-top: 22px; font-size: 74px; letter-spacing: .07em; padding-left: .07em; filter: drop-shadow(0 6px 20px rgba(34, 211, 238, .35)); }
+  #outroPlate { top: 1010px; width: 820px; height: 260px; margin-left: -410px; }
+  #outroPlate .itcont { height: 196px; }
+  #outroPlate .cda { height: 184px; }
+
+  .spark { position: absolute; width: 30px; height: 30px; margin: -15px 0 0 -15px; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="glow" class="abs"></div>
+  <div id="grid" class="layer"></div>
+  <svg id="fx" class="layer" viewBox="0 0 1080 1920" aria-hidden="true">
+    <defs>
+      <linearGradient id="trace" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="320" y2="0">
+        <stop offset="0" stop-color="#67e8f9" stop-opacity=".08"/><stop offset="1" stop-color="#7dd3fc" stop-opacity=".55"/>
+      </linearGradient>
+      <radialGradient id="pulse"><stop offset="0" stop-color="#ffffff"/><stop offset=".35" stop-color="#67e8f9"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></radialGradient>
+      <path id="sparkPath" d="M0 -12 C1 -4 4 -1 12 0 C4 1 1 4 0 12 C-1 4 -4 1 -12 0 C-4 -1 -1 -4 0 -12Z"/>
+    </defs>
+    <g id="circuits" fill="none" stroke-linecap="round" stroke-linejoin="round"></g>
+    <g id="pulses"></g>
+  </svg>
+  <div id="particles" class="layer"></div>
+
+  <!-- ABERTURA -->
+  <div id="beam" class="abs"></div>
+  <div id="introPlate" class="plate">
+    <img src="assets/evento/logo-itcont-recorte.png" alt="I Imersão Tecnológica Contábil — ITCONT">
+    <div class="sheen"><b></b></div>
+  </div>
+
+  <!-- TÍTULO (vira cabeçalho) -->
+  <div id="title" class="abs">
+    <div class="eyebrow"><i class="l"></i><span id="eyebrowText">NOSSOS</span><i class="r"></i></div>
+    <div class="title-main grad-ice" id="titleMain">PATROCINADORES</div>
+  </div>
+
+  <!-- VITRINE (coverflow) -->
+  <div id="flow" class="abs">
+    <svg id="platform" class="abs" width="1080" height="1920" viewBox="0 0 1080 1920" aria-hidden="true">
+      <defs>
+        <radialGradient id="pool" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#38bdf8" stop-opacity=".5"/><stop offset=".6" stop-color="#2563eb" stop-opacity=".16"/><stop offset="1" stop-color="#2563eb" stop-opacity="0"/>
+        </radialGradient>
+        <linearGradient id="beamG" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity="0"/><stop offset=".3" stop-color="#22d3ee" stop-opacity=".7"/><stop offset=".5" stop-color="#fff"/><stop offset=".7" stop-color="#22d3ee" stop-opacity=".7"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient>
+        <filter id="soft" x="-20%" y="-300%" width="140%" height="700%"><feGaussianBlur stdDeviation="6"/></filter>
+      </defs>
+      <ellipse cx="540" cy="1232" rx="460" ry="56" fill="url(#pool)"/>
+      <ellipse cx="540" cy="1232" rx="420" ry="40" fill="none" stroke="#67e8f9" stroke-opacity=".22" stroke-width="1.2"/>
+      <ellipse cx="540" cy="1232" rx="350" ry="30" fill="none" stroke="#67e8f9" stroke-opacity=".35" stroke-width="1.2" stroke-dasharray="2 9"/>
+      <g fill="none" stroke="#f2c55c" stroke-width="2.4" stroke-linecap="round">
+        <path d="M920.6 1214.9 A420 40 0 0 1 920.6 1249.1"/><path d="M159.4 1249.1 A420 40 0 0 1 159.4 1214.9"/>
+      </g>
+      <rect x="160" y="1230" width="760" height="4" rx="2" fill="url(#beamG)" filter="url(#soft)"/>
+      <rect x="130" y="1231" width="820" height="1.6" rx=".8" fill="url(#beamG)"/>
+    </svg>
+    <div id="cards"></div>
+  </div>
+  <div id="counter" class="abs">
+    <div class="win"><span id="cA">01</span><span id="cB">02</span></div><div class="of" id="cTotal">/ 11</div>
+  </div>
+  <div id="dots" class="abs"></div>
+
+  <!-- MURAL -->
+  <div id="wall" class="abs"></div>
+
+  <!-- ENCERRAMENTO -->
+  <div id="thanks" class="abs">
+    <div class="l1 grad-ice" id="thanks1">OBRIGADO</div>
+    <div class="l2 grad-cyan" id="thanks2">PELO APOIO!</div>
+  </div>
+  <div id="outroPlate" class="plate">
+    <img class="itcont" src="assets/evento/logo-itcont-recorte.png" alt="I Imersão Tecnológica Contábil — ITCONT">
+    <span class="divider"></span>
+    <img class="cda" src="assets/evento/logo-contador-do-amanha-recorte.png" alt="Contador do Amanhã">
+    <div class="sheen"><b></b></div>
+  </div>
+
+  <div id="sparks" class="layer"></div>
+</div>
+
+<script src="lib/gsap.min.js"></script>
+<script src="sponsors.js"></script>
+<script>
+(() => {
+  const W = 1080, H = 1920, FPS = 30;
+  const S = window.SPONSORS, N = S.length;
+  const $ = (s) => document.querySelector(s);
+  const RENDER = new URLSearchParams(location.search).has("render");
+
+  // ---------- utilidades ----------
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+  const smooth = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  function rng(seed) { return () => { seed |= 0; seed = seed + 0x6D2B79F5 | 0; let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+    t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; }; }
+  const pad = (n) => String(n).padStart(2, "0");
+  function splitChars(el) { const txt = el.textContent; el.textContent = "";
+    return [...txt].map((c) => { const s = document.createElement("span"); s.className = "ch"; s.textContent = c; el.appendChild(s); return s; }); }
+
+  // ---------- circuitos (4 cantos, espelhados) ----------
+  const base = [
+    [[0,300],[70,300],[120,250],[244,250]],
+    [[0,334],[100,334],[142,376],[200,376]],
+    [[36,0],[36,74],[86,124],[86,196]],
+    [[104,0],[104,36],[142,74],[226,74],[256,44],[312,44]],
+    [[0,172],[34,172],[64,142]],
+  ];
+  const maps = [(p) => p, (p) => [W - p[0], p[1]], (p) => [p[0], H - p[1]], (p) => [W - p[0], H - p[1]]];
+  const polylines = [];
+  const gC = $("#circuits"), gP = $("#pulses");
+  const NS = "http://www.w3.org/2000/svg";
+  maps.forEach((m, mi) => base.forEach((pl, pi) => {
+    const pts = pl.map(m);
+    let len = 0; const seg = [];
+    for (let i = 1; i < pts.length; i++) { const l = Math.hypot(pts[i][0] - pts[i-1][0], pts[i][1] - pts[i-1][1]); seg.push(l); len += l; }
+    const path = document.createElementNS(NS, "path");
+    path.setAttribute("d", "M" + pts.map((p) => p.join(" ")).join(" L"));
+    path.setAttribute("stroke", "#67e8f9"); path.setAttribute("stroke-opacity", mi < 2 ? ".42" : ".30"); path.setAttribute("stroke-width", "1.6");
+    path.style.strokeDasharray = len; path.style.strokeDashoffset = len;
+    gC.appendChild(path);
+    const end = pts[pts.length - 1];
+    const node = document.createElementNS(NS, "circle");
+    node.setAttribute("cx", end[0]); node.setAttribute("cy", end[1]); node.setAttribute("r", 4.5);
+    const gold = pi === 3; node.setAttribute("stroke", gold ? "#f2c55c" : "#7dd3fc"); node.setAttribute("stroke-width", 1.5); node.setAttribute("stroke-opacity", ".8");
+    node.style.opacity = 0; gC.appendChild(node);
+    polylines.push({ pts, seg, len, path, node });
+  }));
+  const pulses = polylines.filter((_, i) => i % 2 === 0).map((pl, i) => {
+    const c = document.createElementNS(NS, "circle"); c.setAttribute("r", 7); c.setAttribute("fill", "url(#pulse)"); c.style.opacity = 0; gP.appendChild(c);
+    return { pl, c, off: (i * 0.137) % 1, speed: 0.22 + (i % 3) * 0.05 };
+  });
+  function pointAt(pl, f) { let d = f * pl.len;
+    for (let i = 0; i < pl.seg.length; i++) { if (d <= pl.seg[i]) { const a = pl.pts[i], b = pl.pts[i+1], k = d / pl.seg[i]; return [a[0] + (b[0]-a[0]) * k, a[1] + (b[1]-a[1]) * k]; } d -= pl.seg[i]; }
+    return pl.pts[pl.pts.length - 1]; }
+
+  // ---------- partículas ----------
+  const R = rng(7), parts = [];
+  for (let i = 0; i < 46; i++) { const el = document.createElement("i"); el.className = "particle"; const s = 1.5 + R() * 2.6;
+    el.style.width = el.style.height = s + "px"; $("#particles").appendChild(el);
+    parts.push({ el, x: R() * W, y: R() * H, v: 12 + R() * 26, ph: R() * 6.28, a: .25 + R() * .5 }); }
+
+  // ---------- brilhos dourados ----------
+  const sparkSpots = [[905, 250, 1.1], [952, 300, .55], [150, 1268, .8], [936, 1310, .6], [176, 640, .7], [910, 690, 1]];
+  const sparks = sparkSpots.map(([x, y, s]) => { const d = document.createElement("div"); d.className = "spark";
+    d.style.left = x + "px"; d.style.top = y + "px";
+    d.innerHTML = '<svg viewBox="-15 -15 30 30" width="30" height="30"><use href="#sparkPath" fill="#ffe08f"/></svg>';
+    d.style.opacity = 0; $("#sparks").appendChild(d); return { d, s }; });
+
+  // ---------- cards da vitrine ----------
+  const fcards = S.map((sp) => { const c = document.createElement("div"); c.className = "card fcard";
+    c.style.setProperty("--sheen", sp.dark ? "rgba(255,255,255,.22)" : "rgba(125,211,252,.20)");
+    c.innerHTML = `<div class="tile"><img src="${sp.tile}" alt="${sp.name}"></div><div class="sheen"><b></b></div>`;
+    $("#cards").appendChild(c); return c; });
+  const dots = S.map(() => { const d = document.createElement("i"); $("#dots").appendChild(d); return d; });
+  $("#cTotal").textContent = "/ " + pad(N);
+
+  // ---------- mural (3 colunas, última linha centralizada) ----------
+  const GW = 292, GH = 238, GX = 22, GY = 22, COLS = 3, TOP = 470;
+  const gcards = S.map((sp, i) => {
+    const row = Math.floor(i / COLS), inRow = Math.min(COLS, N - row * COLS), col = i % COLS;
+    const rowW = inRow * GW + (inRow - 1) * GX;
+    const x = (W - rowW) / 2 + col * (GW + GX), y = TOP + row * (GH + GY);
+    const c = document.createElement("div"); c.className = "card gcard";
+    c.style.left = x + "px"; c.style.top = y + "px";
+    c.style.setProperty("--sheen", sp.dark ? "rgba(255,255,255,.22)" : "rgba(125,211,252,.22)");
+    c.innerHTML = `<div class="tile"><img src="${sp.tile}" alt="${sp.name}"></div><div class="sheen"><b></b></div>`;
+    $("#wall").appendChild(c); return c; });
+
+  // ---------- textos animados por letra ----------
+  const titleChars = splitChars($("#titleMain"));
+  const eyebrowChars = splitChars($("#eyebrowText"));
+  const t1Chars = splitChars($("#thanks1"));
+  const t2Chars = splitChars($("#thanks2"));
+
+  // ---------- estado calculado por quadro ----------
+  const cf = { p: -1.7, vis: 0 };           // posição da vitrine (índice do card central)
+  const fxState = { circuits: 0, pulses: 0, particles: 0 };
+
+  function drive(t) {
+    // partículas
+    for (const p of parts) {
+      const y = ((p.y - p.v * t) % (H + 40) + H + 40) % (H + 40) - 20;
+      const x = p.x + Math.sin(t * .6 + p.ph) * 10;
+      p.el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+      p.el.style.opacity = (fxState.particles * p.a * (.6 + .4 * Math.sin(t * 2 + p.ph))).toFixed(3);
+    }
+    // pulsos nos circuitos
+    for (const q of pulses) {
+      const f = ((t * q.speed + q.off) % 1 + 1) % 1, [x, y] = pointAt(q.pl, f);
+      q.c.setAttribute("cx", x.toFixed(1)); q.c.setAttribute("cy", y.toFixed(1));
+      q.c.style.opacity = (fxState.pulses * Math.sin(Math.PI * f)).toFixed(3);
+    }
+    // brilho de fundo respirando
+    $("#glow").style.transform = `translate(${(Math.sin(t * .35) * 26).toFixed(1)}px, ${(Math.cos(t * .27) * 18).toFixed(1)}px) scale(${(1 + .03 * Math.sin(t * .5)).toFixed(4)})`;
+
+    // vitrine (coverflow)
+    for (let i = 0; i < N; i++) {
+      const c = fcards[i], d = i - cf.p, ad = Math.abs(d), sg = Math.sign(d);
+      if (ad > 2.4) { c.style.visibility = "hidden"; continue; }
+      c.style.visibility = "visible";
+      const x = 540 + sg * (Math.min(ad, 1) * 610 + Math.max(ad - 1, 0) * 330);
+      const sc = 1 - .26 * Math.min(ad, 1) - .1 * Math.max(ad - 1, 0);
+      const ry = -clamp(d, -1, 1) * 34;
+      const z = -Math.min(ad, 1.5) * 160;
+      c.style.transform = `translate(${(x - 380).toFixed(2)}px, ${(900 - 310).toFixed(2)}px) perspective(1800px) translateZ(${z.toFixed(1)}px) rotateY(${ry.toFixed(2)}deg) scale(${sc.toFixed(4)})`;
+      c.style.opacity = clamp(1 - .5 * Math.min(ad, 1) - .5 * Math.max(ad - 1, 0), 0, 1).toFixed(3);
+      c.style.filter = `brightness(${(1 - .38 * Math.min(ad, 1)).toFixed(3)}) blur(${(Math.min(ad, 1.6) * 3.2).toFixed(2)}px)`;
+      c.style.zIndex = String(100 - Math.round(ad * 10));
+      c.style.setProperty("--glow-r", ((1 - Math.min(ad, 1)) * 70).toFixed(1) + "px");
+    }
+    // contador 01/11 com rolagem
+    const a = Math.floor(clamp(cf.p, 0, N - 1)), f = clamp(cf.p, 0, N - 1) - a, e = smooth(.3, .7, f);
+    const cA = $("#cA"), cB = $("#cB");
+    cA.textContent = pad(a + 1); cB.textContent = pad(Math.min(a + 2, N));
+    cA.style.transform = `translateY(${(-e * 64).toFixed(1)}px)`; cA.style.opacity = (1 - e).toFixed(3);
+    cB.style.transform = `translateY(${((1 - e) * 64).toFixed(1)}px)`; cB.style.opacity = e.toFixed(3);
+    // indicadores
+    dots.forEach((d, i) => { const k = Math.max(0, 1 - Math.abs(i - clamp(cf.p, 0, N - 1)));
+      d.style.width = (12 + 34 * k).toFixed(1) + "px";
+      d.style.background = k > .02 ? `linear-gradient(90deg, rgba(103,232,249,${(.25 + .75 * k).toFixed(3)}), rgba(34,211,238,${(.25 + .75 * k).toFixed(3)}))` : "rgba(186,230,253,.25)";
+      d.style.boxShadow = `0 0 ${(12 * k).toFixed(1)}px rgba(34,211,238,${(.8 * k).toFixed(2)})`; });
+  }
+
+  // ---------- linha do tempo ----------
+  const tl = gsap.timeline({ paused: true, onUpdate: () => drive(tl.time()) });
+  const E = { out: "power3.out", inOut: "power3.inOut", expo: "expo.out" };
+
+  // estados iniciais
+  gsap.set("#grid", { opacity: 0 });
+  gsap.set("#beam", { scaleX: 0, opacity: 0 });
+  gsap.set("#introPlate", { scaleY: .02, opacity: 0, transformOrigin: "50% 50%" });
+  gsap.set("#introPlate img", { opacity: 0, scale: .92, filter: "blur(10px)" });
+  gsap.set("#title", { y: 900 });
+  gsap.set(".eyebrow i", { scaleX: 0 });
+  gsap.set(eyebrowChars, { opacity: 0, y: 18 });
+  gsap.set(titleChars, { opacity: 0, y: 70, filter: "blur(8px)" });
+  gsap.set("#flow", { opacity: 0 });
+  gsap.set(["#counter", "#dots"], { opacity: 0, y: 20 });
+  gsap.set(gcards, { opacity: 0, scale: .7, y: 70, filter: "blur(12px)" });
+  gsap.set([t1Chars, t2Chars], { opacity: 0, y: 80, filter: "blur(10px)" });
+  gsap.set("#outroPlate", { opacity: 0, y: 70, scale: .96 });
+
+  // 1) ABERTURA (0 – 4 s)
+  tl.to("#grid", { opacity: 1, duration: 1.2, ease: "none" }, 0)
+    .to(fxState, { particles: 1, duration: 1.5, ease: "none" }, 0)
+    .to(polylines.map((p) => p.path), { strokeDashoffset: 0, duration: 1.3, ease: "power2.inOut", stagger: .04 }, .1)
+    .to(polylines.map((p) => p.node), { opacity: 1, duration: .3, stagger: .04 }, 1.0)
+    .to(fxState, { pulses: 1, duration: .8 }, 1.4)
+    .to("#beam", { scaleX: 1, opacity: 1, duration: .55, ease: E.expo }, .15)
+    .to("#introPlate", { scaleY: 1, opacity: 1, duration: .7, ease: E.expo }, .55)
+    .to("#beam", { opacity: 0, scaleX: 1.15, duration: .5, ease: "power1.out" }, .95)
+    .to("#introPlate img", { opacity: 1, scale: 1, filter: "blur(0px)", duration: .7, ease: E.out }, .85)
+    .fromTo("#introPlate .sheen b", { x: "-160%" }, { x: "330%", duration: .8, ease: "power2.inOut" }, 1.45)
+    .to(".eyebrow i", { scaleX: 1, duration: .6, ease: E.out }, 1.5)
+    .to(eyebrowChars, { opacity: 1, y: 0, duration: .45, stagger: .04, ease: E.out }, 1.55)
+    .to(titleChars, { opacity: 1, y: 0, filter: "blur(0px)", duration: .6, stagger: .035, ease: E.out }, 1.7)
+    .to(sparks.slice(0, 2).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i].s, duration: .4, stagger: .1, ease: "back.out(3)" }, 2.5)
+    .to("#introPlate", { y: -90, scale: .88, opacity: 0, filter: "blur(8px)", duration: .45, ease: "power2.in" }, 3.0)
+    .to("#title", { y: 0, duration: .85, ease: E.inOut }, 3.3);
+
+  // 2) VITRINE — um patrocinador por vez
+  const HOLD = 1.15, MOVE = .6, T0 = 4.55;
+  tl.to("#flow", { opacity: 1, duration: .35 }, 3.7)
+    .to(cf, { p: 0, duration: .85, ease: E.out }, 3.7)
+    .to(["#counter", "#dots"], { opacity: 1, y: 0, duration: .5, ease: E.out }, 4.0)
+    .to(sparks.slice(2, 4).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i + 2].s, duration: .4, stagger: .12, ease: "back.out(3)" }, 4.3);
+  for (let k = 0; k < N; k++) {
+    const arrive = T0 + k * (HOLD + MOVE);
+    tl.fromTo(fcards[k].querySelector(".sheen b"), { x: "-160%" }, { x: "330%", duration: .85, ease: "power2.inOut" }, arrive + .05);
+    if (k < N - 1) tl.to(cf, { p: k + 1, duration: MOVE, ease: E.inOut }, arrive + HOLD);
+  }
+  const TEND = T0 + (N - 1) * (HOLD + MOVE) + HOLD;   // fim da vitrine
+
+  // 3) MURAL com todos
+  tl.to("#flow", { opacity: 0, scale: .9, filter: "blur(8px)", duration: .55, ease: "power2.in", transformOrigin: "50% 47%" }, TEND)
+    .to(["#counter", "#dots"], { opacity: 0, y: 16, duration: .4, ease: "power2.in" }, TEND)
+    .to(sparks.slice(2, 4).map((s) => s.d), { opacity: 0, duration: .3 }, TEND)
+    .to(gcards, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: .7, ease: "back.out(1.4)", stagger: { each: .065, from: "start" } }, TEND + .35)
+    .fromTo(gcards.map((c) => c.querySelector(".sheen b")), { x: "-160%" }, { x: "330%", duration: .9, ease: "power2.inOut", stagger: .07 }, TEND + 1.55);
+  const WALL_END = TEND + 4.4;
+
+  // 4) ENCERRAMENTO
+  tl.to(gcards, { opacity: 0, scale: .86, y: -30, filter: "blur(8px)", duration: .5, ease: "power2.in", stagger: { each: .03, from: "end" } }, WALL_END)
+    .to("#title", { opacity: 0, y: -30, duration: .45, ease: "power2.in" }, WALL_END + .05)
+    .to(sparks.slice(0, 2).map((s) => s.d), { opacity: 0, duration: .3 }, WALL_END)
+    .to(t1Chars, { opacity: 1, y: 0, filter: "blur(0px)", duration: .65, stagger: .045, ease: E.out }, WALL_END + .55)
+    .to(t2Chars, { opacity: 1, y: 0, filter: "blur(0px)", duration: .6, stagger: .035, ease: E.out }, WALL_END + .95)
+    .to("#outroPlate", { opacity: 1, y: 0, scale: 1, duration: .8, ease: E.out }, WALL_END + 1.3)
+    .fromTo("#outroPlate .sheen b", { x: "-160%" }, { x: "330%", duration: .9, ease: "power2.inOut" }, WALL_END + 2.0)
+    .to(sparks.slice(4, 6).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i + 4].s, duration: .45, stagger: .12, ease: "back.out(3)" }, WALL_END + 1.6);
+  const DURATION = WALL_END + 4.6;
+  tl.to({}, { duration: .001 }, DURATION - .001);   // segura o quadro final
+
+  // ---------- API de renderização / preview ----------
+  window.__duration = DURATION;
+  window.__fps = FPS;
+  window.__seek = (t) => { tl.seek(t, false); drive(t); };
+  window.__seek(0);
+  window.__ready = true;
+
+  if (!RENDER) {                       // pré-visualização no navegador: encaixa na janela e toca em loop
+    document.body.classList.add("preview");
+    const fit = () => { const s = Math.min(innerWidth / W, innerHeight / H); $("#stage").style.transform = `scale(${s})`; $("#stage").style.transformOrigin = "50% 50%"; };
+    fit(); addEventListener("resize", fit);
+    tl.eventCallback("onComplete", () => tl.restart()); tl.play();
+  }
+})();
+</script>
+</body>
+</html>
