@@ -109,13 +109,7 @@
   #flow { left: 0; top: 0; width: 1080px; height: 1920px; }
   #platform { left: 0; top: 0; }
 
-  #counter { left: 0; right: 0; top: 1286px; display: flex; justify-content: center; align-items: baseline; gap: 14px; }
-  #counter .win { position: relative; height: 64px; width: 84px; overflow: hidden; }
-  #counter .win span { position: absolute; left: 0; right: 0; top: 0; text-align: center; font-family: "Sora"; font-weight: 700; font-size: 56px; line-height: 64px;
-    background: linear-gradient(180deg, var(--gold-200), var(--gold-300) 40%, var(--gold-400) 70%, var(--gold-500));
-    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-  #counter .of { font-family: "Sora"; font-weight: 600; font-size: 30px; color: var(--text-soft); letter-spacing: .04em; }
-  #dots { left: 0; right: 0; top: 1384px; display: flex; justify-content: center; gap: 10px; height: 8px; }
+  #dots { left: 0; right: 0; top: 1310px; display: flex; justify-content: center; gap: 10px; height: 8px; }
   #dots i { display: block; height: 8px; border-radius: 4px; width: 12px; background: rgba(186, 230, 253, .25); }
 
   #wall { left: 0; top: 0; }
@@ -181,9 +175,6 @@
       <rect x="130" y="1231" width="820" height="1.6" rx=".8" fill="url(#beamG)"/>
     </svg>
     <div id="cards"></div>
-  </div>
-  <div id="counter" class="abs">
-    <div class="win"><span id="cA">01</span><span id="cB">02</span></div><div class="of" id="cTotal">/ 11</div>
   </div>
   <div id="dots" class="abs"></div>
 
@@ -278,7 +269,6 @@
     c.innerHTML = `<div class="tile"><img src="${sp.tile}" alt="${sp.name}"></div><div class="sheen"><b></b></div>`;
     $("#cards").appendChild(c); return c; });
   const dots = S.map(() => { const d = document.createElement("i"); $("#dots").appendChild(d); return d; });
-  $("#cTotal").textContent = "/ " + pad(N);
 
   // ---------- mural (3 colunas, última linha centralizada) ----------
   const GW = 292, GH = 238, GX = 22, GY = 22, COLS = 3, TOP = 470;
@@ -334,12 +324,6 @@
       c.style.zIndex = String(100 - Math.round(ad * 10));
       c.style.setProperty("--glow-r", ((1 - Math.min(ad, 1)) * 70).toFixed(1) + "px");
     }
-    // contador 01/11 com rolagem
-    const a = Math.floor(clamp(cf.p, 0, N - 1)), f = clamp(cf.p, 0, N - 1) - a, e = smooth(.3, .7, f);
-    const cA = $("#cA"), cB = $("#cB");
-    cA.textContent = pad(a + 1); cB.textContent = pad(Math.min(a + 2, N));
-    cA.style.transform = `translateY(${(-e * 64).toFixed(1)}px)`; cA.style.opacity = (1 - e).toFixed(3);
-    cB.style.transform = `translateY(${((1 - e) * 64).toFixed(1)}px)`; cB.style.opacity = e.toFixed(3);
     // indicadores
     dots.forEach((d, i) => { const k = Math.max(0, 1 - Math.abs(i - clamp(cf.p, 0, N - 1)));
       d.style.width = (12 + 34 * k).toFixed(1) + "px";
@@ -361,7 +345,7 @@
   gsap.set(eyebrowChars, { opacity: 0, y: 18 });
   gsap.set(titleChars, { opacity: 0, y: 70, filter: "blur(8px)" });
   gsap.set("#flow", { opacity: 0 });
-  gsap.set(["#counter", "#dots"], { opacity: 0, y: 20 });
+  gsap.set("#dots", { opacity: 0, y: 20 });
   gsap.set(gcards, { opacity: 0, scale: .7, y: 70, filter: "blur(12px)" });
   gsap.set([t1Chars, t2Chars], { opacity: 0, y: 80, filter: "blur(10px)" });
   gsap.set("#outroPlate", { opacity: 0, y: 70, scale: .96 });
@@ -388,7 +372,7 @@
   const HOLD = 1.15, MOVE = .6, T0 = 4.55;
   tl.to("#flow", { opacity: 1, duration: .35 }, 3.7)
     .to(cf, { p: 0, duration: .85, ease: E.out }, 3.7)
-    .to(["#counter", "#dots"], { opacity: 1, y: 0, duration: .5, ease: E.out }, 4.0)
+    .to("#dots", { opacity: 1, y: 0, duration: .5, ease: E.out }, 4.0)
     .to(sparks.slice(2, 4).map((s) => s.d), { opacity: 1, scale: (i) => sparks[i + 2].s, duration: .4, stagger: .12, ease: "back.out(3)" }, 4.3);
   for (let k = 0; k < N; k++) {
     const arrive = T0 + k * (HOLD + MOVE);
@@ -399,7 +383,7 @@
 
   // 3) MURAL com todos
   tl.to("#flow", { opacity: 0, scale: .9, filter: "blur(8px)", duration: .55, ease: "power2.in", transformOrigin: "50% 47%" }, TEND)
-    .to(["#counter", "#dots"], { opacity: 0, y: 16, duration: .4, ease: "power2.in" }, TEND)
+    .to("#dots", { opacity: 0, y: 16, duration: .4, ease: "power2.in" }, TEND)
     .to(sparks.slice(2, 4).map((s) => s.d), { opacity: 0, duration: .3 }, TEND)
     .to(gcards, { opacity: 1, scale: 1, y: 0, filter: "blur(0px)", duration: .7, ease: "back.out(1.4)", stagger: { each: .065, from: "start" } }, TEND + .35)
     .fromTo(gcards.map((c) => c.querySelector(".sheen b")), { x: "-160%" }, { x: "330%", duration: .9, ease: "power2.inOut", stagger: .07 }, TEND + 1.55);

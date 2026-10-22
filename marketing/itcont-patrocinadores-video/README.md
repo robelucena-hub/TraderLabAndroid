@@ -15,12 +15,12 @@ Vídeo vertical 1080 × 1920, 30 fps, ~32 s, sem áudio (adicione a música dire
 
 ## Roteiro
 1. **0–4 s · Abertura:** feixe de luz abre a placa com o logo do ITCONT; entra o título "NOSSOS PATROCINADORES".
-2. **4–23 s · Vitrine:** carrossel 3D apresenta um patrocinador por vez (≈1,75 s cada), com contador 01/11 e indicadores.
+2. **4–23 s · Vitrine:** carrossel 3D apresenta um patrocinador por vez (≈1,75 s cada), com indicadores de progresso.
 3. **23–27,5 s · Mural:** todos os 11 logos juntos.
 4. **27,5–32 s · Encerramento:** "OBRIGADO PELO APOIO!" com os logos do ITCONT e do Contador do Amanhã.
 
 ## Como alterar
-- **Adicionar, remover ou reordenar patrocinadores:** coloque o arquivo em `assets/sponsors/originais/`, ajuste a lista `SPONSORS` em `prep_logos.py` e rode `python3 prep_logos.py`. O vídeo se ajusta sozinho (contador, mural e duração).
+- **Adicionar, remover ou reordenar patrocinadores:** coloque o arquivo em `assets/sponsors/originais/`, ajuste a lista `SPONSORS` em `prep_logos.py` e rode `python3 prep_logos.py`. O vídeo se ajusta sozinho (indicadores, mural e duração).
 - **Textos:** no `index.html`, procure `NOSSOS`, `PATROCINADORES`, `OBRIGADO` e `PELO APOIO!`.
 - **Tempo de cada logo:** constantes `HOLD` (parado) e `MOVE` (transição) no `index.html`.
 
