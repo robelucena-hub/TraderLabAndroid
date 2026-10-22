@@ -48,7 +48,7 @@ CLIPS = {
     "auditorio":       ("video-auditorio.mov", 0.0, 2.5, "eq=gamma=1.45:contrast=1.06:saturation=1.12"),  # luzes baixas: clareia
     "plateia-lateral": ("video-plateia-lateral.mp4", 0.0, 3.9),
     "aplausos":        ("video-aplausos.mp4", 0.0, 1.6),
-    "bracos-ao-alto":  ("video-palco-plateia.mp4", 12.9, 4.4),
+    "bracos-ao-alto":  ("video-palco-plateia.mp4", 13.4, 3.7),
     "plateia-em-pe":   ("video-palco-plateia.mp4", 27.8, 4.0),
 }
 
