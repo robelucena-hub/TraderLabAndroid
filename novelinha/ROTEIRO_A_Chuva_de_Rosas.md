@@ -47,29 +47,56 @@ O vídeo funciona **sem som**, porque toda a história está no texto (a maioria
 
 ---
 
-## CAPÍTULO 2 — "O Laudo" (roteiro)
+## CAPÍTULO 2 — "O Laudo" ✅ pronto (89s)
 
-**Gancho (0–3s):** *"O médico repetiu o exame 3 vezes. O resultado não mudava."*
+A Aninha aparece em ilustração estilo livro infantil, feita por código, com o visual da sua imagem do Gemini: cabelo castanho liso, pijama azul de florzinhas, presilha de flor. A mãe aparece pela mão de cardigã bege segurando a da filha.
 
-1. **Dr. Ricardo, 30 anos de medicina**, não acredita em milagre. Chega de manhã e ouve uma coisa que não ouvia há semanas: Aninha pedindo **comida**.
-2. Ele olha os exames novos. A infecção sumiu. Ele acha que trocaram o exame e manda repetir. Repete de novo. O resultado é o mesmo.
-3. A mãe conta das pétalas. Ele, frio: *"Alguém trouxe escondido."*
-4. **Enfermeira Lúcia:** *"Doutor, ninguém entrou. Eu fiquei nessa porta a noite inteira."*
-5. Ele vai até a sala de segurança e pede a gravação do corredor às **3h12**, o mesmo horário que aparecia no monitor no Cap. 1 (o público atento vai comentar isso).
-6. **Gancho final:** o vigia dá play… o rosto do médico muda. *"O que a câmera gravou às 3h12… ele nunca contou pra ninguém. Até hoje."* → **Capítulo 3: "3h12"**.
+| Tempo | Imagem | Texto na tela |
+|---|---|---|
+| 0–4,3s | Close da Aninha sorrindo, pétalas | **O médico repetiu o exame 3 vezes… e não conseguiu explicar o que viu.** |
+| 4,3–11,9s | "NO CAPÍTULO ANTERIOR…": monitor, vela, desenho + santinho, pétalas, e a voz da Santa | "UTI. Sem esperança." "9 dias de novena." "A moça da capa branca…" "Pétalas. Na UTI." "Mandarei uma chuva de rosas." |
+| 11,9–25,6s | Quarto de manhã: Aninha na cama com o caderno, a mão da mãe, rosa e pétalas no lençol, monitor em 99% | MANHÃ SEGUINTE · 7h. "Na manhã seguinte, Aninha acordou… e pediu uma coisa que não pedia há semanas:" **"Mãe… tô com fome!"** "A mãe riu e chorou ao mesmo tempo." "O monitor que apitou a noite inteira… agora marcava 99%." |
+| 25,3–33,4s | Corredor, silhueta do médico caminhando | "Dr. Ricardo. 30 anos de medicina." "Ele não acreditava em milagre." "Mas aí ele viu o exame." |
+| 33–46,4s | **Laudo do laboratório**: PCR 312 → 4,1 circulado de caneta vermelha, carimbos 1º, 2º e 3º EXAME | "PCR, o marcador da infecção: de 312 pra 4. Em uma noite." "Isso não é possível. Repete." "Repetiram." "E de novo." "O resultado não mudava." |
+| 46–58,4s | Corredor, médico e mãe frente a frente | "Alguém trouxe isso escondido, senhora." Enfermeira: **"Doutor… ninguém entrou. Eu não saí dessa porta a noite inteira."** |
+| 58–66s | Sala de segurança, 4 câmeras, silhueta do médico | "Ele foi direto pra sala de segurança." "Pediu a gravação do corredor… às 3h12." "A mesma hora do monitor naquela noite." |
+| 66–72s | **Câmera 07** em preto e branco: 03:11:56… 03:11:59, luz saindo da porta do quarto 07, pétalas caindo… 03:12:00, clarão, **SEM SINAL** | (sem texto: só tensão) |
+| 72–76s | Tela preta | "O que a câmera gravou… ele nunca contou pra ninguém." |
+| 76–83,6s | Aninha à noite, séria, encarando a câmera | "Quando ele voltou ao quarto, Aninha o encarou:" **"Doutor… a moça das rosas mandou um recado pro senhor."** |
+| 83,6–89s | Cartão final | CAPÍTULO 3 · O FINAL · "3h12" · [Siga pra ver o final] · Qual era o recado? Comente 🌹 |
+
+**Detalhe para os atentos:** o monitor do Cap. 1 mostrava **03:12**, e o Cap. 2 revela que foi exatamente nessa hora que a câmera captou a luz. Esse tipo de detalhe gera comentários do tipo "eu reparei!", e comentário empurra o alcance.
 
 ## CAPÍTULO 3 — "3h12" (final)
 
-1. **A gravação**, em estilo câmera de segurança (preto e branco, data e hora no canto): a porta do quarto não abre. A luz do monitor oscila. Um brilho suave surge, e pétalas começam a cair do nada. Aninha se senta e sorri, conversando com alguém que a câmera não mostra.
-2. O médico vai para casa abalado e abre a Bíblia antiga da mãe dele, que já faleceu. De dentro cai **um santinho de Santa Teresinha** com um bilhete: *"Filho, um dia você vai acreditar. Rezo por você toda noite. — Mãe."*
-3. **Alta:** Aninha sai do hospital de mãos dadas com a mãe. Na escada, ela entrega o desenho ao médico: *"A moça pediu pra te dar isso."* No verso está escrito: *"Ela também reza por você."*
-4. **Último plano:** o seu vídeo original. Santa Teresinha sorrindo, chuva de pétalas. Texto: **"Ela prometeu. Ela cumpriu. 🌹"** CTA: *"Deixe seu pedido nos comentários. Quem sabe a próxima rosa é sua."*
+1. **Gancho:** *"Isto é o que a câmera gravou às 3h12."*
+2. **A gravação** (câmera de segurança, preto e branco): a porta do quarto 07 não abre. A luz do monitor oscila. Um brilho surge dentro do quarto, pétalas começam a cair do nada, e Aninha se senta e sorri conversando com alguém que a câmera não mostra.
+3. **O recado:** Aninha diz ao médico: *"Ela disse que a sua mãe tá com ela. E que a sua mãe nunca parou de rezar pelo senhor."* Ele congela, porque nunca falou da mãe para ninguém no hospital.
+4. Em casa, ele abre a Bíblia antiga da mãe, que já faleceu. De dentro cai **um santinho de Santa Teresinha** com um bilhete: *"Filho, um dia você vai acreditar. Rezo por você toda noite. — Mãe."*
+5. **Alta:** Aninha sai do hospital de mãos dadas com a mãe e entrega ao médico um desenho novo: ele e uma senhora de cabelos brancos, com rosas.
+6. **Último plano:** o seu vídeo original, com a Santa sorrindo na chuva de pétalas. **"Ela prometeu. Ela cumpriu. 🌹"** CTA: *"Deixe seu pedido nos comentários. Quem sabe a próxima rosa é sua."*
+
+### Legenda para o post do Capítulo 2
+```
+O médico repetiu o exame 3 vezes. O resultado não mudava. 🌹
+
+Capítulo 2 de "A Chuva de Rosas". Se você não viu o Capítulo 1, ele está no perfil.
+
+Repara no horário do monitor no capítulo 1… 👀
+
+Qual você acha que era o recado? Comente 🌹
+Capítulo 3, o FINAL, sai em breve. Siga pra não perder.
+
+(Novelinha de ficção inspirada na promessa de Santa Teresinha do Menino Jesus.)
+
+#santateresinha #chuvaderosas #novenadasrosas #fe #milagre #catolicos #novelinha #historiasdefe #reels
+```
 
 ---
 
 ## Prompts para o Gemini (mesmo estilo do seu vídeo)
 
-**Dica de consistência:** cole sempre o mesmo **bloco de estilo** e a **ficha do personagem** em cada prompt. Gere em **9:16 (vertical)**.
+**Dica de consistência:** cole sempre o mesmo **bloco de estilo** e a **ficha do personagem** em cada prompt. Gere em **9:16 (vertical)**. Para a Aninha e a mãe ficarem iguais, envie junto a sua imagem delas no hospital e escreva "use as mesmas personagens desta imagem".
 
 ### Bloco de estilo (cole no início de todo prompt)
 ```
@@ -80,8 +107,8 @@ câmera lenta e estável, 8 segundos. Diálogo em português do Brasil.
 
 ### Fichas dos personagens
 - **Santa Teresinha:** jovem freira carmelita de 24 anos, rosto doce, olhos castanhos grandes, véu preto, touca branca, capa creme/branca sobre hábito marrom, segurando um buquê de rosas vermelhas e cor-de-rosa (igual ao seu vídeo).
-- **Aninha (7 anos):** menina de pele morena clara, cabelo castanho cacheado preso em dois puffs, olhos castanhos enormes, camisola hospitalar azul-clara com estrelinhas, acesso venoso na mão.
-- **Cláudia (a mãe, 35 anos):** cabelo escuro ondulado em rabo baixo, olheiras, cardigã mostarda, terço de madeira na mão.
+- **Aninha (7 anos):** menina de pele clara, cabelo castanho liso e comprido repartido ao meio, olhos castanhos enormes, presilha de flor rosa, pijama azul-claro com florzinhas coloridas (igual à imagem que você gerou no Gemini).
+- **Cláudia (a mãe, 35 anos):** cabelo castanho liso na altura do ombro, olhos marejados, cardigã bege, terço de madeira na mão.
 - **Dr. Ricardo (55 anos):** barba grisalha curta, óculos de armação fina, jaleco branco, expressão séria e cansada.
 - **Enfermeira Lúcia (45 anos):** cabelo preto curto, pijama cirúrgico azul, olhar gentil.
 
