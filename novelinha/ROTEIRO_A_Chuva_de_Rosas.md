@@ -86,14 +86,37 @@ A Aninha aparece em ilustração estilo livro infantil, feita por código, com o
 
 **Detalhe para os atentos:** o monitor do Cap. 1 mostrava **03:12**, e o Cap. 2 revela que foi exatamente nessa hora que a câmera captou a luz. Esse tipo de detalhe gera comentários do tipo "eu reparei!", e comentário empurra o alcance.
 
-## CAPÍTULO 3 — "3h12" (final)
+## CAPÍTULO 3 — "3h12" ✅ pronto, narrado (94s)
 
-1. **Gancho:** *"Isto é o que a câmera gravou às 3h12."*
-2. **A gravação** (câmera de segurança, preto e branco): a porta do quarto 07 não abre. A luz do monitor oscila. Um brilho surge dentro do quarto, pétalas começam a cair do nada, e Aninha se senta e sorri conversando com alguém que a câmera não mostra.
-3. **O recado:** Aninha diz ao médico: *"Ela disse que a sua mãe tá com ela. E que a sua mãe nunca parou de rezar pelo senhor."* Ele congela, porque nunca falou da mãe para ninguém no hospital.
-4. Em casa, ele abre a Bíblia antiga da mãe, que já faleceu. De dentro cai **um santinho de Santa Teresinha** com um bilhete: *"Filho, um dia você vai acreditar. Rezo por você toda noite. — Mãe."*
-5. **Alta:** Aninha sai do hospital de mãos dadas com a mãe e entrega ao médico um desenho novo: ele e uma senhora de cabelos brancos, com rosas.
-6. **Último plano:** o seu vídeo original, com a Santa sorrindo na chuva de pétalas. **"Ela prometeu. Ela cumpriu. 🌹"** CTA: *"Deixe seu pedido nos comentários. Quem sabe a próxima rosa é sua."*
+| Tempo | Imagem | Fala (voz) |
+|---|---|---|
+| 0–3,6s | Câmera do quarto: Aninha sorrindo, pétalas caindo | Narrador: *"Isto é o que a câmera gravou… às 3h12."* |
+| 3,6–10,6s | "NO CAPÍTULO ANTERIOR…": laudo, corredor, Aninha à noite | *"Um exame que ninguém explicava. Uma porta que ninguém abriu. E um recado… da moça das rosas."* |
+| 10,6–17,8s | Câmera do corredor 03:12:00: a luz sai da porta do quarto 07 | *"3h12 da manhã. A porta do quarto 07 nunca se abriu. Mas uma luz… começou a sair lá de dentro."* |
+| 17,8–27s | Câmera do quarto: Aninha sentada, conversando com alguém invisível, pétalas do nada | *"Sorrindo. Conversando com alguém que a câmera não mostra. E as pétalas… caindo do nada."* |
+| 27–39,4s | Aninha à noite | Médico: *"E que recado é esse, Aninha?"* Aninha: **"Ela disse que a sua mãe tá com ela. E que ela nunca parou de rezar pelo senhor."** |
+| 39,4–55,2s | Casa do médico: a Bíblia abre, caem o santinho e o bilhete; uma lágrima cai no papel | Mãe do médico (voz idosa): **"Filho, um dia você vai acreditar. Eu rezo por você toda noite."** Médico: *"Mãe… eu acredito."* |
+| 55,2–63,7s | Dia da alta: mãe e Aninha de mãos dadas no corredor | Cláudia: *"Obrigada por tudo, doutor."* Médico: *"Não fui eu, dona Cláudia."* |
+| 63,7–74,6s | Aninha entrega o desenho **"PRO DOUTOR RICARDO"**: ele e a mãe, de mãos dadas, cercados de rosas | Aninha: *"A moça das rosas pediu pra eu desenhar isso pro senhor."* Médico: **"É a minha mãe…"** |
+| 74,6–84,2s | O seu vídeo original, com a **voz da Santa** | *"Mais de 100 anos depois… a promessa continua."* e a voz original dela |
+| 84,2–87,6s | Chuva de pétalas | **"Ela prometeu. Ela cumpriu. 🌹"** |
+| 87,6–93,6s | Cartão **FIM** | *"Deixe o seu pedido nos comentários. Quem sabe… a próxima rosa é sua."* |
+
+### Legenda para o post do Capítulo 3
+```
+FINAL 🌹 Isto é o que a câmera gravou às 3h12.
+
+O recado da moça das rosas… era pro médico que não acreditava em milagres.
+
+Assista até o fim. E deixe o seu pedido aqui nos comentários.
+Quem sabe a próxima rosa é sua. 🙏
+
+Capítulos 1 e 2 estão no perfil.
+
+(Novelinha de ficção inspirada na promessa de Santa Teresinha do Menino Jesus.)
+
+#santateresinha #chuvaderosas #novenadasrosas #fe #milagre #catolicos #oracao #novelinha #historiasdefe #reels
+```
 
 ### Legenda para o post do Capítulo 2
 ```
