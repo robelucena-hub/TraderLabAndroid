@@ -10,6 +10,25 @@ São 3 capítulos. O **Capítulo 1 já está pronto** (`Cap1_A_Chuva_de_Rosas.mp
 
 ---
 
+## Versões narradas (com vozes) 🎙️
+
+Os capítulos 1 e 2 também têm versão **narrada**, com uma voz para cada personagem. As legendas continuam na tela, para quem assiste no mudo.
+
+| Personagem | Voz |
+|---|---|
+| Narrador | voz masculina brasileira, tom médio |
+| Aninha | voz feminina afinada para soar como criança |
+| Mãe (Cláudia) | voz feminina natural |
+| Dr. Ricardo | voz masculina madura e mais grave |
+| Enfermeira Lúcia | voz feminina um pouco mais grave que a da mãe |
+| Santa Teresinha | a voz original do seu vídeo do Gemini |
+
+As vozes são sintetizadas e foram conferidas por transcrição automática: todas as falas saem entendíveis. Mesmo assim, ouça antes de postar. Se alguma soar artificial demais, a versão só com legendas continua disponível.
+
+No Capítulo 2, a mãe ganhou duas falas: *"Filha… graças a Deus!"* e *"Doutor, a cama dela amanheceu cheia de pétalas!"*. E a Aninha diz *"Mamãe, eu tô com fome!"*.
+
+---
+
 ## Por que a história segura o espectador até o fim
 
 | Técnica | Onde aparece no Cap. 1 |
