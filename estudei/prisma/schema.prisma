@@ -1,0 +1,85 @@
+// ESTUDEI — modelo de dados
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  /// IANA time zone used to decide what "today" means for this user.
+  timezone     String   @default("America/Sao_Paulo")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  topics Topic[]
+}
+
+/// A study topic. Its current state is the result of its latest review.
+model Topic {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  title   String
+  /// Subject / category (e.g. "Direito Constitucional").
+  subject String
+  notes   String?
+
+  /// Number of study sessions so far, counting the first one.
+  reviewCount    Int
+  lastReviewedAt DateTime
+  /// Memory strength S (in days) after the latest review.
+  strength       Float
+  /// Suggested date for the next review (spaced repetition ladder).
+  nextReviewAt   DateTime
+
+  /// Retention snapshot (0..1) persisted by the recalculation job.
+  /// Pages always compute retention live; this column exists so the value
+  /// can be queried in SQL and by external tools.
+  retention          Float
+  retentionUpdatedAt DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reviews Review[]
+
+  @@index([userId, nextReviewAt])
+  @@index([userId, retention])
+}
+
+enum ReviewOutcome {
+  /// Remembered the content: memory strength grows.
+  REMEMBERED
+  /// Forgot most of it: memory strength restarts from the first step.
+  FORGOT
+}
+
+/// One study/review session. Each row stores the full topic state right
+/// after the session, so history can be replayed (trend chart, undo).
+model Review {
+  id      String @id @default(cuid())
+  topicId String
+  topic   Topic  @relation(fields: [topicId], references: [id], onDelete: Cascade)
+
+  reviewedAt      DateTime      @default(now())
+  outcome         ReviewOutcome @default(REMEMBERED)
+  /// Retention (0..1) at the moment of the review. Null for the first study.
+  retentionBefore Float?
+  /// Topic.reviewCount after this review.
+  reviewNumber    Int
+  /// Memory strength S (days) after this review.
+  strengthAfter   Float
+  /// Suggested interval (days) until the next review.
+  intervalDays    Int
+
+  @@index([topicId, reviewedAt])
+}

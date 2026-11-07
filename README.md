@@ -33,3 +33,8 @@ O projeto inclui `.github/workflows/build-apk.yml`. Ao enviar para um repositór
 
 ## Aviso
 Simulador educacional com dados fictícios. Não utiliza cotações reais e não constitui recomendação de investimento.
+
+## ESTUDEI (aplicação web)
+
+A pasta [`estudei/`](estudei/) contém o **ESTUDEI**, um organizador de estudos baseado na curva do esquecimento de
+Ebbinghaus (Next.js + PostgreSQL). Instruções de instalação e uso em [`estudei/README.md`](estudei/README.md).
